@@ -14,6 +14,9 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
+    &.sub-line {
+      font-size: 30px;
+    }
     .law {
       background-color: #6190E8;
       color: white;
@@ -28,7 +31,7 @@
       text-overflow: ellipsis;
     }
     .date {
-      color: #666666;
+      color: #333333;
       //text-decoration: underline;
       //text-decoration-color: #16459c;
     }
@@ -39,6 +42,7 @@
   }
   .main-text {
     margin-top: 10px;
+    font-size: 32px;
     width: 100%;
   }
 }

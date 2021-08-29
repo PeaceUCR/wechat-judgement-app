@@ -239,6 +239,13 @@ export default class Index extends Component {
             redirect={() => {
               Taro.setClipboardData({
                 data: `https://wenshu.court.gov.cn/website/wenshu/181107ANFZ0BXSK4/index.html?docId=${item.rowkey}`,
+                success: function () {
+                  Taro.showToast({
+                    title: `裁判文书网链接已复制`,
+                    icon: 'none',
+                    duration: 2000
+                  })
+                }
               });
               return;
             }}

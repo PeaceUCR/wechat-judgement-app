@@ -20,7 +20,7 @@ const GlobalSearchItem = (props) => {
       {/*<Text className='number'>{number}</Text>*/}
       {/*<Image src={rightArrowIcon} className='right-arrow' />*/}
     </View>
-    <View className='line'>
+    <View className='sub-line line'>
       <View className='date'>{courtName}</View>
       <View className='date'>{caseNumber}</View>
     </View>
