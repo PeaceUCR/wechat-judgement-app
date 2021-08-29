@@ -1,8 +1,8 @@
 {
-  "name": "lawApp",
+  "name": "judgement",
   "version": "1.0.0",
   "private": true,
-  "description": "lawApp",
+  "description": "judgement",
   "templateInfo": {
     "name": "wxcloud",
     "typescript": false,

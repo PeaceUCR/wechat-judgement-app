@@ -1,5 +1,5 @@
 const config = {
-  projectName: 'lawApp',
+  projectName: 'judgement',
   date: '2020-9-6',
   designWidth: 750,
   deviceRatio: {

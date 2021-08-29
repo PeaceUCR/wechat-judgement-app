@@ -9,6 +9,11 @@ const UserFloatButton = (props) => {
   const { avatarUrl } = props;
 
   const handleClick = () => {
+    return Taro.showToast({
+      title: '开发中,暂未开放',
+      icon: 'none',
+      duration: 3000
+    })
     if (checkIfNewUser()) {
       Taro.showToast({
         title: '未检测到登陆用户,无法查看我的页面',

@@ -5,44 +5,31 @@ cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
 })
 
- // search Examples
 exports.main = async (event, context) => {
+  console.log(event)
   const wxContext = cloud.getWXContext();
   const db = cloud.database()
-  const _ = db.command;
 
-  const type = event.type
-  const searchValue = event.searchValue
+  const {
+    law,
+    number,
+    searchValue
+  } = event
 
-  const regexpString = `${searchValue.split('').join('.*')}`
-  // examples exclude typical(no number properties)
-  const procuratorateExamples = await db.collection('example').where({
-    type: 'guide-examples-procuratorate',
-    text: db.RegExp({
-      regexp: regexpString,
-      options: 'i',
-    })}).limit(1000).orderBy('number', 'asc').get()
-
-  const searchProcuratorateResult = procuratorateExamples.data.filter(e => e.number).map(e => {
-    delete e.text
-    delete e.content
-    return e
-  })
-
-  const courtExamples = await db.collection('example').where({
-    type: 'guide-examples-court',
-    text: db.RegExp({
-      regexp: regexpString,
-      options: 'i',
-    })}).limit(1000).orderBy('number', 'asc').get()
-
-  const searchCourtResult = courtExamples.data.filter(e => e.number).map(e => {
-    delete e.content
-    delete e.text
-    return e
-  })
-  return {
-    searchProcuratorateResult,
-    searchCourtResult
+  let regexpString2
+  if (searchValue && searchValue.trim()) {
+    regexpString2 = `.*${searchValue}`
   }
+
+  const dbName = law === 'criminal' ? 'criminal-case' : ''
+
+  // exact match BY opinion
+  return  await db.collection(dbName).where({
+    law: parseInt(number),
+    opinion: regexpString2 ? db.RegExp({
+      regexp: regexpString2,
+      options: 'i',
+    }) : undefined
+  }).limit(100).orderBy('date', 'desc').get();
+
 }

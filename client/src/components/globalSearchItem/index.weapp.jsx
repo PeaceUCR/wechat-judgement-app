@@ -5,20 +5,27 @@ import './index.scss'
 import {rightArrowIcon} from'../../util/util'
 
 const GlobalSearchItem = (props) => {
-  let {text, law, number, redirect} = props;
+  let {text, title, date, caseNumber, courtName, redirect} = props;
   let displayedText = text;
   let showDot = false
-  if (text && text.length > 40) {
-    displayedText = text.substring(0, 40)
+  if (text && text.length > 60) {
+    displayedText = text.substring(0, 60)
     showDot = true
-    displayedText = `${text.substring(0, 40)}${showDot ? '...' : ''}`
+    displayedText = `${text.substring(0, 60)}${showDot ? '...' : ''}`
   }
 
   return (<View className='search-item' onClick={redirect} >
+    <View className='line'>
+      <View className='law'>{title}</View>
+      {/*<Text className='number'>{number}</Text>*/}
+      {/*<Image src={rightArrowIcon} className='right-arrow' />*/}
+    </View>
+    <View className='line'>
+      <View className='date'>{courtName}</View>
+      <View className='date'>{caseNumber}</View>
+    </View>
     {/*<View className='line'>*/}
-    {/*  <Text className='law'>{law}</Text>*/}
-    {/*  <Text className='number'>{number}</Text>*/}
-    {/*  <Image src={rightArrowIcon} className='right-arrow' />*/}
+    {/*  <View className='date'>{date}</View>*/}
     {/*</View>*/}
     <View className='main-text'>
       {displayedText}

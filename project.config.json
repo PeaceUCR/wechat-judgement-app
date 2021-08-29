@@ -1,9 +1,9 @@
 {
   "miniprogramRoot": "client/dist/",
   "cloudfunctionRoot": "cloud/functions/",
-  "projectname": "lawApp-cloud",
-  "description": "lawApp",
-  "appid": "wxf6d4249d423ff2a3",
+  "projectname": "judgement-cloud",
+  "description": "judgement",
+  "appid": "wxa7f48cf2a65948d7",
   "setting": {
     "urlCheck": false,
     "es6": false,
@@ -25,12 +25,13 @@
     "lazyloadPlaceholderEnable": false,
     "useMultiFrameRuntime": true,
     "useApiHook": true,
-    "useApiHostProcess": false,
+    "useApiHostProcess": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
     },
+    "enableEngineNative": false,
     "useIsolateContext": true,
     "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
