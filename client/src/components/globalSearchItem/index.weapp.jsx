@@ -8,10 +8,10 @@ const GlobalSearchItem = (props) => {
   let {text, title, date, caseNumber, courtName, redirect} = props;
   let displayedText = text;
   let showDot = false
-  if (text && text.length > 60) {
-    displayedText = text.substring(0, 60)
+  if (text && text.length > 100) {
+    displayedText = text.substring(0, 100)
     showDot = true
-    displayedText = `${text.substring(0, 60)}${showDot ? '...' : ''}`
+    displayedText = `${text.substring(0, 100)}${showDot ? '...' : ''}`
   }
 
   return (<View className='search-item' onClick={redirect} >

@@ -1,6 +1,6 @@
 import Taro, { Component, getStorageSync } from '@tarojs/taro'
 import {View,Input, Button} from '@tarojs/components'
-import {AtFab, AtIcon, AtActivityIndicator, AtNoticebar, AtButton, AtBadge} from "taro-ui";
+import {AtFab, AtIcon, AtActivityIndicator, AtNoticebar, AtButton, AtBadge, AtDivider} from "taro-ui";
 import { db } from '../../util/db'
 import TextSection from '../../components/textSection/index.weapp'
 import './index.scss'
@@ -8,29 +8,19 @@ import {checkIfNewUser, redirectToIndexIfNewUser} from "../../util/login";
 import throttle from "lodash/throttle";
 import {DiscussionArea} from "../../components/discussionArea/index.weapp";
 
-const typeCollectionMap = {
-  'court': 'court-examples',
-  'procuratorate': 'procuratorate-examples',
-  'consultant': 'consult',
-  'civilLawExample': 'civil-law-link-example-detail',
-  'civil-law-explaination': 'civil-law-explaination',
-  'source': 'sentencing-source',
-  'complement-example': 'complement'
-}
 
 export default class ExampleDetail extends Component {
 
   state = {
-    comment: '',
-    isSent: false,
     id: '',
     type: '',
-    example: {},
     keyword: '',
+    example: undefined,
+    brief: undefined,
     zoomIn: false,
-    isCollected: false,
     isReadMode: false,
-    isLoading: true
+    isBriefLoading: true,
+    isExampleLoading: true,
   }
 
   config = {
@@ -39,55 +29,27 @@ export default class ExampleDetail extends Component {
 
   componentWillMount () {
     const that = this;
-    const { id, type, keyword } = this.$router.params;
-
-    if (typeCollectionMap[type]) {
-      db.collection(typeCollectionMap[type]).where({_id: id}).get({
-        success: (res) => {
-          that.setState({example: res.data[0], isLoading: false, type, id, keyword});
-        },
-        fail: () => {
-          console.log('fail')
-          that.setState({isLoading: false})
-        }
-      });
-    } else {
-      db.collection(type).where({_id: id}).get({
-        success: (res) => {
-          that.setState({example: res.data[0], isLoading: false, type, id, keyword});
-        },
-        fail: () => {
-          console.log('fail')
-          that.setState({isLoading: false})
-        }
-      });
-    }
-
-    // let collection = getStorageSync('collection');
-    // collection = collection ? collection : {};
-    // that.setState({
-    //   isCollected: collection[id] === true
-    // })
-    Taro.cloud.callFunction({
-      name: 'isCollected',
-      data: {
-        id: id,
-        type: type
+    let { id, type, keyword } = this.$router.params;
+    db.collection('criminal-case').where({rowkey: id}).get({
+      success: (res) => {
+        that.setState({brief: res.data[0], isBriefLoading: false, type, id});
       },
-      complete: (r) => {
-
-        if (r && r.result && r.result.data && r.result.data.length > 0) {
-          that.setState({isCollected: true})
-        }
-      },
-      fail: (e) => {
-        Taro.showToast({
-          title: `获取收藏数据失败:${JSON.stringify(e)}`,
-          icon: 'none',
-          duration: 1000
-        })
+      fail: () => {
+        console.log('fail')
+        that.setState({isBriefLoading: false})
       }
-    })
+    });
+
+    db.collection('criminal-case-detail').where({rowKey: id}).get({
+      success: (res) => {
+        that.setState({example: res.data[0] ? res.data[0]: undefined, isExampleLoading: false, type, id});
+      },
+      fail: () => {
+        console.log('fail')
+        that.setState({isExampleLoading: false})
+      }
+    });
+
 
     const setting = getStorageSync('setting');
     this.setState({isReadMode: setting && setting.isReadMode})
@@ -117,26 +79,19 @@ export default class ExampleDetail extends Component {
   componentDidHide () { }
 
   renderExample = () => {
-    const {example, keyword, zoomIn} = this.state;
-    const {text, title} = example;
-    if (title) {
-      Taro.setNavigationBarTitle({title: title})
-    }
+    const {brief, example, keyword, zoomIn} = this.state;
+    const {textHead, textPartner, textMain, textReason, textDecide, textJudge} = example;
+    // if (title) {
+    //   Taro.setNavigationBarTitle({title: title})
+    // }
     return (<View>
-      <View className='term-complement-title'>{title}</View>
-      <TextSection data={text} keyword={keyword} zoomIn={zoomIn} />
-    </View>)
-  }
-
-  renderSpecial = () => {
-    console.log('special')
-    const {example, keyword, zoomIn} = this.state;
-    const {text, title, subTitle, subContent} = example;
-    return (<View>
-      <TextSection data={title} keyword={keyword} zoomIn={zoomIn} isTitle={true} />
-      <TextSection data={text} keyword={keyword} zoomIn={zoomIn} />
-      <TextSection data={subTitle} keyword={keyword} zoomIn={zoomIn} isTitle={true} />
-      <TextSection data={subContent} keyword={keyword} zoomIn={zoomIn} />
+      <View className='term-complement-title'>{brief.title}</View>
+      <TextSection data={textHead} keyword={keyword} zoomIn={zoomIn} isTitle />
+      <TextSection data={textPartner} keyword={keyword} zoomIn={zoomIn} />
+      <TextSection data={textMain} keyword={keyword} zoomIn={zoomIn} />
+      <TextSection data={textReason} keyword={keyword} zoomIn={zoomIn} />
+      <TextSection data={textDecide} keyword={keyword} zoomIn={zoomIn} />
+      <TextSection data={textJudge} keyword={keyword} zoomIn={zoomIn} />
     </View>)
   }
 
@@ -213,6 +168,7 @@ export default class ExampleDetail extends Component {
       comment: e.target.value
     })
   }
+
   handleClear = () => {
     this.setState({
       comment: ''
@@ -284,66 +240,52 @@ export default class ExampleDetail extends Component {
   renderNoData = () => {
     return (<View>
       <View className='no-data'>出错啦!</View>
-      <View className='no-data'>数据不存在或者已经迁移</View>
-      <View className='no-data'>麻烦重新搜索进入</View>
+      <View className='no-data'>详情还在收录中,敬请期待!</View>
+    </View>)
+  }
+
+  renderLink = () => {
+    const {brief} = this.state
+    return (<View className='link' onClick={() => {
+      Taro.setClipboardData({
+        data: `https://wenshu.court.gov.cn/website/wenshu/181107ANFZ0BXSK4/index.html?docId=${brief.rowkey}`,
+        success: function () {
+          Taro.showToast({
+            title: `裁判文书网链接已复制`,
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      });
+    }} >
+      裁判文书原文链接
     </View>)
   }
 
   render () {
-    const {isSent, comment, example, zoomIn, isCollected, isReadMode, isLoading, type} = this.state;
-    const {special, text, title} = example
+    const { example, brief, zoomIn,  isReadMode, isBriefLoading, isExampleLoading, type} = this.state;
     return (
       <View>
-        {(example._id === '89b4bfb25f7dbcac007cec4b1f087eb1' || example._id === '89b4bfb25f7dbcac007cec402fa9835f') &&
-        <AtNoticebar marquee speed={60}>
-          最高人民法院关于部分指导性案例不再参照的通知(2021.1.1):为保证国家法律统一正确适用,根据《中华人民共和国民法典》等有关法律规定和审判实际,经最高人民法院审判委员会讨论决定,9号、20号指导性案例不再参照。但该指导性案例的裁判以及参照该指导性案例作出的裁判仍然有效。
-        </AtNoticebar>
-        }
-        {
-          (type === 'consultant' || type === 'consult') &&
-          <AtNoticebar marquee speed={60}>
-            刑事审判参考仅限用于学习交流!
-          </AtNoticebar>
-        }
         <View className={`example-detail-page ${zoomIn ? 'zoom-in' : ''} ${isReadMode ? 'read-mode' : ''}`}>
-          {special && this.renderSpecial()}
-          {!special && <View>
-            {this.renderExample()}
-          </View>}
-          {!isLoading && !title && !text && this.renderNoData()}
-          <View className='footer'>
-            <View className='text'>
-              <Input
-                className='input'
-                value={comment}
-                onInput={this.handleCommentChange}
-                onClear={this.handleClear}
-                type='text'
-                placeholder='欢迎发表你的观点'
-              />
-              <AtButton type='primary' size='small' onClick={this.handleSend}>
-                发表
-              </AtButton>
-            </View>
-            <View className='favorite-container' onClick={this.handleCollect} >
-              <AtIcon value={isCollected ? 'star-2' : 'star'} size='32' color={isCollected ? '#ffcc00' : 'rgba(0, 0, 0, 0.6)'}></AtIcon>
-            </View>
-            <AtFab size='small' className='float-zoom' onClick={() => {this.handleZoom()}}>
-              <View  className={`zoom ${zoomIn ? 'zoom-in': 'zoom-out'}`} mode='widthFix' />
-            </AtFab>
-            <View className='share-container'>
-              <AtBadge value='分享'>
-                <Button className='share-button' openType='share'>
-                  <AtIcon value='share-2' size='32' color='#6190E8'></AtIcon>
-                </Button>
-              </AtBadge>
-            </View>
+          <View>
+            {!isExampleLoading && !isBriefLoading && example && this.renderExample()}
           </View>
-          <DiscussionArea topicId={example._id}  isSent={isSent} handleCommentsLoaded={this.handleCommentsLoaded} />
-          <View id='comments'></View>
-          {isLoading && <View className='loading-container'>
+          {!isExampleLoading && !isBriefLoading && !example && this.renderNoData()}
+          {this.renderLink()}
+          {(isBriefLoading || isExampleLoading) && <View className='loading-container'>
             <AtActivityIndicator mode='center' color='black' content='加载中...' size={62}></AtActivityIndicator>
           </View>}
+          {!isExampleLoading && !isBriefLoading && <AtDivider content='没有更多了' fontColor='#666' lineColor='transparent' />}
+
+          <View className='back-to-top' onClick={() => {
+            Taro.pageScrollTo({
+              scrollTop: 0,
+              duration: 500
+            })
+          }}
+          >
+            <AtIcon value='chevron-up' size='50' color='rgba(26, 117, 255, 0.6)'></AtIcon>
+          </View>
         </View>
       </View>
     )

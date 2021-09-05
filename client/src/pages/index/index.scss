@@ -12,7 +12,7 @@
 
   .float-help {
     position: absolute;
-    top: 170px;
+    top: 20px;
     right: 60px;
   }
 
@@ -44,7 +44,7 @@
 
 .float-setting {
   position: fixed;
-  top: 260px;
+  top: 280px;
   right: 40px;
   z-index: 102;
   .setting {
@@ -65,5 +65,30 @@
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: right;
+  }
+}
+
+
+.at-input {
+  margin-left: 0px;
+}
+
+.btn-5 {
+  color: #2063df;
+  background: white;
+  animation: enabled 4s infinite;
+}
+
+
+@keyframes enabled {
+  0% {
+    color: #2063df;
+  }
+  50% {
+    color: #bcd0f5;
+  }
+  100% {
+    color: #2063df;
+
   }
 }

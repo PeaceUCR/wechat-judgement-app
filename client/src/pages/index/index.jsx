@@ -1,6 +1,6 @@
 import Taro, { Component, getStorageSync, setStorageSync } from '@tarojs/taro'
 import {View, Picker, Button, Image} from '@tarojs/components'
-import {AtDivider, AtSearchBar,AtNoticebar, AtList, AtListItem,  AtModal,AtModalHeader, AtModalContent,AtModalAction} from "taro-ui";
+import {AtDivider, AtSearchBar,AtNoticebar, AtList, AtListItem,  AtModal,AtModalHeader, AtModalContent,AtModalAction, AtInput, AtBadge, AtIcon} from "taro-ui";
 import UserFloatButton from '../../components/userFloatButton/index.weapp'
 import './index.scss'
 import {db} from "../../util/db";
@@ -34,8 +34,9 @@ export default class Index extends Component {
   }
 
   onShareAppMessage() {
+    const {law, number, searchValue} = this.state;
     return {
-      path: 'pages/index/index'
+      path: `/pages/index/index?law=${law}&number=${number}&searchValue=${searchValue}`
     };
   }
   componentWillMount () {
@@ -93,8 +94,16 @@ export default class Index extends Component {
   }
 
   selectLaw = (e) => {
+    const law = getLawName(lawOptions[e.detail.value])
+    if (law === 'civil') {
+      Taro.showToast({
+        title: `民法典模块正在收录中,请先使用刑法模块！`,
+        icon: 'none',
+        duration: 6000
+      })
+    }
     this.setState({
-      law: getLawName(lawOptions[e.detail.value])
+      law: law
     })
   }
 
@@ -109,6 +118,12 @@ export default class Index extends Component {
       number: getCivilLawNumber(civilLawOptions[e.detail.value])
     })
   }
+
+  handleInputNumber = (value) => {
+    this.setState({
+      number: value
+    })
+  }
   renderSearchCriteria = () => {
     const {law, number} = this.state
     return <View>
@@ -120,14 +135,24 @@ export default class Index extends Component {
           />
         </AtList>
       </Picker>
-      {law === 'criminal' && <Picker mode='selector' range={criminalLawOptions} onChange={this.selectCriminalNumber}>
-        <AtList>
-          <AtListItem
-            title='法条'
-            extraText={getCriminalLawChnNumber(number)}
+      {law === 'criminal' && <View>
+        <Picker mode='selector' range={criminalLawOptions} onChange={this.selectCriminalNumber}>
+          <AtList>
+            <AtListItem
+              title='法条'
+              extraText={getCriminalLawChnNumber(number)}
+            />
+          </AtList>
+        </Picker>
+        <View>
+          <AtInput
+            type='digit'
+            placeholder='  或者输入序号,比如264'
+            value={number}
+            onChange={this.handleInputNumber}
           />
-        </AtList>
-      </Picker>}
+        </View>
+      </View>}
       {law === 'civil' && <Picker mode='selector' range={civilLawOptions} onChange={this.selectCivilNumber}>
         <AtList>
           <AtListItem
@@ -147,10 +172,20 @@ export default class Index extends Component {
 
   onSearch = () => {
     const that = this;
+    const  { law, number, searchValue } = this.state;
+    if (law === 'criminal') {
+      if (number < 114 || number > 419) {
+        Taro.showToast({
+          title: `无效条文序号${number},请修正后再试！`,
+          icon: 'none',
+          duration: 4000
+        })
+        return ;
+      }
+    }
     this.setState({
       showLoading: true
     })
-    const  { law, number, searchValue } = this.state;
     Taro.cloud.callFunction({
       name: 'searchExamples',
       data: {
@@ -237,34 +272,38 @@ export default class Index extends Component {
             courtName={item.courtName}
             caseNumber={item.caseNumber}
             redirect={() => {
-              Taro.setClipboardData({
-                data: `https://wenshu.court.gov.cn/website/wenshu/181107ANFZ0BXSK4/index.html?docId=${item.rowkey}`,
-                success: function () {
-                  Taro.showToast({
-                    title: `裁判文书网链接已复制`,
-                    icon: 'none',
-                    duration: 2000
-                  })
-                }
-              });
+              Taro.navigateTo({
+                url: `/pages/exampleDetail/index?id=${item.rowkey}`,
+              })
+              return ;
+              // Taro.setClipboardData({
+              //   data: `https://wenshu.court.gov.cn/website/wenshu/181107ANFZ0BXSK4/index.html?docId=${item.rowkey}`,
+              //   success: function () {
+              //     Taro.showToast({
+              //       title: `裁判文书网链接已复制`,
+              //       icon: 'none',
+              //       duration: 2000
+              //     })
+              //   }
+              // });
               return;
             }}
           />
         )
       })}
+      {resultList.length > 0 && <AtDivider content='没有更多了' fontColor='#666' lineColor='transparent' />}
     </View>)
   }
 
 
   render () {
-    const {isNewUser, isReadMode,
-    userOpenId, userName, userAvatar, law, number, searchValue, showSetting, showLoading
+    const {isNewUser, isReadMode, law, number, searchValue, showSetting, showLoading
     } = this.state;
     return (
       <View className={`index-page ${isReadMode ? 'read-mode' : ''}`}>
         {this.renderTagLine()}
         <AtNoticebar marquee speed={60}>
-          本小程序数据信息均来源于裁判文书网，持续收录中...
+          本小程序数据信息均来源于裁判文书网，已收录超过10万份裁判文书，持续开发中...
         </AtNoticebar>
         <AtSearchBar
           placeholder='当前法条下搜索案由'
@@ -279,12 +318,22 @@ export default class Index extends Component {
         {/*<View>law: {law}</View>*/}
         {/*<View>number: {number}</View>*/}
         {/*<View>searchValue: {searchValue}</View>*/}
-        <AtModal isOpened={showSetting}>
+        <AtModal isOpened={showSetting} closeOnClickOverlay={false}>
+          <View className='float-help' onClick={() => {
+            Taro.navigateTo({
+              url: '/pages/other/index'
+            })
+          }}
+          >
+            <AtBadge value='帮助'>
+              <AtIcon value='help' size='24' color='#000'></AtIcon>
+            </AtBadge>
+          </View>
           <AtModalHeader>我要搜</AtModalHeader>
           <AtModalContent>
             {this.renderSearchCriteria()}
           </AtModalContent>
-          <AtModalAction><Button onClick={this.handleClose} >确定</Button> </AtModalAction>
+          <AtModalAction><Button className={law && number ? 'btn-5' : ''} onClick={this.handleClose} >确定</Button> </AtModalAction>
         </AtModal>
         {!isNewUser && this.renderUserFloatButton()}
         {showLoading && <Loading2 />}

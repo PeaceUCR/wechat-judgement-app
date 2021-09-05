@@ -13,7 +13,7 @@
       font-size: 36px;
     }
   }
-  padding: 10px 20px 10px 23px;
+  padding: 10px 20px 60px 20px;
   .content {
     font-size: 28px;
   }
@@ -31,9 +31,10 @@
   }
 
   .term-complement-title {
-    font-size: 30px;
+    font-size: 32px;
     font-weight: bold;
     margin-bottom: 20px;
+    text-align: center;
   }
 
   .criminal-law {
@@ -132,4 +133,19 @@
   text-align: center;
   margin-bottom: 40px;
   color: black;
+}
+
+.link {
+  text-align: center;
+  color: #6190E8;
+  font-size: 36px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: #6190E8;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 80px;
+  right: 60px;
 }
