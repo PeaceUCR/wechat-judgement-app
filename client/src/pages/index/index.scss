@@ -11,8 +11,9 @@
   }
 
   .float-help {
-    position: absolute;
-    top: 20px;
+    z-index: 9999;
+    position: fixed;
+    top: 460px;
     right: 60px;
   }
 

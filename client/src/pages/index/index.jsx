@@ -319,16 +319,6 @@ export default class Index extends Component {
         {/*<View>number: {number}</View>*/}
         {/*<View>searchValue: {searchValue}</View>*/}
         <AtModal isOpened={showSetting} closeOnClickOverlay={false}>
-          <View className='float-help' onClick={() => {
-            Taro.navigateTo({
-              url: '/pages/other/index'
-            })
-          }}
-          >
-            <AtBadge value='帮助'>
-              <AtIcon value='help' size='24' color='#000'></AtIcon>
-            </AtBadge>
-          </View>
           <AtModalHeader>我要搜</AtModalHeader>
           <AtModalContent>
             {this.renderSearchCriteria()}
@@ -339,6 +329,17 @@ export default class Index extends Component {
         {showLoading && <Loading2 />}
         <View onClick={this.handleOpen} className='float-setting'>
           <Image src={settingIcon} className='setting' mode='widthFix' />
+        </View>
+
+        <View className='float-help' onClick={() => {
+          Taro.navigateTo({
+            url: '/pages/other/index'
+          })
+        }}
+        >
+          <AtBadge value='帮助'>
+            <AtIcon value='help' size='24' color='#000'></AtIcon>
+          </AtBadge>
         </View>
       </View>
     )

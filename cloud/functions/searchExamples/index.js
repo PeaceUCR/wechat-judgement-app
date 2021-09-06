@@ -23,13 +23,29 @@ exports.main = async (event, context) => {
 
   const dbName = law === 'criminal' ? 'criminal-case' : ''
 
-  // exact match BY opinion
-  return  await db.collection(dbName).where({
+  // match By own criminal law
+  const resultMatchByCriminalLaw = await db.collection(dbName).where({
+    criminalLaw: parseInt(number),
+    opinion: regexpString2 ? db.RegExp({
+      regexp: regexpString2,
+      options: 'i',
+    }) : undefined
+  }).limit(100).orderBy('date', 'desc').get()
+
+  // exact match BY law
+  const resultMatchByLaw = await db.collection(dbName).where({
     law: parseInt(number),
     opinion: regexpString2 ? db.RegExp({
       regexp: regexpString2,
       options: 'i',
     }) : undefined
-  }).limit(100).orderBy('date', 'desc').get();
+  }).limit(100).orderBy('date', 'desc').get()
+  // exact match BY opinion
+
+  const all = [...resultMatchByCriminalLaw.data, ...resultMatchByLaw.data]
+
+  const removeDuplicates = all.filter((v,i,a)=>a.findIndex(t=>(t.rowkey === v.rowkey))===i)
+
+  return  {data: removeDuplicates};
 
 }
