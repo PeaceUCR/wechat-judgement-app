@@ -260,7 +260,7 @@ export default class Index extends Component {
   }
 
   renderResults = () => {
-    const {resultList} = this.state
+    const {resultList, searchValue} = this.state
     return (<View>
       {resultList.map(item => {
         return (
@@ -273,7 +273,7 @@ export default class Index extends Component {
             caseNumber={item.caseNumber}
             redirect={() => {
               Taro.navigateTo({
-                url: `/pages/exampleDetail/index?id=${item.rowkey}`,
+                url: `/pages/exampleDetail/index?id=${item.rowkey}&keyword=${searchValue ? searchValue : ''}`,
               })
               return ;
               // Taro.setClipboardData({
@@ -325,7 +325,7 @@ export default class Index extends Component {
           </AtModalContent>
           <AtModalAction><Button className={law && number ? 'btn-5' : ''} onClick={this.handleClose} >确定</Button> </AtModalAction>
         </AtModal>
-        {!isNewUser && this.renderUserFloatButton()}
+        {/*{!isNewUser && this.renderUserFloatButton()}*/}
         {showLoading && <Loading2 />}
         <View onClick={this.handleOpen} className='float-setting'>
           <Image src={settingIcon} className='setting' mode='widthFix' />

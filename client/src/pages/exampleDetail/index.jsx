@@ -7,6 +7,7 @@ import './index.scss'
 import {checkIfNewUser, redirectToIndexIfNewUser} from "../../util/login";
 import throttle from "lodash/throttle";
 import {DiscussionArea} from "../../components/discussionArea/index.weapp";
+import {convertNumberToChinese} from "../../util/convertNumber"
 
 
 export default class ExampleDetail extends Component {
@@ -30,9 +31,20 @@ export default class ExampleDetail extends Component {
   componentWillMount () {
     const that = this;
     let { id, type, keyword } = this.$router.params;
+
     db.collection('criminal-case').where({rowkey: id}).get({
       success: (res) => {
-        that.setState({brief: res.data[0], isBriefLoading: false, type, id});
+        let  highlighted
+        if (keyword) {
+          highlighted = keyword;
+        } else {
+          const {criminalLaw} = res.data[0];
+          if (criminalLaw) {
+            highlighted = convertNumberToChinese(parseInt(criminalLaw))
+          }
+        }
+
+        that.setState({brief: res.data[0], keyword: highlighted, isBriefLoading: false, type, id});
       },
       fail: () => {
         console.log('fail')

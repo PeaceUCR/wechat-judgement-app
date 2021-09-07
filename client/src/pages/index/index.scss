@@ -80,16 +80,26 @@
   animation: enabled 4s infinite;
 }
 
+.at-input__container {
+  text-align: center;
+}
+.at-input {
+  input {
+    font-size: 34px;
+    color: #6190E8;
+  }
+}
+
 
 @keyframes enabled {
   0% {
-    color: #2063df;
+    color: #004d00;
   }
   50% {
-    color: #bcd0f5;
+    color: #5cd65c;
   }
   100% {
-    color: #2063df;
+    color: #004d00;
 
   }
 }
