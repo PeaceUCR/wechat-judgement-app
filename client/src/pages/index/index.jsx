@@ -7,6 +7,7 @@ import {db} from "../../util/db";
 import Loading2 from "../../components/loading2/index.weapp";
 import {lawOptions, criminalLawOptions, civilLawOptions, getLawChnName, getLawName, getCriminalLawChnNumber, getCriminalLawNumber, getCivilLawChnNumber, getCivilLawNumber} from "../../util/name";
 import GlobalSearchItem from '../../components/globalSearchItem/index.weapp'
+import {getUserAvatar} from "../../util/login";
 
 
 const settingIcon =
@@ -79,13 +80,21 @@ export default class Index extends Component {
         backgroundColor: '#F4ECD8'
       })
     }
+
+    const userAvatar = getUserAvatar();
+    this.setState({userAvatar})
   }
 
   componentDidHide () { }
 
   renderUserFloatButton () {
     const {isUserLoaded, userAvatar} = this.state;
-    return (<UserFloatButton isUserLoaded={isUserLoaded} avatarUrl={userAvatar} />)
+    return (<UserFloatButton isUserLoaded={isUserLoaded} avatarUrl={userAvatar} handleLoginSuccess={() => {
+      Taro.navigateTo({
+        url: '/pages/user/index'
+      })
+    }}
+    />)
   }
 
   handleLoginSuccess = () => {
@@ -325,7 +334,7 @@ export default class Index extends Component {
           </AtModalContent>
           <AtModalAction><Button className={law && number ? 'btn-5' : ''} onClick={this.handleClose} >确定</Button> </AtModalAction>
         </AtModal>
-        {/*{!isNewUser && this.renderUserFloatButton()}*/}
+        {!isNewUser && this.renderUserFloatButton()}
         {showLoading && <Loading2 />}
         <View onClick={this.handleOpen} className='float-setting'>
           <Image src={settingIcon} className='setting' mode='widthFix' />

@@ -14,14 +14,9 @@ exports.main = async (event, context) => {
   try {
     return await db.collection("collection").where({
       openId: openId,//获取操作者_openid的方法
-      collectionId: event.id,
-      type: event.type,
+      rowkey: event.rowkey
     }).remove()
   } catch (e) {
     console.error(e)
   }
-  //
-  // return {
-  //   openid: wxContext.OPENID
-  // }
 }

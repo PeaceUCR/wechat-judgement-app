@@ -8,6 +8,7 @@ import {checkIfNewUser, redirectToIndexIfNewUser} from "../../util/login";
 import throttle from "lodash/throttle";
 import {DiscussionArea} from "../../components/discussionArea/index.weapp";
 import {convertNumberToChinese} from "../../util/convertNumber"
+import Loading2 from "../../components/loading2/index.weapp";
 
 
 export default class ExampleDetail extends Component {
@@ -20,8 +21,10 @@ export default class ExampleDetail extends Component {
     brief: undefined,
     zoomIn: false,
     isReadMode: false,
+    isCollected: false,
     isBriefLoading: true,
     isExampleLoading: true,
+    isLoading: false
   }
 
   config = {
@@ -62,6 +65,24 @@ export default class ExampleDetail extends Component {
       }
     });
 
+    Taro.cloud.callFunction({
+      name: 'isCollected',
+      data: {
+        rowKey: id
+      },
+      complete: (r) => {
+        if (r && r.result && r.result.data && r.result.data.length > 0) {
+          that.setState({isCollected: true})
+        }
+      },
+      fail: (e) => {
+        Taro.showToast({
+          title: `获取收藏数据失败:${JSON.stringify(e)}`,
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
 
     const setting = getStorageSync('setting');
     this.setState({isReadMode: setting && setting.isReadMode})
@@ -89,6 +110,7 @@ export default class ExampleDetail extends Component {
   componentDidShow () { }
 
   componentDidHide () { }
+
 
   renderExample = () => {
     const {brief, example, keyword, zoomIn} = this.state;
@@ -119,15 +141,15 @@ export default class ExampleDetail extends Component {
     }
 
     const that = this;
-    const { isCollected, example, type } = this.state;
-    const {_id} = example;
+    const { isCollected, brief, type } = this.state;
+    const {rowkey, title} = brief;
     that.setState({isLoading: true});
 
     if (isCollected) {
       Taro.cloud.callFunction({
         name: 'deleteCollection',
         data: {
-          id: _id,
+          rowkey: rowkey,
           type: type
         },
         complete: () => {
@@ -140,18 +162,13 @@ export default class ExampleDetail extends Component {
         }
       })
     } else {
-      let title;
-      if (type === 'explanation') { title = example.name }
-      else if (type === 'procuratorate') { title = `${example.number}${example.name}` }
-      else if (type === 'consultant') { title = `第${example.number}号${example.name}` }
-      else if (type === 'civilLawExample') { title = example.text.split('\n').filter(line => line.trim() && line.trim().length > 0)[0] }
-      else {title = example.title}
+
       Taro.cloud.callFunction({
         name: 'collect',
         data: {
-          id: _id,
+          rowkey: rowkey,
           type: type,
-          title: title.trim()
+          title: title
         },
         complete: (r) => {
           if (r && r.result && r.result.errMsg !== 'collection.add:ok') {
@@ -174,80 +191,6 @@ export default class ExampleDetail extends Component {
       })
     }
   }, 3000, { trailing: false })
-
-  handleCommentChange = (e) => {
-    this.setState({
-      comment: e.target.value
-    })
-  }
-
-  handleClear = () => {
-    this.setState({
-      comment: ''
-    })
-  }
-
-  handleSend = () => {
-    if (checkIfNewUser()) {
-      redirectToIndexIfNewUser()
-      return ;
-    }
-    const {comment, example, type} = this.state
-    if (comment) {
-      this.setState({
-        isSent: false
-      })
-      Taro.showLoading({
-        title: '发送中',
-      })
-      Taro.cloud.callFunction({
-        name: 'addComment',
-        data: {
-          topicId: example._id,
-          page: 'exampleDetail',
-          type,
-          content: comment
-        },
-        complete: (r) => {
-          console.log(r)
-          if ((r && r.errMsg !== 'cloud.callFunction:ok')
-            || (r.result && r.result.errMsg !== "collection.add:ok")) {
-            Taro.showToast({
-              title: `发表失败:${r.result.errMsg}`,
-              icon: 'none',
-              duration: 3000
-            })
-            return ;
-          } else {
-            this.setState({
-              comment: '',
-              isSent: true
-            })
-            Taro.showToast({
-              title: `发表成功`,
-              icon: 'none',
-              duration: 3000
-            })
-          }
-          Taro.hideLoading()
-        }
-      })
-    } else {
-      Taro.showToast({
-        title: '发表内容不能为空',
-        icon: 'none',
-        duration: 3000
-      })
-    }
-  }
-
-  handleCommentsLoaded = () => {
-    setTimeout(() => {
-      Taro.pageScrollTo({
-        selector: `#comments`
-      })
-    }, 100)
-  }
 
   renderNoData = () => {
     return (<View>
@@ -275,7 +218,7 @@ export default class ExampleDetail extends Component {
   }
 
   render () {
-    const { example, brief, zoomIn,  isReadMode, isBriefLoading, isExampleLoading, type} = this.state;
+    const { example, brief, zoomIn,  isReadMode, isBriefLoading, isExampleLoading, isLoading, isCollected, type} = this.state;
     return (
       <View>
         <View className={`example-detail-page ${zoomIn ? 'zoom-in' : ''} ${isReadMode ? 'read-mode' : ''}`}>
@@ -284,9 +227,7 @@ export default class ExampleDetail extends Component {
           </View>
           {!isExampleLoading && !isBriefLoading && !example && this.renderNoData()}
           {this.renderLink()}
-          {(isBriefLoading || isExampleLoading) && <View className='loading-container'>
-            <AtActivityIndicator mode='center' color='black' content='加载中...' size={62}></AtActivityIndicator>
-          </View>}
+          {(isBriefLoading || isExampleLoading || isLoading) && <Loading2 />}
           {!isExampleLoading && !isBriefLoading && <AtDivider content='没有更多了' fontColor='#666' lineColor='transparent' />}
 
           <View className='back-to-top' onClick={() => {
@@ -297,6 +238,18 @@ export default class ExampleDetail extends Component {
           }}
           >
             <AtIcon value='chevron-up' size='50' color='rgba(26, 117, 255, 0.6)'></AtIcon>
+          </View>
+
+          <View className='favorite-container' onClick={this.handleCollect} >
+            <AtIcon value={isCollected ? 'heart-2' : 'heart'} size='32' color={isCollected ? '#e62e00' : 'rgba(0, 0, 0, 0.6)'}></AtIcon>
+          </View>
+
+          <View className='share-container'>
+            <AtBadge value='分享'>
+              <Button className='share-button' openType='share'>
+                <AtIcon value='share-2' size='32' color='#6190E8'></AtIcon>
+              </Button>
+            </AtBadge>
           </View>
         </View>
       </View>

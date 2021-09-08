@@ -114,7 +114,10 @@
 }
 
 .share-container {
-  margin: 0 60px 0 10px;
+  position: fixed;
+  bottom: 300px;
+  right: 60px;
+  margin-right: 20px;
   .share-button {
     background: transparent;
     border: none;
@@ -149,3 +152,10 @@
   bottom: 80px;
   right: 60px;
 }
+
+.favorite-container {
+  position: fixed;
+  bottom: 190px;
+  right: 60px;
+}
+
