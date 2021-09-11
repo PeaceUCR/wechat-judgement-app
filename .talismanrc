@@ -1,5 +1,3 @@
 fileignoreconfig:
-- filename: client/src/pages/index/index.jsx
-  checksum: b7c6566e6f06bcd2ddddc30e40df4ee97502c08a2acb9b3b59648e7f81324037
-- filename: cloud/functions/searchExamples/yarn.lock
-  checksum: 1ae934c39190f3bd943bd2e688c011e9e9ef5a5b578a524c28fd47b48c62f99b
+- filename: cloud/functions/isCollected/yarn.lock
+  checksum: ce507946d69d92f2c7275e89af4542b9aafcbbd0eb9d7b9837ce444a81ea5c22

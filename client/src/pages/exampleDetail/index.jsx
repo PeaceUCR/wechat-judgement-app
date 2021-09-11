@@ -68,9 +68,10 @@ export default class ExampleDetail extends Component {
     Taro.cloud.callFunction({
       name: 'isCollected',
       data: {
-        rowKey: id
+        rowkey: id
       },
       complete: (r) => {
+        console.log(r)
         if (r && r.result && r.result.data && r.result.data.length > 0) {
           that.setState({isCollected: true})
         }

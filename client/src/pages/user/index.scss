@@ -22,3 +22,9 @@
   z-index: 1;
 }
 
+.float-help {
+  z-index: 9999;
+  position: fixed;
+  top: 200px;
+  right: 60px;
+}

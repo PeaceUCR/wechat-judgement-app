@@ -13,31 +13,47 @@ exports.main = async (event, context) => {
   const {
     law,
     number,
-    searchValue
+    searchValue,
+    selectedCriminalKeywords
   } = event
 
-  let regexpString2
-  if (searchValue && searchValue.trim()) {
-    regexpString2 = `.*${searchValue}`
-  }
+  let regexpString
 
+  if (selectedCriminalKeywords && selectedCriminalKeywords.length > 0) {
+    if (searchValue && searchValue.trim()) {
+      const finalKeywords = [...selectedCriminalKeywords, searchValue].filter(s => s)
+      let joined = ''
+      finalKeywords.forEach(key => joined = joined + `(?=.*${key})`)
+      regexpString = `.*${joined}`
+    } else {
+      const finalKeywords = [...selectedCriminalKeywords].filter(s => s)
+      let joined = ''
+      finalKeywords.forEach(key => joined = joined + `(?=.*${key})`)
+      regexpString = `.*${joined}`
+    }
+  } else {
+    if (searchValue && searchValue.trim()) {
+      regexpString = `.*${searchValue}`
+    }
+  }
+  console.log('regexpString:', regexpString)
   const dbName = law === 'criminal' ? 'criminal-case' : ''
 
   // match By own criminal law
   const resultMatchByCriminalLaw = await db.collection(dbName).where({
-    criminalLaw: parseInt(number),
-    opinion: regexpString2 ? db.RegExp({
-      regexp: regexpString2,
-      options: 'i',
+    criminalLaw: number.toString(),
+    opinion: regexpString ? db.RegExp({
+      regexp: regexpString,
+      options: 'ims',
     }) : undefined
   }).limit(100).orderBy('date', 'desc').get()
 
   // exact match BY law
   const resultMatchByLaw = await db.collection(dbName).where({
     law: parseInt(number),
-    opinion: regexpString2 ? db.RegExp({
-      regexp: regexpString2,
-      options: 'i',
+    opinion: regexpString ? db.RegExp({
+      regexp: regexpString,
+      options: 'ims',
     }) : undefined
   }).limit(100).orderBy('date', 'desc').get()
   // exact match BY opinion

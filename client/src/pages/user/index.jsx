@@ -1,6 +1,6 @@
 import Taro, { Component, setStorageSync, getStorageSync} from '@tarojs/taro'
 import { View,Swiper,SwiperItem } from '@tarojs/components'
-import {AtSwitch,AtNoticebar,AtActivityIndicator} from "taro-ui";
+import {AtSwitch,AtNoticebar,AtActivityIndicator, AtBadge, AtIcon} from "taro-ui";
 import MyCollection from '../../components/myCollection'
 import './index.scss'
 import {tmpId} from '../../util/util'
@@ -98,6 +98,16 @@ export default class User extends Component {
         {/*  <AtButton type='secondary' onClick={this.handleSubscribe}>点击订阅消息</AtButton>*/}
         {/*</View>*/}
         <MyCollection collection={collection} />
+        <View className='float-help' onClick={() => {
+          Taro.navigateTo({
+            url: '/pages/other/index'
+          })
+        }}
+        >
+          <AtBadge value='帮助'>
+            <AtIcon value='help' size='24' color='#000'></AtIcon>
+          </AtBadge>
+        </View>
         {
           isLoading && <AtActivityIndicator mode='center' color='black' content='数据加载中...' size={62}></AtActivityIndicator>
         }

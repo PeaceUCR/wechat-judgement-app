@@ -1,6 +1,6 @@
 import Taro, { Component, getStorageSync, setStorageSync } from '@tarojs/taro'
 import {View, Picker, Button, Image} from '@tarojs/components'
-import {AtDivider, AtSearchBar,AtNoticebar, AtList, AtListItem,  AtModal,AtModalHeader, AtModalContent,AtModalAction, AtInput, AtBadge, AtIcon} from "taro-ui";
+import {AtDivider, AtSearchBar,AtNoticebar, AtList, AtListItem,  AtModal,AtModalHeader, AtModalContent,AtModalAction, AtInput, AtBadge, AtIcon, AtActionSheet, AtTag} from "taro-ui";
 import UserFloatButton from '../../components/userFloatButton/index.weapp'
 import './index.scss'
 import {db} from "../../util/db";
@@ -12,6 +12,8 @@ import {getUserAvatar} from "../../util/login";
 
 const settingIcon =
   'https://mmbiz.qpic.cn/mmbiz_png/6fKEyhdZU92UYROmCwI9kIRFU6pnKzycaPtbJdQ4ibwv99ttVwWNj2GkAib2icbrPD3cyGLWuTNMjs8I3pB1X6QOw/0?wx_fmt=png'
+
+const criminalKeywords = ['非法占有','自首','罚金','共同犯罪','故意犯','从犯','程序合法','减轻处罚','拘役','财产权','管制','犯罪未遂','违法所得','合法财产','返还','没收','所有权','偶犯','恶意透支','胁迫','立功','扣押','鉴定','合同','合同诈骗','冒用','伪造','合伙','共同故意','着手','没收财产','利息','聋哑人','人身权利','传唤']
 
 export default class Index extends Component {
 
@@ -27,7 +29,10 @@ export default class Index extends Component {
     searchValue: '',
     showSetting: true,
     showLoading: false,
-    resultList: []
+    resultList: [],
+    isMenuOpened: false,
+    activeKeyMap: {},
+    selectedCriminalKeywords: []
   }
 
   config = {
@@ -58,6 +63,15 @@ export default class Index extends Component {
   }
 
   componentDidMount () {
+    if (!getStorageSync('hasVisit')) {
+      Taro.showToast({
+        title: `首次使用，请先点击右侧的帮助`,
+        icon: 'none',
+        duration: 4000
+      })
+      setStorageSync('hasVisit', true)
+    }
+
   }
 
   componentWillUnmount () { }
@@ -181,7 +195,7 @@ export default class Index extends Component {
 
   onSearch = () => {
     const that = this;
-    const  { law, number, searchValue } = this.state;
+    const  { law, number, searchValue, selectedCriminalKeywords } = this.state;
     if (law === 'criminal') {
       if (number < 114 || number > 419) {
         Taro.showToast({
@@ -200,7 +214,8 @@ export default class Index extends Component {
       data: {
         law,
         number,
-        searchValue
+        searchValue,
+        selectedCriminalKeywords
       },
       complete: (r) => {
         console.log(r)
@@ -218,6 +233,9 @@ export default class Index extends Component {
             title: `未找到,可能是还未收录,敬请期待!`,
             icon: 'none',
             duration: 6000
+          })
+          that.setState({
+            resultList: []
           })
         }
         that.setState({
@@ -269,7 +287,17 @@ export default class Index extends Component {
   }
 
   renderResults = () => {
-    const {resultList, searchValue} = this.state
+    const {resultList, searchValue, selectedCriminalKeywords} = this.state
+    let keyword
+    if (selectedCriminalKeywords && selectedCriminalKeywords.length > 0) {
+      if (searchValue) {
+        keyword = [...selectedCriminalKeywords, searchValue].join('|');
+      } else {
+        keyword = [...selectedCriminalKeywords].join('|');
+      }
+    } else {
+      keyword = searchValue ? searchValue : ''
+    }
     return (<View>
       {resultList.map(item => {
         return (
@@ -282,7 +310,7 @@ export default class Index extends Component {
             caseNumber={item.caseNumber}
             redirect={() => {
               Taro.navigateTo({
-                url: `/pages/exampleDetail/index?id=${item.rowkey}&keyword=${searchValue ? searchValue : ''}`,
+                url: `/pages/exampleDetail/index?id=${item.rowkey}&keyword=${keyword}`,
               })
               return ;
               // Taro.setClipboardData({
@@ -304,9 +332,37 @@ export default class Index extends Component {
     </View>)
   }
 
+  jumpToMiniProgram = () => {
+      const redirectStr = `/pages/index/index`
+
+      Taro.navigateToMiniProgram({
+        appId: 'wxf6d4249d423ff2a3',
+        path: redirectStr
+      });
+    }
+
+  handleMenuClose = () => {
+    const {activeKeyMap} = this.state
+    const keys = Object.keys(activeKeyMap).filter(k => activeKeyMap[k])
+    console.log(keys)
+    this.setState({
+      isMenuOpened: false,
+      selectedCriminalKeywords: keys
+    }, () => {
+      this.onSearch()
+    })
+  }
+  handleCriminalKeywordClick = (e) => {
+    const {name} = e
+    const {activeKeyMap} = this.state;
+    activeKeyMap[name] = !activeKeyMap[name]
+    this.setState({
+      activeKeyMap: {...activeKeyMap}
+    })
+  }
 
   render () {
-    const {isNewUser, isReadMode, law, number, searchValue, showSetting, showLoading
+    const {isNewUser, isReadMode, law, number, searchValue, showSetting, showLoading,isMenuOpened, activeKeyMap, selectedCriminalKeywords
     } = this.state;
     return (
       <View className={`index-page ${isReadMode ? 'read-mode' : ''}`}>
@@ -332,7 +388,10 @@ export default class Index extends Component {
           <AtModalContent>
             {this.renderSearchCriteria()}
           </AtModalContent>
-          <AtModalAction><Button className={law && number ? 'btn-5' : ''} onClick={this.handleClose} >确定</Button> </AtModalAction>
+          <AtModalAction>
+            <Button className='btn-5' onClick={this.handleClose} >确定</Button>
+          </AtModalAction>
+          <View className='search-law' onClick={this.jumpToMiniProgram}>去搜法搜更多法律知识</View>
         </AtModal>
         {!isNewUser && this.renderUserFloatButton()}
         {showLoading && <Loading2 />}
@@ -347,9 +406,34 @@ export default class Index extends Component {
         }}
         >
           <AtBadge value='帮助'>
-            <AtIcon value='help' size='24' color='#000'></AtIcon>
+            <AtIcon value='help' size='26' color='rgba(0,0,0, 0.6)'></AtIcon>
           </AtBadge>
         </View>
+        <View className='float-menu' onClick={() => {
+          this.setState({
+            isMenuOpened: true
+          })
+        }}
+        >
+          <AtBadge value={selectedCriminalKeywords.length}>
+            <AtIcon value='tags' size='26' color='rgba(0,0,0, 0.6)'></AtIcon>
+          </AtBadge>
+        </View>
+        <AtActionSheet isOpened={isMenuOpened} cancelText='确定' title='请选择关键字(可多选)' onClose={() => {this.setState({isMenuOpened: false})}} onCancel={this.handleMenuClose}>
+          <View>
+            {criminalKeywords.map(criminalKeyword => {
+              return (
+                <AtTag
+                  key={criminalKeyword}
+                  name={criminalKeyword}
+                  circle
+                  active={activeKeyMap[criminalKeyword]}
+                  onClick={this.handleCriminalKeywordClick}
+                >{criminalKeyword}</AtTag>
+              )
+            })}
+          </View>
+        </AtActionSheet>
       </View>
     )
   }

@@ -14,11 +14,19 @@ const refine = (str) => {
   }
   return str;
 }
+const replaceAllReg = (str, keys) => {
+  let result = str
+  keys.forEach(key => {
+    const regex = new RegExp(key,"g")
+    result = result.replace(regex, `<span class='highlight-keyword'>${key}</span>`)
+  })
+  return result
+}
 
 const findAndHighlight = (str, index, key) => {
-  const regExp =new RegExp(key,"g");
   if (key) {
-    return '<div>' + key ? str.replace(regExp, `<span class='highlight-keyword'>${key}</span>`) : str + '</div>'
+    const keys =key.split("|");
+    return '<div>' + key ? replaceAllReg(str, keys): str + '</div>'
   } else {
     return '<div>' + str + '</div>'
   }

@@ -14,7 +14,13 @@
     z-index: 9999;
     position: fixed;
     top: 460px;
-    right: 60px;
+    right: 50px;
+  }
+
+  .float-menu {
+    position: fixed;
+    top: 320px;
+    left: 60px;
   }
 
   .float-analytics {
@@ -74,11 +80,15 @@
   margin-left: 0px;
 }
 
-.btn-5 {
-  color: #2063df;
-  background: white;
-  animation: enabled 4s infinite;
+.at-modal__footer .at-modal__action>button.btn-5 {
+  color: white;
+  background: #6190E8;
+  font-size: 36px;
+  font-weight: bold;
+  margin: 0 30px;
+  //animation: enabled 4s infinite;
 }
+
 
 .at-input__container {
   text-align: center;
@@ -89,17 +99,33 @@
     color: #6190E8;
   }
 }
-
-
-@keyframes enabled {
-  0% {
-    color: #004d00;
-  }
-  50% {
-    color: #5cd65c;
-  }
-  100% {
-    color: #004d00;
-
-  }
+.search-law {
+  text-align: center;
+  color: #6190E8;
+  font-size: 28px;
+  margin: 30px;
+  text-decoration: underline;
+  text-decoration-color: #6190E8;
 }
+
+.at-modal__content {
+  height: 340px;
+}
+
+//@keyframes enabled {
+//  0% {
+//    color: #004d00;
+//  }
+//  50% {
+//    color: #5cd65c;
+//  }
+//  100% {
+//    color: #004d00;
+//
+//  }
+//}
+
+.at-tag--circle {
+  margin: 8px 6px 4px 6px;
+}
+
