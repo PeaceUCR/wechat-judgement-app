@@ -23,6 +23,11 @@ class App extends Component {
       navigationBarBackgroundColor: '#fff',
       navigationBarTextStyle: 'black'
     },
+    permission: {
+      "scope.userLocation": {
+        "desc": "你的位置信息将用于定位"
+      }
+    },
     cloud: true
   }
 

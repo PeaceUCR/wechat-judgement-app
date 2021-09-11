@@ -159,3 +159,26 @@
   right: 60px;
 }
 
+.float-help {
+  z-index: 9999;
+  position: fixed;
+  top: 160px;
+  right: 70px;
+  opacity: 0.8;
+  .at-badge__num {
+    width: 80px;
+  }
+}
+
+.related-law-link {
+  font-size: 32px;
+  margin: 10px 6px;
+  color: #6190E8;
+  text-decoration: underline;
+  text-decoration-color: #6190E8;
+}
+.law-icon {
+  width: 70px;
+  height: 70px;
+  z-index: 1;
+}

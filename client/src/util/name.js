@@ -57,3 +57,5 @@ export const getCivilLawNumber = (number) => {
 }
 
 export const lawOptions = ['刑法','民法典']
+
+export const lawIcon = 'https://mmbiz.qpic.cn/mmbiz_png/6fKEyhdZU90051UhswXRjkOshzDYNqY8lfLugm1vhWlOXZ6HVia3rFPJibhVAdPaNwlaN39FVtOcibVCImf2AMIdw/0?wx_fmt=png'

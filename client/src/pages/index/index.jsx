@@ -32,7 +32,8 @@ export default class Index extends Component {
     resultList: [],
     isMenuOpened: false,
     activeKeyMap: {},
-    selectedCriminalKeywords: []
+    selectedCriminalKeywords: [],
+    province: ''
   }
 
   config = {
@@ -148,7 +149,7 @@ export default class Index extends Component {
     })
   }
   renderSearchCriteria = () => {
-    const {law, number} = this.state
+    const {law, number, selectedCriminalKeywords, province} = this.state
     return <View>
       <Picker mode='selector' range={lawOptions} onChange={this.selectLaw}>
         <AtList>
@@ -175,6 +176,45 @@ export default class Index extends Component {
             onChange={this.handleInputNumber}
           />
         </View>
+        <View className='icon-line' onClick={() => {
+          this.setState({
+            isMenuOpened: true
+          })}}
+        >
+          <AtBadge value={selectedCriminalKeywords.length}>
+            <AtIcon value='tags' size='24' color='rgba(0,0,0)'></AtIcon>
+          </AtBadge>
+          <View className='text'>关键词</View>
+        </View>
+        <View className='icon-line' onClick={() => {
+          const that = this
+          Taro.getLocation({
+            success(res) {
+              console.log(res)
+              const {latitude, longitude} = res
+              Taro.request({
+                url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=4POBZ-YEXYD-NPQ4R-PNZJ4-3XEE5-FFBXF`,
+                method: 'get',
+                success: function (r) {
+                  console.log(r)
+                  const {data} = r
+                  const {result} = data
+                  const {address_component} = result
+                  const {province} = address_component
+                  that.setState({
+                    province:province
+                  })
+                }
+              })
+
+            }
+          })
+        }
+        }
+        >
+          <AtIcon value='map-pin' size='24' color='rgba(0,0,0)'></AtIcon>
+          <View className='text'>位置{`${province ? ':' + province : ''}`}</View>
+        </View>
       </View>}
       {law === 'civil' && <Picker mode='selector' range={civilLawOptions} onChange={this.selectCivilNumber}>
         <AtList>
@@ -195,7 +235,7 @@ export default class Index extends Component {
 
   onSearch = () => {
     const that = this;
-    const  { law, number, searchValue, selectedCriminalKeywords } = this.state;
+    const  { law, number, searchValue, selectedCriminalKeywords, province } = this.state;
     if (law === 'criminal') {
       if (number < 114 || number > 419) {
         Taro.showToast({
@@ -215,7 +255,8 @@ export default class Index extends Component {
         law,
         number,
         searchValue,
-        selectedCriminalKeywords
+        selectedCriminalKeywords,
+        province
       },
       complete: (r) => {
         console.log(r)
@@ -348,10 +389,9 @@ export default class Index extends Component {
     this.setState({
       isMenuOpened: false,
       selectedCriminalKeywords: keys
-    }, () => {
-      this.onSearch()
     })
   }
+
   handleCriminalKeywordClick = (e) => {
     const {name} = e
     const {activeKeyMap} = this.state;
@@ -409,16 +449,7 @@ export default class Index extends Component {
             <AtIcon value='help' size='26' color='rgba(0,0,0, 0.6)'></AtIcon>
           </AtBadge>
         </View>
-        <View className='float-menu' onClick={() => {
-          this.setState({
-            isMenuOpened: true
-          })
-        }}
-        >
-          <AtBadge value={selectedCriminalKeywords.length}>
-            <AtIcon value='tags' size='26' color='rgba(0,0,0, 0.6)'></AtIcon>
-          </AtBadge>
-        </View>
+
         <AtActionSheet isOpened={isMenuOpened} cancelText='确定' title='请选择关键字(可多选)' onClose={() => {this.setState({isMenuOpened: false})}} onCancel={this.handleMenuClose}>
           <View>
             {criminalKeywords.map(criminalKeyword => {

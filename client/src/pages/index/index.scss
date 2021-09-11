@@ -109,7 +109,18 @@
 }
 
 .at-modal__content {
-  height: 340px;
+  height: 520px;
+}
+.icon-line {
+  margin: 40px 0px 10px 20px;
+  font-size: 32px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  .text {
+    margin-left: 40px;
+    color: #666666;
+  }
 }
 
 //@keyframes enabled {

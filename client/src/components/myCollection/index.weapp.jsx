@@ -13,12 +13,12 @@ const MyCollection = (props) => {
     <View>
       {collection.map(item => (
         <AtListItem
-          key={item.rowkey}
+          key={item.rowKey}
           title={item.title}
           arrow='right'
           onClick={() => {
             Taro.navigateTo({
-              url: `/pages/exampleDetail/index?id=${item.rowkey}`
+              url: `/pages/exampleDetail/index?id=${item.rowKey}`
             })
           }}
         />

@@ -1,6 +1,6 @@
 import Taro, { Component, getStorageSync } from '@tarojs/taro'
-import {View,Input, Button} from '@tarojs/components'
-import {AtFab, AtIcon, AtActivityIndicator, AtNoticebar, AtButton, AtBadge, AtDivider} from "taro-ui";
+import {View,Input, Button, Image} from '@tarojs/components'
+import {AtIcon, AtBadge, AtDivider, AtModal,AtModalHeader, AtModalContent,AtModalAction} from "taro-ui";
 import { db } from '../../util/db'
 import TextSection from '../../components/textSection/index.weapp'
 import './index.scss'
@@ -8,6 +8,7 @@ import {checkIfNewUser, redirectToIndexIfNewUser} from "../../util/login";
 import throttle from "lodash/throttle";
 import {DiscussionArea} from "../../components/discussionArea/index.weapp";
 import {convertNumberToChinese} from "../../util/convertNumber"
+import {lawIcon} from "../../util/name"
 import Loading2 from "../../components/loading2/index.weapp";
 
 
@@ -24,7 +25,8 @@ export default class ExampleDetail extends Component {
     isCollected: false,
     isBriefLoading: true,
     isExampleLoading: true,
-    isLoading: false
+    isLoading: false,
+    showRelatedLaw: false
   }
 
   config = {
@@ -68,7 +70,7 @@ export default class ExampleDetail extends Component {
     Taro.cloud.callFunction({
       name: 'isCollected',
       data: {
-        rowkey: id
+        rowKey: id
       },
       complete: (r) => {
         console.log(r)
@@ -150,7 +152,7 @@ export default class ExampleDetail extends Component {
       Taro.cloud.callFunction({
         name: 'deleteCollection',
         data: {
-          rowkey: rowkey,
+          rowKey: rowKey,
           type: type
         },
         complete: () => {
@@ -167,7 +169,7 @@ export default class ExampleDetail extends Component {
       Taro.cloud.callFunction({
         name: 'collect',
         data: {
-          rowkey: rowkey,
+          rowKey: rowKey,
           type: type,
           title: title
         },
@@ -218,8 +220,39 @@ export default class ExampleDetail extends Component {
     </View>)
   }
 
+  openRelatedLaw = () => {
+    this.setState({
+      showRelatedLaw: true
+    })
+  }
+
+  jumpToMiniProgram = (law) => {
+    const redirectStr = `/pages/termDetail/index?chnNumber=${convertNumberToChinese(parseInt(law))}`
+
+    Taro.navigateToMiniProgram({
+      appId: 'wxf6d4249d423ff2a3',
+      path: redirectStr
+    });
+  }
+  renderRelatedLaw = () => {
+    const {brief} = this.state
+    const lawList = brief.criminalLaw.split(',')
+    return (<View>
+      {lawList.map(law => (
+        <View
+          className='related-law-link'
+          key={law}
+          onClick={() => {
+            return this.jumpToMiniProgram(law)
+          }}
+        >{`刑法${convertNumberToChinese(parseInt(law))}`}</View>
+      ))}
+    </View>)
+
+  }
+
   render () {
-    const { example, brief, zoomIn,  isReadMode, isBriefLoading, isExampleLoading, isLoading, isCollected, type} = this.state;
+    const { example, brief, zoomIn,  isReadMode, isBriefLoading, isExampleLoading, isLoading, isCollected, type, showRelatedLaw} = this.state;
     return (
       <View>
         <View className={`example-detail-page ${zoomIn ? 'zoom-in' : ''} ${isReadMode ? 'read-mode' : ''}`}>
@@ -252,6 +285,33 @@ export default class ExampleDetail extends Component {
               </Button>
             </AtBadge>
           </View>
+
+          <View className='float-help' onClick={this.openRelatedLaw}
+          >
+            <AtBadge value='相关法条'>
+              <Image
+                src={lawIcon}
+                className='law-icon'
+                mode='widthFix'
+              />
+            </AtBadge>
+          </View>
+
+          <AtModal isOpened={showRelatedLaw} closeOnClickOverlay={false}>
+            <AtModalHeader>相关法条</AtModalHeader>
+            <AtModalContent>
+              {brief && brief.criminalLaw && this.renderRelatedLaw()}
+            </AtModalContent>
+            <AtModalAction>
+              <Button onClick={() => {
+                this.setState({
+                  showRelatedLaw: false
+                })
+              }}
+              >确定</Button>
+            </AtModalAction>
+          </AtModal>
+
         </View>
       </View>
     )
