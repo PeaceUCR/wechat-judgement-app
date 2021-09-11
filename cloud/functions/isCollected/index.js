@@ -14,6 +14,6 @@ exports.main = async (event, context) => {
   return await db.collection('collection').where({
     //下面这3行，为筛选条件
     openId,
-    rowkey: event.rowkey
+    rowKey: event.rowKey
   }).get();
 }

@@ -152,7 +152,7 @@ export default class ExampleDetail extends Component {
       Taro.cloud.callFunction({
         name: 'deleteCollection',
         data: {
-          rowKey: rowKey,
+          rowKey: rowkey,
           type: type
         },
         complete: () => {
@@ -169,7 +169,7 @@ export default class ExampleDetail extends Component {
       Taro.cloud.callFunction({
         name: 'collect',
         data: {
-          rowKey: rowKey,
+          rowKey: rowkey,
           type: type,
           title: title
         },

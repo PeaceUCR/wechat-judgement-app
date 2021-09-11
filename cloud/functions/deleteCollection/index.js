@@ -14,7 +14,7 @@ exports.main = async (event, context) => {
   try {
     return await db.collection("collection").where({
       openId: openId,//获取操作者_openid的方法
-      rowkey: event.rowkey
+      rowKey: event.rowKey
     }).remove()
   } catch (e) {
     console.error(e)

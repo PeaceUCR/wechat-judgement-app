@@ -23,7 +23,7 @@ exports.main = async (event, context) => {
   return await db.collection("collection").add({
     data: {
       openId: openId,//获取操作者_openid的方法
-      rowkey: event.rowkey,
+      rowKey: event.rowKey,
       type: event.type,
       title: event.title,
       time: new Date()
