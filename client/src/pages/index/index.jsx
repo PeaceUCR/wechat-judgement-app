@@ -33,7 +33,8 @@ export default class Index extends Component {
     isMenuOpened: false,
     activeKeyMap: {},
     selectedCriminalKeywords: [],
-    province: ''
+    province: '',
+    enableMainAd: false
   }
 
   config = {
@@ -56,9 +57,14 @@ export default class Index extends Component {
       number,
       searchValue
     })
+    const that = this
     db.collection('configuration').where({}).get({
       success: (res) => {
-        console.log(res)
+        console.log(res.data[0])
+        const {enableMainAd} = res.data[0]
+        that.setState({
+          enableMainAd: enableMainAd
+        })
       }
     });
   }
@@ -370,7 +376,10 @@ export default class Index extends Component {
           />
         )
       })}
-      {resultList.length > 0 && <AtDivider content='没有更多了' fontColor='#666' lineColor='transparent' />}
+      {resultList.length > 0 && <AtDivider content='没有更多了' fontColor='#666' />}
+      {resultList.length > 0 && <View >
+        <ad unit-id="adunit-0320f67c0e860e36"></ad>
+      </View>}
     </View>)
   }
 
@@ -403,11 +412,12 @@ export default class Index extends Component {
   }
 
   render () {
-    const {isNewUser, isReadMode, law, number, searchValue, showSetting, showLoading,isMenuOpened, activeKeyMap, selectedCriminalKeywords
+    const {isNewUser, isReadMode, law, number, searchValue, showSetting, showLoading,isMenuOpened, activeKeyMap, selectedCriminalKeywords, enableMainAd, resultList
     } = this.state;
     return (
       <View className={`index-page ${isReadMode ? 'read-mode' : ''}`}>
-        {this.renderTagLine()}
+        {/*{this.renderTagLine()}*/}
+
         <AtNoticebar marquee speed={60}>
           本小程序数据信息均来源于裁判文书网，已收录超过10万份裁判文书，持续开发中...
         </AtNoticebar>
@@ -466,6 +476,9 @@ export default class Index extends Component {
             })}
           </View>
         </AtActionSheet>
+        {enableMainAd && resultList && resultList.length === 0 && <View className='ad-bottom'>
+          <ad unit-id="adunit-0320f67c0e860e36"></ad>
+        </View>}
       </View>
     )
   }
