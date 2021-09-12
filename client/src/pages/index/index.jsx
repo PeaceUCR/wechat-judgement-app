@@ -170,8 +170,8 @@ export default class Index extends Component {
         </Picker>
         <View>
           <AtInput
-            type='digit'
-            placeholder='  或者输入序号,比如264'
+            type='text'
+            placeholder='  或者输入数字序号,比如264'
             value={number}
             onChange={this.handleInputNumber}
           />
@@ -184,7 +184,7 @@ export default class Index extends Component {
           <AtBadge value={selectedCriminalKeywords.length}>
             <AtIcon value='tags' size='24' color='rgba(0,0,0)'></AtIcon>
           </AtBadge>
-          <View className='text'>关键词</View>
+          <View className='text'>{selectedCriminalKeywords.length > 0 ? selectedCriminalKeywords.join(',') : '关键词'}</View>
         </View>
         <View className='icon-line' onClick={() => {
           const that = this
@@ -237,7 +237,8 @@ export default class Index extends Component {
     const that = this;
     const  { law, number, searchValue, selectedCriminalKeywords, province } = this.state;
     if (law === 'criminal') {
-      if (number < 114 || number > 419) {
+      let intVal = Number(number)
+      if (isNaN(intVal) || number < 114 || number > 419) {
         Taro.showToast({
           title: `无效条文序号${number},请修正后再试！`,
           icon: 'none',

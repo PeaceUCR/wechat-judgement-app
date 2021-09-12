@@ -112,14 +112,18 @@
   height: 520px;
 }
 .icon-line {
-  margin: 40px 0px 10px 20px;
-  font-size: 32px;
+  margin: 50px 0px 10px 20px;
+  font-size: 36px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   .text {
     margin-left: 40px;
     color: #666666;
+    width: 380px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
