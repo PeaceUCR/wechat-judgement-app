@@ -1,11 +1,11 @@
 const lawNameMap = {
-  'criminal': '刑法',
-  'civil': '民法典',
+  'criminal': '刑事案件',
+  'civil': '民事案件',
 }
 
 const lawChnNameMap = {
-  '刑法': 'criminal',
-  '民法典': 'civil',
+  '刑事案件': 'criminal',
+  '民事案件': 'civil',
 }
 function swap(json){
   var ret = {};
@@ -56,6 +56,6 @@ export const getCivilLawNumber = (number) => {
   return civilLawChnOptionMap[number]
 }
 
-export const lawOptions = ['刑法','民法典']
+export const lawOptions = ['刑事案件','民事案件']
 
 export const lawIcon = 'https://mmbiz.qpic.cn/mmbiz_png/6fKEyhdZU90051UhswXRjkOshzDYNqY8lfLugm1vhWlOXZ6HVia3rFPJibhVAdPaNwlaN39FVtOcibVCImf2AMIdw/0?wx_fmt=png'

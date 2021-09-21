@@ -52,9 +52,13 @@ exports.main = async (event, context) => {
     province
   } = event
 
-  let provinceRegex
+  let provinceRegex, courtNameRegex
   if (province) {
-    provinceRegex = `.*${provinceMap[province]}`
+    if (provinceMap[province]) {
+      provinceRegex = `.*${provinceMap[province]}`
+    } else {
+      courtNameRegex = `.*${province}`
+    }
   }
 
   let regexpString
@@ -90,6 +94,10 @@ exports.main = async (event, context) => {
       regexp: provinceRegex,
       options: 'ims',
     }) : undefined,
+    courtName: courtNameRegex ?  db.RegExp({
+      regexp: courtNameRegex,
+      options: 'ims',
+    }) : undefined,
   }).limit(100).orderBy('date', 'desc').get()
 
   // exact match BY law
@@ -101,6 +109,10 @@ exports.main = async (event, context) => {
     }) : undefined,
     caseNumber: provinceRegex ? db.RegExp({
       regexp: provinceRegex,
+      options: 'ims',
+    }) : undefined,
+    courtName: courtNameRegex ?  db.RegExp({
+      regexp: courtNameRegex,
       options: 'ims',
     }) : undefined,
   }).limit(100).orderBy('date', 'desc').get()

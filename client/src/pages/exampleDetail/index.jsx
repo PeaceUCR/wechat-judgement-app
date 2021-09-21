@@ -65,14 +65,28 @@ export default class ExampleDetail extends Component {
           success: (res2) => {
 
             const detail2 = res2.data[0]
-            let example
-            if (detail1) {
-              example = detail1
-            }
-            if (detail2) {
-              example = detail2
-            }
-            that.setState({example: example ? example: undefined, isExampleLoading: false, type, id});
+            db.collection('criminal-case-detail-3').where({rowKey: id}).get({
+              success: (res3) => {
+
+                const detail3 = res3.data[0]
+                let example
+                if (detail1) {
+                  example = detail1
+                }
+                if (detail2) {
+                  example = detail2
+                }
+                if (detail3) {
+                  example = detail3
+                }
+                that.setState({example: example ? example: undefined, isExampleLoading: false, type, id});
+              },
+              fail: () => {
+                console.log('fail')
+                that.setState({isExampleLoading: false})
+              }
+            });
+
           },
           fail: () => {
             console.log('fail')
@@ -137,6 +151,8 @@ export default class ExampleDetail extends Component {
   renderExample = () => {
     const {brief, example, keyword, zoomIn} = this.state;
     const {textHead, textPartner, textMain, textReason, textDecide, textJudge} = example;
+    const {opinion} = brief
+    console.log('isEqual?', opinion === textReason)
     // if (title) {
     //   Taro.setNavigationBarTitle({title: title})
     // }

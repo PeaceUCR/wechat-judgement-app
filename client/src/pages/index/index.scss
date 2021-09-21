@@ -112,7 +112,7 @@
   height: 520px;
 }
 .icon-line {
-  margin: 50px 0px 10px 20px;
+  margin: 40px 0px 10px 20px;
   font-size: 36px;
   display: flex;
   justify-content: flex-start;
@@ -124,6 +124,9 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  .at-input {
+    padding: 10px 0;
   }
 }
 
@@ -159,3 +162,5 @@
   z-index: 2000;
   background: rgba(0,0,0,0.6);
 }
+
+

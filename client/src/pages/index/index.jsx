@@ -154,13 +154,18 @@ export default class Index extends Component {
       number: value
     })
   }
+  handleProvinceChange = (value) => {
+    this.setState({
+      province: value
+    })
+  }
   renderSearchCriteria = () => {
     const {law, number, selectedCriminalKeywords, province} = this.state
     return <View>
       <Picker mode='selector' range={lawOptions} onChange={this.selectLaw}>
         <AtList>
           <AtListItem
-            title='法律'
+            title='类型'
             extraText={getLawChnName(law)}
           />
         </AtList>
@@ -177,7 +182,7 @@ export default class Index extends Component {
         <View>
           <AtInput
             type='text'
-            placeholder='  或者输入数字序号,比如264'
+            placeholder='  或输入法条数字序号,如264'
             value={number}
             onChange={this.handleInputNumber}
           />
@@ -192,34 +197,37 @@ export default class Index extends Component {
           </AtBadge>
           <View className='text'>{selectedCriminalKeywords.length > 0 ? selectedCriminalKeywords.join(',') : '关键词'}</View>
         </View>
-        <View className='icon-line' onClick={() => {
-          const that = this
-          Taro.getLocation({
-            success(res) {
-              console.log(res)
-              const {latitude, longitude} = res
-              Taro.request({
-                url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=4POBZ-YEXYD-NPQ4R-PNZJ4-3XEE5-FFBXF`,
-                method: 'get',
-                success: function (r) {
-                  console.log(r)
-                  const {data} = r
-                  const {result} = data
-                  const {address_component} = result
-                  const {province} = address_component
-                  that.setState({
-                    province:province
-                  })
-                }
-              })
+        <View className='icon-line'>
+          <AtIcon value='map-pin' size='26' color='#b35900' onClick={() => {
+            const that = this
+            Taro.getLocation({
+              success(res) {
+                console.log(res)
+                const {latitude, longitude} = res
+                Taro.request({
+                  url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=4POBZ-YEXYD-NPQ4R-PNZJ4-3XEE5-FFBXF`,
+                  method: 'get',
+                  success: function (r) {
+                    console.log(r)
+                    const {data} = r
+                    const {result} = data
+                    const {address_component} = result
+                    const {province} = address_component
+                    that.setState({
+                      province:province
+                    })
+                  }
+                })
 
-            }
-          })
-        }
-        }
-        >
-          <AtIcon value='map-pin' size='24' color='rgba(0,0,0)'></AtIcon>
-          <View className='text'>位置{`${province ? ':' + province : ''}`}</View>
+              }
+            })
+          }}></AtIcon>
+          <AtInput
+            type='text'
+            placeholder='位置'
+            value={province}
+            onChange={this.handleProvinceChange}
+          />
         </View>
       </View>}
       {law === 'civil' && <Picker mode='selector' range={civilLawOptions} onChange={this.selectCivilNumber}>
@@ -476,7 +484,7 @@ export default class Index extends Component {
             })}
           </View>
         </AtActionSheet>
-        {enableMainAd && resultList && resultList.length === 0 && <View className='ad-bottom'>
+        {enableMainAd && resultList && resultList.length === 0 && !isMenuOpened && <View className='ad-bottom'>
           <ad unit-id="adunit-0320f67c0e860e36"></ad>
         </View>}
       </View>
