@@ -238,10 +238,10 @@ export default class ExampleDetail extends Component {
   }
 
   renderLink = () => {
-    const {brief} = this.state
+    const {id} = this.state
     return (<View className='link' onClick={() => {
       Taro.setClipboardData({
-        data: `https://wenshu.court.gov.cn/website/wenshu/181107ANFZ0BXSK4/index.html?docId=${brief.rowkey}`,
+        data: `https://wenshu.court.gov.cn/website/wenshu/181107ANFZ0BXSK4/index.html?docId=${id}`,
         success: function () {
           Taro.showToast({
             title: `裁判文书网链接已复制`,
@@ -294,9 +294,9 @@ export default class ExampleDetail extends Component {
           <View>
             {!isExampleLoading && !isBriefLoading && example && this.renderExample()}
           </View>
-          {!isExampleLoading && !isBriefLoading && !example && this.renderNoData()}
+          {((!isExampleLoading && !isBriefLoading && !example) || type === 'civil') && this.renderNoData()}
           {this.renderLink()}
-          {(isBriefLoading || isExampleLoading || isLoading) && <Loading2 />}
+          {(isBriefLoading || isExampleLoading || isLoading) && type !== 'civil' && <Loading2 />}
           {!isExampleLoading && !isBriefLoading && <AtDivider content='没有更多了' fontColor='#666' lineColor='transparent' />}
 
           <View className='back-to-top' onClick={() => {

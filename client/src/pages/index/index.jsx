@@ -165,11 +165,13 @@ export default class Index extends Component {
       number: value
     })
   }
+
   handleProvinceChange = (value) => {
     this.setState({
       province: value
     })
   }
+
   renderSearchCriteria = () => {
     const {law, number, selectedCriminalKeywords, province} = this.state
     return <View>
@@ -272,6 +274,9 @@ export default class Index extends Component {
         return ;
       }
     }
+    if (law === 'civil') {
+      return that.searchCivil()
+    }
     this.setState({
       showLoading: true
     })
@@ -310,7 +315,49 @@ export default class Index extends Component {
         })
       }
     })
+  }
 
+  searchCivil = () => {
+    const that = this;
+    const  { law, number, searchValue, selectedCriminalKeywords, province } = this.state;
+    this.setState({
+      showLoading: true
+    })
+    Taro.cloud.callFunction({
+      name: 'searchCivilExamples',
+      data: {
+        law,
+        number,
+        searchValue,
+        selectedCriminalKeywords,
+        province
+      },
+      complete: (r) => {
+        console.log(r)
+        if (r && r.result && r.result.data && r.result.data.length > 0) {
+          that.setState({
+            resultList: r.result.data
+          })
+          Taro.showToast({
+            title: `仅显示前100个结果!`,
+            icon: 'none',
+            duration: 4000
+          })
+        } else {
+          Taro.showToast({
+            title: `未找到,可能是还未收录,敬请期待!`,
+            icon: 'none',
+            duration: 6000
+          })
+          that.setState({
+            resultList: []
+          })
+        }
+        that.setState({
+          showLoading: false
+        })
+      }
+    })
   }
 
   handleClose = () => {
@@ -354,7 +401,7 @@ export default class Index extends Component {
   }
 
   renderResults = () => {
-    const {resultList, searchValue, selectedCriminalKeywords} = this.state
+    const {law, resultList, searchValue, selectedCriminalKeywords} = this.state
     let keyword
     if (selectedCriminalKeywords && selectedCriminalKeywords.length > 0) {
       if (searchValue) {
@@ -377,20 +424,10 @@ export default class Index extends Component {
             caseNumber={item.caseNumber}
             redirect={() => {
               Taro.navigateTo({
-                url: `/pages/exampleDetail/index?id=${item.rowkey}&keyword=${keyword}`,
+                url: `/pages/exampleDetail/index?id=${item.rowkey}&type=${law}&keyword=${keyword}`,
               })
               return ;
-              // Taro.setClipboardData({
-              //   data: `https://wenshu.court.gov.cn/website/wenshu/181107ANFZ0BXSK4/index.html?docId=${item.rowkey}`,
-              //   success: function () {
-              //     Taro.showToast({
-              //       title: `裁判文书网链接已复制`,
-              //       icon: 'none',
-              //       duration: 2000
-              //     })
-              //   }
-              // });
-              return;
+
             }}
           />
         )
