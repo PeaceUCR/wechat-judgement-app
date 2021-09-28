@@ -85,7 +85,7 @@
   background: #6190E8;
   font-size: 36px;
   font-weight: bold;
-  margin: 0 30px;
+  margin: 0 30px 10px 30px;
   //animation: enabled 4s infinite;
 }
 
@@ -162,5 +162,18 @@
   z-index: 2000;
   background: rgba(0,0,0,0.6);
 }
-
+.float-sofa {
+  z-index: 9;
+  position: fixed;
+  top: 600px;
+  right: 40px;
+  opacity: 1;
+  .at-badge__num {
+    width: 50px;
+  }
+  .law-icon {
+    width: 70px;
+    height: 70px;
+  }
+}
 

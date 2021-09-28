@@ -5,7 +5,18 @@ import UserFloatButton from '../../components/userFloatButton/index.weapp'
 import './index.scss'
 import {db} from "../../util/db";
 import Loading2 from "../../components/loading2/index.weapp";
-import {lawOptions, criminalLawOptions, civilLawOptions, getLawChnName, getLawName, getCriminalLawChnNumber, getCriminalLawNumber, getCivilLawChnNumber, getCivilLawNumber} from "../../util/name";
+import {
+  lawOptions,
+  criminalLawOptions,
+  civilLawOptions,
+  getLawChnName,
+  getLawName,
+  getCriminalLawChnNumber,
+  getCriminalLawNumber,
+  getCivilLawChnNumber,
+  getCivilLawNumber,
+  lawIcon
+} from "../../util/name";
 import GlobalSearchItem from '../../components/globalSearchItem/index.weapp'
 import {getUserAvatar} from "../../util/login";
 
@@ -450,7 +461,7 @@ export default class Index extends Component {
           <AtModalAction>
             <Button className='btn-5' onClick={this.handleClose} >确定</Button>
           </AtModalAction>
-          <View className='search-law' onClick={this.jumpToMiniProgram}>去搜法搜更多法律知识</View>
+          {/*<View className='search-law' onClick={this.jumpToMiniProgram}>去搜法搜更多法律知识</View>*/}
         </AtModal>
         {!isNewUser && this.renderUserFloatButton()}
         {showLoading && <Loading2 />}
@@ -466,6 +477,17 @@ export default class Index extends Component {
         >
           <AtBadge value='帮助'>
             <AtIcon value='help' size='26' color='rgba(0,0,0, 0.6)'></AtIcon>
+          </AtBadge>
+        </View>
+
+        <View className='float-sofa' onClick={this.jumpToMiniProgram}
+        >
+          <AtBadge value='搜法'>
+            <Image
+              src={lawIcon}
+              className='law-icon'
+              mode='widthFix'
+            />
           </AtBadge>
         </View>
 
