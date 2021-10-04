@@ -78,10 +78,9 @@ exports.main = async (event, context) => {
 
   if (selectedCriminalKeywords && selectedCriminalKeywords.length > 0) {
     tags = selectedCriminalKeywords
-  } else {
-    if (searchValue && searchValue.trim()) {
-      regexpString = `.*${searchValue}`
-    }
+  }
+  if (searchValue && searchValue.trim()) {
+    regexpString = `.*${searchValue}`
   }
   console.log('regexpString:', regexpString)
   const dbName = 'civil-case'
