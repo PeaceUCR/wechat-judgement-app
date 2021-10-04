@@ -43,6 +43,7 @@ exports.main = async (event, context) => {
   console.log(event)
   const wxContext = cloud.getWXContext();
   const db = cloud.database()
+  const _ = db.command
 
   const {
     law,
@@ -52,17 +53,17 @@ exports.main = async (event, context) => {
     province
   } = event
 
-  await db.collection("search-history").add({
-    data: {
-      openId: wxContext.OPENID,
-      law,
-      number,
-      searchValue,
-      selectedCriminalKeywords,
-      province,
-      time: new Date()
-    }
-  })
+  // await db.collection("search-history").add({
+  //   data: {
+  //     openId: wxContext.OPENID,
+  //     law,
+  //     number,
+  //     searchValue,
+  //     selectedCriminalKeywords,
+  //     province,
+  //     time: new Date()
+  //   }
+  // })
 
   let provinceRegex, courtNameRegex
   if (province) {
@@ -73,31 +74,22 @@ exports.main = async (event, context) => {
     }
   }
 
-  let regexpString
+  let regexpString, tags
 
   if (selectedCriminalKeywords && selectedCriminalKeywords.length > 0) {
-    if (searchValue && searchValue.trim()) {
-      const finalKeywords = [...selectedCriminalKeywords, searchValue].filter(s => s)
-      let joined = ''
-      finalKeywords.forEach(key => joined = joined + `(?=.*${key})`)
-      regexpString = `.*${joined}`
-    } else {
-      const finalKeywords = [...selectedCriminalKeywords].filter(s => s)
-      let joined = ''
-      finalKeywords.forEach(key => joined = joined + `(?=.*${key})`)
-      regexpString = `.*${joined}`
-    }
+    tags = selectedCriminalKeywords
   } else {
     if (searchValue && searchValue.trim()) {
       regexpString = `.*${searchValue}`
     }
   }
   console.log('regexpString:', regexpString)
-  const dbName = law === 'criminal' ? 'criminal-case' : ''
+  const dbName = 'criminal-case'
 
   // match By own criminal law
   const resultMatchByCriminalLaw = await db.collection(dbName).where({
     criminalLaw: number.toString(),
+    tags: tags ? _.all(tags) : undefined,
     opinion: regexpString ? db.RegExp({
       regexp: regexpString,
       options: 'ims',
@@ -115,6 +107,7 @@ exports.main = async (event, context) => {
   // exact match BY law
   const resultMatchByLaw = await db.collection(dbName).where({
     law: parseInt(number),
+    tags: tags ? _.all(tags) : undefined,
     opinion: regexpString ? db.RegExp({
       regexp: regexpString,
       options: 'ims',
