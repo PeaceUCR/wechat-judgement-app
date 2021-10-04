@@ -43,6 +43,7 @@ exports.main = async (event, context) => {
   console.log(event)
   const wxContext = cloud.getWXContext();
   const db = cloud.database()
+  const _ = db.command
 
   const {
     law,
@@ -52,17 +53,17 @@ exports.main = async (event, context) => {
     province
   } = event
 
-  await db.collection("search-history").add({
-    data: {
-      openId: wxContext.OPENID,
-      law,
-      number,
-      searchValue,
-      selectedCriminalKeywords,
-      province,
-      time: new Date()
-    }
-  })
+  // await db.collection("search-history").add({
+  //   data: {
+  //     openId: wxContext.OPENID,
+  //     law,
+  //     number,
+  //     searchValue,
+  //     selectedCriminalKeywords,
+  //     province,
+  //     time: new Date()
+  //   }
+  // })
 
   let provinceRegex, courtNameRegex
   if (province) {
@@ -73,31 +74,22 @@ exports.main = async (event, context) => {
     }
   }
 
-  let regexpString
+  let regexpString, tags
 
   if (selectedCriminalKeywords && selectedCriminalKeywords.length > 0) {
-    if (searchValue && searchValue.trim()) {
-      const finalKeywords = [...selectedCriminalKeywords, searchValue].filter(s => s)
-      let joined = ''
-      finalKeywords.forEach(key => joined = joined + `(?=.*${key})`)
-      regexpString = `.*${joined}`
-    } else {
-      const finalKeywords = [...selectedCriminalKeywords].filter(s => s)
-      let joined = ''
-      finalKeywords.forEach(key => joined = joined + `(?=.*${key})`)
-      regexpString = `.*${joined}`
-    }
+    tags = selectedCriminalKeywords
   } else {
     if (searchValue && searchValue.trim()) {
       regexpString = `.*${searchValue}`
     }
   }
   console.log('regexpString:', regexpString)
-  const dbName = law === 'criminal' ? 'criminal-case' : 'civil-case'
+  const dbName = 'civil-case'
 
   // match By own law
-  const resultMatchByLaw = await db.collection(dbName).where({
-    law: number ? parseInt(number) : undefined,
+  return await db.collection(dbName).where({
+    laws: number ? parseInt(number) : undefined,
+    tags: _.all(tags),
     opinion: regexpString ? db.RegExp({
       regexp: regexpString,
       options: 'ims',
@@ -113,10 +105,10 @@ exports.main = async (event, context) => {
   }).limit(100).orderBy('date', 'desc').get()
 
 
-  const all = [...resultMatchByLaw.data]
+  // const all = [...resultMatchByLaw.data]
 
-  const removeDuplicates = all.filter((v,i,a)=>a.findIndex(t=>(t.rowkey === v.rowkey))===i)
+  // const removeDuplicates = all.filter((v,i,a)=>a.findIndex(t=>(t.rowkey === v.rowkey))===i)
 
-  return  {data: removeDuplicates};
+  // return  {data: removeDuplicates};
 
 }
