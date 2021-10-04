@@ -89,7 +89,7 @@ exports.main = async (event, context) => {
   // match By own law
   return await db.collection(dbName).where({
     laws: number ? parseInt(number) : undefined,
-    tags: _.all(tags),
+    tags: tags ? _.all(tags) : undefined,
     opinion: regexpString ? db.RegExp({
       regexp: regexpString,
       options: 'ims',
