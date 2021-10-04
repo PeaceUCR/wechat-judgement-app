@@ -52,6 +52,18 @@ exports.main = async (event, context) => {
     province
   } = event
 
+  await db.collection("search-history").add({
+    data: {
+      openId: wxContext.OPENID,
+      law,
+      number,
+      searchValue,
+      selectedCriminalKeywords,
+      province,
+      time: new Date()
+    }
+  })
+
   let provinceRegex, courtNameRegex
   if (province) {
     if (provinceMap[province]) {
@@ -85,7 +97,7 @@ exports.main = async (event, context) => {
 
   // match By own law
   const resultMatchByLaw = await db.collection(dbName).where({
-    law: parseInt(number),
+    law: number ? parseInt(number) : undefined,
     opinion: regexpString ? db.RegExp({
       regexp: regexpString,
       options: 'ims',

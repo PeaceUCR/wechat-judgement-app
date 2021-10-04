@@ -1,5 +1,5 @@
 import Taro, { Component, getStorageSync } from '@tarojs/taro'
-import {View,Input, Button, Image} from '@tarojs/components'
+import {View, Button, Image} from '@tarojs/components'
 import {AtIcon, AtBadge, AtDivider, AtModal,AtModalHeader, AtModalContent,AtModalAction} from "taro-ui";
 import { db } from '../../util/db'
 import TextSection from '../../components/textSection/index.weapp'
@@ -10,7 +10,6 @@ import {DiscussionArea} from "../../components/discussionArea/index.weapp";
 import {convertNumberToChinese} from "../../util/convertNumber"
 import {lawIcon} from "../../util/name"
 import Loading2 from "../../components/loading2/index.weapp";
-
 
 export default class ExampleDetail extends Component {
 
@@ -37,68 +36,135 @@ export default class ExampleDetail extends Component {
     const that = this;
     let { id, type, keyword } = this.$router.params;
 
-    db.collection('criminal-case').where({rowkey: id}).get({
-      success: (res) => {
-        let  highlighted
-        if (keyword) {
-          highlighted = keyword;
-        } else {
-          const {criminalLaw} = res.data[0];
-          if (criminalLaw) {
-            highlighted = convertNumberToChinese(parseInt(criminalLaw))
+    if (type === 'criminal') {
+      db.collection('criminal-case').where({rowkey: id}).get({
+        success: (res) => {
+          let  highlighted
+          if (keyword) {
+            highlighted = keyword;
+          } else {
+            const {criminalLaw} = res.data[0];
+            if (criminalLaw) {
+              highlighted = convertNumberToChinese(parseInt(criminalLaw))
+            }
           }
+
+          that.setState({brief: res.data[0], keyword: highlighted, isBriefLoading: false, type, id});
+        },
+        fail: () => {
+          console.log('fail')
+          that.setState({isBriefLoading: false})
         }
+      });
 
-        that.setState({brief: res.data[0], keyword: highlighted, isBriefLoading: false, type, id});
-      },
-      fail: () => {
-        console.log('fail')
-        that.setState({isBriefLoading: false})
-      }
-    });
+      db.collection('criminal-case-detail').where({rowKey: id}).get({
+        success: (res1) => {
+          const detail1 = res1.data[0]
 
-    db.collection('criminal-case-detail').where({rowKey: id}).get({
-      success: (res1) => {
-        const detail1 = res1.data[0]
+          db.collection('criminal-case-detail-2').where({rowKey: id}).get({
+            success: (res2) => {
 
-        db.collection('criminal-case-detail-2').where({rowKey: id}).get({
-          success: (res2) => {
+              const detail2 = res2.data[0]
+              db.collection('criminal-case-detail-3').where({rowKey: id}).get({
+                success: (res3) => {
 
-            const detail2 = res2.data[0]
-            db.collection('criminal-case-detail-3').where({rowKey: id}).get({
-              success: (res3) => {
-
-                const detail3 = res3.data[0]
-                let example
-                if (detail1) {
-                  example = detail1
+                  const detail3 = res3.data[0]
+                  let example
+                  if (detail1) {
+                    example = detail1
+                  }
+                  if (detail2) {
+                    example = detail2
+                  }
+                  if (detail3) {
+                    example = detail3
+                  }
+                  that.setState({example: example ? example: undefined, isExampleLoading: false, type, id});
+                },
+                fail: () => {
+                  console.log('fail')
+                  that.setState({isExampleLoading: false})
                 }
-                if (detail2) {
-                  example = detail2
-                }
-                if (detail3) {
-                  example = detail3
-                }
-                that.setState({example: example ? example: undefined, isExampleLoading: false, type, id});
-              },
-              fail: () => {
-                console.log('fail')
-                that.setState({isExampleLoading: false})
-              }
-            });
+              });
 
-          },
-          fail: () => {
-            console.log('fail')
-            that.setState({isExampleLoading: false})
+            },
+            fail: () => {
+              console.log('fail')
+              that.setState({isExampleLoading: false})
+            }
+          });
+        },
+        fail: () => {
+          console.log('fail')
+          that.setState({isExampleLoading: false})
+        }
+      });
+
+    } else if (type === 'civil') {
+      db.collection('civil-case').where({rowkey: id}).get({
+        success: (res) => {
+          let  highlighted
+          if (keyword) {
+            highlighted = keyword;
+          } else {
+            const {criminalLaw} = res.data[0];
+            if (criminalLaw) {
+              highlighted = convertNumberToChinese(parseInt(criminalLaw))
+            }
           }
-        });
-      },
-      fail: () => {
-        console.log('fail')
-        that.setState({isExampleLoading: false})
-      }
-    });
+
+          that.setState({brief: res.data[0], keyword: highlighted, isBriefLoading: false, type, id});
+        },
+        fail: () => {
+          console.log('fail')
+          that.setState({isBriefLoading: false})
+        }
+      });
+
+      db.collection('civil-case-detail').where({rowKey: id}).get({
+        success: (res1) => {
+          const detail1 = res1.data[0]
+
+          db.collection('civil-case-detail-2').where({rowKey: id}).get({
+            success: (res2) => {
+
+              const detail2 = res2.data[0]
+              db.collection('civil-case-detail-3').where({rowKey: id}).get({
+                success: (res3) => {
+
+                  const detail3 = res3.data[0]
+                  let example
+                  if (detail1) {
+                    example = detail1
+                  }
+                  if (detail2) {
+                    example = detail2
+                  }
+                  if (detail3) {
+                    example = detail3
+                  }
+                  that.setState({example: example ? example: undefined, isExampleLoading: false, type, id});
+                },
+                fail: () => {
+                  console.log('fail')
+                  that.setState({isExampleLoading: false})
+                }
+              });
+
+            },
+            fail: () => {
+              console.log('fail')
+              that.setState({isExampleLoading: false})
+            }
+          });
+        },
+        fail: () => {
+          console.log('fail')
+          that.setState({isExampleLoading: false})
+        }
+      });
+
+    }
 
     Taro.cloud.callFunction({
       name: 'isCollected',
@@ -147,21 +213,18 @@ export default class ExampleDetail extends Component {
 
   componentDidHide () { }
 
-
   renderExample = () => {
     const {brief, example, keyword, zoomIn} = this.state;
     const {textHead, textPartner, textMain, textReason, textDecide, textJudge} = example;
     const {opinion} = brief
     console.log('isEqual?', opinion === textReason)
-    // if (title) {
-    //   Taro.setNavigationBarTitle({title: title})
-    // }
+    // use opinion instead of textReason to reduce the size
     return (<View>
       <View className='term-complement-title'>{brief.title}</View>
       <TextSection data={textHead} keyword={keyword} zoomIn={zoomIn} isTitle />
       <TextSection data={textPartner} keyword={keyword} zoomIn={zoomIn} />
       <TextSection data={textMain} keyword={keyword} zoomIn={zoomIn} />
-      <TextSection data={textReason} keyword={keyword} zoomIn={zoomIn} />
+      <TextSection data={opinion} keyword={keyword} zoomIn={zoomIn} />
       <TextSection data={textDecide} keyword={keyword} zoomIn={zoomIn} />
       <TextSection data={textJudge} keyword={keyword} zoomIn={zoomIn} />
     </View>)
@@ -250,7 +313,8 @@ export default class ExampleDetail extends Component {
           })
         }
       });
-    }} >
+    }}
+    >
       裁判文书原文链接
     </View>)
   }
@@ -269,6 +333,7 @@ export default class ExampleDetail extends Component {
       path: redirectStr
     });
   }
+
   renderRelatedLaw = () => {
     const {brief} = this.state
     const lawList = brief.criminalLaw.split(',')
@@ -287,9 +352,9 @@ export default class ExampleDetail extends Component {
   }
 
   render () {
-    const { example, brief, zoomIn,  isReadMode, isBriefLoading, isExampleLoading, isLoading, isCollected, type, showRelatedLaw} = this.state;
-    return (
-      <View>
+    const { example, brief, zoomIn, isReadMode, isBriefLoading, isExampleLoading,
+      isLoading, isCollected, type, showRelatedLaw} = this.state;
+    return (<View>
         <View className={`example-detail-page ${zoomIn ? 'zoom-in' : ''} ${isReadMode ? 'read-mode' : ''}`}>
           <View>
             {!isExampleLoading && !isBriefLoading && example && this.renderExample()}
@@ -321,8 +386,7 @@ export default class ExampleDetail extends Component {
             </AtBadge>
           </View>
 
-          <View className='float-help' onClick={this.openRelatedLaw}
-          >
+          {type === 'criminal' && <View className='float-help' onClick={this.openRelatedLaw}>
             <AtBadge value='相关法条'>
               <Image
                 src={lawIcon}
@@ -330,7 +394,7 @@ export default class ExampleDetail extends Component {
                 mode='widthFix'
               />
             </AtBadge>
-          </View>
+          </View>}
 
           <AtModal isOpened={showRelatedLaw} closeOnClickOverlay={false}>
             <AtModalHeader>相关法条</AtModalHeader>
@@ -348,7 +412,6 @@ export default class ExampleDetail extends Component {
           </AtModal>
 
         </View>
-      </View>
-    )
+      </View>)
   }
 }
