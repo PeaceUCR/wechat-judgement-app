@@ -287,6 +287,7 @@ export default class Index extends Component {
             Taro.getLocation({
               success(res) {
                 console.log(res)
+                Taro.showLoading()
                 const {latitude, longitude} = res
                 Taro.request({
                   url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=4POBZ-YEXYD-NPQ4R-PNZJ4-3XEE5-FFBXF`,
@@ -300,6 +301,7 @@ export default class Index extends Component {
                     that.setState({
                       province:province
                     })
+                    Taro.hideLoading()
                   }
                 })
 

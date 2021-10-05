@@ -359,9 +359,9 @@ export default class ExampleDetail extends Component {
           <View>
             {!isExampleLoading && !isBriefLoading && example && this.renderExample()}
           </View>
-          {((!isExampleLoading && !isBriefLoading && !example) || type === 'civil') && this.renderNoData()}
+          {(!isExampleLoading && !isBriefLoading && !example) && this.renderNoData()}
           {this.renderLink()}
-          {(isBriefLoading || isExampleLoading || isLoading) && type !== 'civil' && <Loading2 />}
+          {(isBriefLoading || isExampleLoading || isLoading) && <Loading2 />}
           {!isExampleLoading && !isBriefLoading && <AtDivider content='没有更多了' fontColor='#666' lineColor='transparent' />}
 
           <View className='back-to-top' onClick={() => {
