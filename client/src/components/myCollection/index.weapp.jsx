@@ -18,7 +18,7 @@ const MyCollection = (props) => {
           arrow='right'
           onClick={() => {
             Taro.navigateTo({
-              url: `/pages/exampleDetail/index?id=${item.rowKey}`
+              url: `/pages/exampleDetail/index?id=${item.rowKey}&type=${item.type}`
             })
           }}
         />

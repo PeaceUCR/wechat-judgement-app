@@ -94,10 +94,8 @@ export default class User extends Component {
     return (
       <View className={`user-page ${isReadMode ? 'read-mode' : ''}`}>
 
-        {/*<View>*/}
-        {/*  <AtButton type='secondary' onClick={this.handleSubscribe}>点击订阅消息</AtButton>*/}
-        {/*</View>*/}
         <MyCollection collection={collection} />
+        {collection.length === 0 && <View className='no-data'>暂无</View>}
         <View className='float-help' onClick={() => {
           Taro.navigateTo({
             url: '/pages/other/index'

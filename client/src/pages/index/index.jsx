@@ -143,13 +143,6 @@ export default class Index extends Component {
 
   selectLaw = (e) => {
     const law = getLawName(lawOptions[e.detail.value])
-    if (law === 'civil') {
-      Taro.showToast({
-        title: `民法典模块正在收录中,请先使用刑法模块！`,
-        icon: 'none',
-        duration: 6000
-      })
-    }
     this.setState({
       law: law,
       number: '',
@@ -258,7 +251,7 @@ export default class Index extends Component {
         <Picker mode='selector' range={civilLawOptions} onChange={this.selectCivilNumber}>
           <AtList>
             <AtListItem
-              title='法条'
+              title='民法典法条'
               extraText={getCivilLawChnNumber(number)}
             />
           </AtList>
@@ -549,7 +542,7 @@ export default class Index extends Component {
         {/*{this.renderTagLine()}*/}
 
         <AtNoticebar marquee speed={60}>
-          本小程序数据信息均来源于裁判文书网，已收录超过10万份裁判文书，持续开发中...
+          本小程序数据信息均来源于裁判文书网，已收录超过20万份裁判文书，持续开发中...
         </AtNoticebar>
         <AtSearchBar
           placeholder='当前法条下搜索案由'
@@ -564,7 +557,7 @@ export default class Index extends Component {
         {/*<View>law: {law}</View>*/}
         {/*<View>number: {number}</View>*/}
         {/*<View>searchValue: {searchValue}</View>*/}
-        <AtModal isOpened={showSetting} closeOnClickOverlay={false}>
+        <AtModal isOpened={showSetting}>
           <AtModalHeader>我要搜</AtModalHeader>
           <AtModalContent>
             {this.renderSearchCriteria()}

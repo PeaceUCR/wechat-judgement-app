@@ -38,7 +38,7 @@ const UserFloatButton = (props) => {
             setStorageSync('user', r.result.data[0]);
             props.handleLoginSuccess();
             Taro.showToast({
-              title: `欢迎${r.result.data[0].nickName},首次使用点击屏幕右上角的帮助查看使用指南`,
+              title: `欢迎${r.result.data[0].nickName},这里可以看到收藏的裁判文书啦`,
               icon: 'none',
               duration: 8000
             });

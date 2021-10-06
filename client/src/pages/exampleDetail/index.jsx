@@ -333,6 +333,14 @@ export default class ExampleDetail extends Component {
       path: redirectStr
     });
   }
+  jumpToMiniProgramCivil = (law) => {
+    const redirectStr = `/pages/civilLawDetail/index?number=${parseInt(law)}`
+
+    Taro.navigateToMiniProgram({
+      appId: 'wxf6d4249d423ff2a3',
+      path: redirectStr
+    });
+  }
 
   renderRelatedLaw = () => {
     const {brief} = this.state
@@ -346,6 +354,22 @@ export default class ExampleDetail extends Component {
             return this.jumpToMiniProgram(law)
           }}
         >{`刑法${convertNumberToChinese(parseInt(law))}`}</View>
+      ))}
+    </View>)
+
+  }
+  renderRelatedCivilLaw = () => {
+    const {brief} = this.state
+    const {laws} = brief
+    return (<View>
+      {laws.map(law => (
+        <View
+          className='related-law-link'
+          key={law}
+          onClick={() => {
+            return this.jumpToMiniProgramCivil(law)
+          }}
+        >{`民法典${convertNumberToChinese(parseInt(law))}`}</View>
       ))}
     </View>)
 
@@ -386,6 +410,15 @@ export default class ExampleDetail extends Component {
             </AtBadge>
           </View>
 
+          <View className='float-help' onClick={this.openRelatedLaw}>
+            <AtBadge value='相关法条'>
+              <Image
+                src={lawIcon}
+                className='law-icon'
+                mode='widthFix'
+              />
+            </AtBadge>
+          </View>
           {type === 'criminal' && <View className='float-help' onClick={this.openRelatedLaw}>
             <AtBadge value='相关法条'>
               <Image
@@ -399,7 +432,8 @@ export default class ExampleDetail extends Component {
           <AtModal isOpened={showRelatedLaw} closeOnClickOverlay={false}>
             <AtModalHeader>相关法条</AtModalHeader>
             <AtModalContent>
-              {brief && brief.criminalLaw && this.renderRelatedLaw()}
+              {type === 'criminal' && brief && brief.criminalLaw && this.renderRelatedLaw()}
+              {type === 'civil' && brief && brief.laws && brief.laws.length > 0 && this.renderRelatedCivilLaw()}
             </AtModalContent>
             <AtModalAction>
               <Button onClick={() => {
