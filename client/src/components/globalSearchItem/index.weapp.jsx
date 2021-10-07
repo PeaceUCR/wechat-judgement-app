@@ -2,7 +2,6 @@ import Taro from '@tarojs/taro'
 import {AtIcon} from "taro-ui";
 import {Text, View, Image} from "@tarojs/components";
 import './index.scss'
-import {rightArrowIcon} from'../../util/util'
 
 const GlobalSearchItem = (props) => {
   let {text, title, date, caseNumber, courtName, redirect} = props;

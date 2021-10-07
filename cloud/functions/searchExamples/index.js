@@ -88,7 +88,7 @@ exports.main = async (event, context) => {
 
   // match By own criminal law
   const resultMatchByCriminalLaw = await db.collection(dbName).where({
-    criminalLaw: number.toString(),
+    criminalLaw: number ? number.toString() : undefined,
     tags: tags ? _.all(tags) : undefined,
     opinion: regexpString ? db.RegExp({
       regexp: regexpString,
@@ -106,7 +106,7 @@ exports.main = async (event, context) => {
 
   // exact match BY law
   const resultMatchByLaw = await db.collection(dbName).where({
-    law: parseInt(number),
+    law: number ? parseInt(number): undefined,
     tags: tags ? _.all(tags) : undefined,
     opinion: regexpString ? db.RegExp({
       regexp: regexpString,

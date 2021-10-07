@@ -619,7 +619,7 @@ export default class Index extends Component {
         {/*<View>law: {law}</View>*/}
         {/*<View>number: {number}</View>*/}
         {/*<View>searchValue: {searchValue}</View>*/}
-        <AtModal isOpened={showSetting}>
+        <AtModal isOpened={showSetting} closeOnClickOverlay={false}>
           <AtModalHeader>我要搜</AtModalHeader>
           <AtModalContent>
             {this.renderSearchCriteria()}
