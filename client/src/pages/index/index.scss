@@ -114,7 +114,7 @@
 }
 
 .at-modal__content {
-  height: 520px;
+  height: 620px;
 }
 .icon-line {
   margin: 40px 0px 10px 20px;
@@ -156,7 +156,7 @@
   background: rgba(0,0,0,0.1);
 }
 .at-modal__container {
-  top: 42%;
+  top: 38%;
 }
 
 .ad-bottom {
@@ -182,3 +182,25 @@
   }
 }
 
+.at-drawer {
+  z-index: 99999;
+  .at-drawer__content {
+    box-sizing: border-box;
+    width: 80vw;
+    padding-top: 100px;
+    .at-accordion {
+      max-width: 92%;
+      .at-accordion__info {
+        max-width: 100%;
+      }
+    }
+    .cause-option {
+      padding: 12px 2px 2px 18px;
+      color: #333333;
+      font-size: 32px;
+      &.active {
+        color: #6190E8;
+      }
+    }
+  }
+}
