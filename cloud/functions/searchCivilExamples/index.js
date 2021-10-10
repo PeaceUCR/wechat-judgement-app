@@ -88,7 +88,7 @@ exports.main = async (event, context) => {
 
   // match By own law
   return await db.collection(dbName).where({
-    laws: number ? parseInt(number) : undefined,
+    civilLaws: number ? parseInt(number) : undefined,
     cause: cause ? cause : undefined,
     tags: tags ? _.all(tags) : undefined,
     opinion: regexpString ? db.RegExp({

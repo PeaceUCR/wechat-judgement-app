@@ -360,9 +360,9 @@ export default class ExampleDetail extends Component {
   }
   renderRelatedCivilLaw = () => {
     const {brief} = this.state
-    const {laws} = brief
+    const {civilLaws} = brief
     return (<View>
-      {laws.map(law => (
+      {civilLaws.map(law => (
         <View
           className='related-law-link'
           key={law}
@@ -372,7 +372,6 @@ export default class ExampleDetail extends Component {
         >{`民法典${convertNumberToChinese(parseInt(law))}`}</View>
       ))}
     </View>)
-
   }
 
   render () {
@@ -410,7 +409,7 @@ export default class ExampleDetail extends Component {
             </AtBadge>
           </View>
 
-          <View className='float-help' onClick={this.openRelatedLaw}>
+          {type === 'civil' && brief && brief.civilLaws && brief.civilLaws.length > 0 && <View className='float-help' onClick={this.openRelatedLaw}>
             <AtBadge value='相关法条'>
               <Image
                 src={lawIcon}
@@ -418,7 +417,8 @@ export default class ExampleDetail extends Component {
                 mode='widthFix'
               />
             </AtBadge>
-          </View>
+          </View>}
+
           {type === 'criminal' && <View className='float-help' onClick={this.openRelatedLaw}>
             <AtBadge value='相关法条'>
               <Image
@@ -433,7 +433,7 @@ export default class ExampleDetail extends Component {
             <AtModalHeader>相关法条</AtModalHeader>
             <AtModalContent>
               {type === 'criminal' && brief && brief.criminalLaw && this.renderRelatedLaw()}
-              {type === 'civil' && brief && brief.laws && brief.laws.length > 0 && this.renderRelatedCivilLaw()}
+              {type === 'civil' && brief && brief.civilLaws && brief.civilLaws.length > 0 && this.renderRelatedCivilLaw()}
             </AtModalContent>
             <AtModalAction>
               <Button onClick={() => {

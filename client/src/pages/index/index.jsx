@@ -201,64 +201,10 @@ export default class Index extends Component {
         </AtList>
       </Picker>
       {law === 'criminal' && <View>
-        <Picker mode='selector' range={criminalLawOptions} onChange={this.selectCriminalNumber}>
-          <AtList>
-            <AtListItem
-              title='法条'
-              extraText={getCriminalLawChnNumber(number)}
-            />
-          </AtList>
-        </Picker>
-        <View>
-          <AtInput
-            type='text'
-            placeholder='  或输入法条数字序号,如264'
-            value={number}
-            onChange={this.handleInputNumber}
-          />
-        </View>
-        <View className='icon-line' onClick={() => {
-          this.setState({
-            isMenuOpened: true
-          })}}
-        >
-          <AtBadge value={selectedCriminalKeywords.length}>
-            <AtIcon value='tags' size='24' color='rgba(0,0,0)'></AtIcon>
-          </AtBadge>
-          <View className='text'>{selectedCriminalKeywords.length > 0 ? selectedCriminalKeywords.join(',') : '关键词'}</View>
-        </View>
-        <View className='icon-line'>
-          <AtIcon value='map-pin' size='26' color='#b35900' onClick={() => {
-            const that = this
-            Taro.getLocation({
-              success(res) {
-                console.log(res)
-                const {latitude, longitude} = res
-                Taro.request({
-                  url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=4POBZ-YEXYD-NPQ4R-PNZJ4-3XEE5-FFBXF`,
-                  method: 'get',
-                  success: function (r) {
-                    console.log(r)
-                    const {data} = r
-                    const {result} = data
-                    const {address_component} = result
-                    const {province} = address_component
-                    that.setState({
-                      province:province
-                    })
-                  }
-                })
-
-              }
-            })
-          }}></AtIcon>
-          <AtInput
-            type='text'
-            placeholder='位置'
-            value={province}
-            onChange={this.handleProvinceChange}
-          />
-        </View>
+        <View className='warning' >注意: 刑事裁判文书已迁移，你可以去</View>
+        <View className='link' onClick={this.jumpToCriminalJudgement}>刑事裁判文书</View>
+        <View className='link' onClick={this.jumpToCriminalConsultant}>刑事审判参考</View>
+        <View className='link' onClick={this.jumpToSofaExample}>(最高法/最高检)指导案例/公报案例</View>
       </View>}
       {law === 'civil' && <View>
         <Picker mode='selector' range={civilLawOptions} onChange={this.selectCivilNumber}>
@@ -342,6 +288,7 @@ export default class Index extends Component {
   onSearch = () => {
     const that = this;
     const  { law, number, searchValue, selectedCriminalKeywords, province } = this.state;
+
     if (law === 'criminal') {
       let intVal = Number(number)
       if (isNaN(intVal) || number < 114 || number > 419) {
@@ -451,6 +398,12 @@ export default class Index extends Component {
 
   handleClose = () => {
     const {law, number} = this.state
+    if (law === 'criminal') {
+      this.setState({
+        showSetting: false
+      })
+      return ;
+    }
     if (!law) {
       Taro.showToast({
         title: `请选法律`,
@@ -536,6 +489,27 @@ export default class Index extends Component {
         path: redirectStr
       });
     }
+  jumpToCriminalJudgement = () => {
+    const redirectStr = `/pages/judgement/index`
+    Taro.navigateToMiniProgram({
+      appId: 'wxf6d4249d423ff2a3',
+      path: redirectStr
+    });
+  }
+  jumpToCriminalConsultant = () => {
+    const redirectStr = `/pages/consultant/index`
+    Taro.navigateToMiniProgram({
+      appId: 'wxf6d4249d423ff2a3',
+      path: redirectStr
+    });
+  }
+  jumpToSofaExample = () => {
+    const redirectStr = `/pages/examples/index`
+    Taro.navigateToMiniProgram({
+      appId: 'wxf6d4249d423ff2a3',
+      path: redirectStr
+    });
+  }
 
   handleMenuClose = () => {
     const {activeKeyMap} = this.state
