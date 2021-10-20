@@ -59,6 +59,9 @@
   top: 280px;
   right: 40px;
   z-index: 102;
+  .at-badge__num {
+    width: 36px;
+  }
   .setting {
     width: 100px;
     height: 100px;
@@ -114,7 +117,12 @@
 }
 
 .at-modal__content {
-  height: 620px;
+  padding: 10px 8px;
+  height: 280px;
+  transition: height 0.6s ease-in-out;
+  &.has-law {
+    height: 700px;
+  }
 }
 .icon-line {
   margin: 40px 0px 10px 20px;
@@ -205,6 +213,7 @@
   }
 }
 .warning {
+  margin-top: 20px;
   color: #b07200;
   font-size: 28px;
 }
@@ -218,3 +227,25 @@
   text-decoration: underline;
   text-decoration-color: #6190E8;
 }
+
+.case-options {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+  .case-option {
+    border: solid 6px #888888;
+    border-radius: 8px;
+    padding: 10px 30px;
+    display: inline-block;
+    color: #555555;
+    &.active {
+      color: #6190E8;
+      border: solid 6px #6190E8;
+    }
+    .option-icon {
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
+

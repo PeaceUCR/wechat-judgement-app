@@ -3,6 +3,11 @@ import {AtIcon} from "taro-ui";
 import {Text, View, Image} from "@tarojs/components";
 import './index.scss'
 
+const types = ['判决书','裁定书','调解书','决定书','通知书']
+const getType = title => {
+  return types.find(t => title && title.indexOf(t) !== -1)
+}
+
 const GlobalSearchItem = (props) => {
   let {text, title, date, caseNumber, courtName, redirect} = props;
   let displayedText = text;
@@ -12,8 +17,10 @@ const GlobalSearchItem = (props) => {
     showDot = true
     displayedText = `${text.substring(0, 100)}${showDot ? '...' : ''}`
   }
+  let type = getType(title)
 
   return (<View className='search-item' onClick={redirect} >
+    {type && <View className='float-type'>{type.substring(0,2)}</View>}
     <View className='line'>
       <View className='law'>{title}</View>
       {/*<Text className='number'>{number}</Text>*/}

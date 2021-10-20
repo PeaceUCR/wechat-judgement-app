@@ -15,7 +15,10 @@ import {
   getCriminalLawNumber,
   getCivilLawChnNumber,
   getCivilLawNumber,
-  lawIcon
+  lawIcon,
+  sortByOpinion,
+  criminalCaseIcon,
+  civilCaseIcon
 } from "../../util/name";
 import GlobalSearchItem from '../../components/globalSearchItem/index.weapp'
 import {getUserAvatar} from "../../util/login";
@@ -189,17 +192,28 @@ export default class Index extends Component {
     })
   }
 
+  renderCaseTypeOption = () => {
+    const {law} = this.state
+    return <View className='case-options'>
+      <View className={law === 'civil' ? 'case-option active' : 'case-option'} onClick={() => this.setState({law: 'civil'})}>
+        <View>
+          <Image src={civilCaseIcon} className='option-icon' mode='widthFix' />
+        </View>
+        <View>民事案件</View>
+      </View>
+      <View className={law === 'criminal' ? 'case-option active' : 'case-option'} onClick={() => this.setState({law: 'criminal'})}>
+        <View>
+          <Image src={criminalCaseIcon} className='option-icon' mode='widthFix' />
+        </View>
+        <View>刑事案件</View>
+      </View>
+    </View>
+  }
+
   renderSearchCriteria = () => {
     const {law, number, selectedCriminalKeywords, province, cause} = this.state
     return <View>
-      <Picker mode='selector' range={lawOptions} onChange={this.selectLaw}>
-        <AtList>
-          <AtListItem
-            title='类型'
-            extraText={getLawChnName(law)}
-          />
-        </AtList>
-      </Picker>
+      {this.renderCaseTypeOption()}
       {law === 'criminal' && <View>
         <View className='warning' >注意: 刑事裁判文书已迁移，你可以去</View>
         <View className='link' onClick={this.jumpToCriminalJudgement}>刑事裁判文书</View>
@@ -210,7 +224,7 @@ export default class Index extends Component {
         <Picker mode='selector' range={civilLawOptions} onChange={this.selectCivilNumber}>
           <AtList>
             <AtListItem
-              title='民法典法条'
+              title='👉民法典法条'
               extraText={getCivilLawChnNumber(number)}
             />
           </AtList>
@@ -319,7 +333,7 @@ export default class Index extends Component {
         console.log(r)
         if (r && r.result && r.result.data && r.result.data.length > 0) {
           that.setState({
-            resultList: r.result.data
+            resultList: sortByOpinion(r.result.data)
           })
           Taro.showToast({
             title: `仅显示前100个结果!`,
@@ -364,7 +378,7 @@ export default class Index extends Component {
           console.log(r)
           if (r && r.result && r.result.data && r.result.data.length > 0) {
             that.setState({
-              resultList: r.result.data
+              resultList: sortByOpinion(r.result.data)
             })
             Taro.showToast({
               title: `仅显示前100个结果!`,
@@ -406,7 +420,7 @@ export default class Index extends Component {
     }
     if (!law) {
       Taro.showToast({
-        title: `请选法律`,
+        title: `请选案件类型`,
         icon: 'none',
         duration: 3000
       })
@@ -595,7 +609,7 @@ export default class Index extends Component {
         {/*<View>searchValue: {searchValue}</View>*/}
         <AtModal isOpened={showSetting} closeOnClickOverlay={false}>
           <AtModalHeader>我要搜</AtModalHeader>
-          <AtModalContent>
+          <AtModalContent className={law ? 'has-law' : ''}>
             {this.renderSearchCriteria()}
           </AtModalContent>
           <AtModalAction>
@@ -619,7 +633,9 @@ export default class Index extends Component {
         {!isNewUser && this.renderUserFloatButton()}
         {showLoading && <Loading2 />}
         <View onClick={this.handleOpen} className='float-setting'>
-          <Image src={settingIcon} className='setting' mode='widthFix' />
+          <AtBadge value='检索条件'>
+            <Image src={settingIcon} className='setting' mode='widthFix' />
+          </AtBadge>
         </View>
 
         <View className={`${hasVisit ? '' : 'focus'} float-help`} onClick={() => {

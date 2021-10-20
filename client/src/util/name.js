@@ -59,3 +59,14 @@ export const getCivilLawNumber = (number) => {
 export const lawOptions = ['民事案件','刑事案件']
 
 export const lawIcon = 'https://mmbiz.qpic.cn/mmbiz_png/6fKEyhdZU90051UhswXRjkOshzDYNqY8lfLugm1vhWlOXZ6HVia3rFPJibhVAdPaNwlaN39FVtOcibVCImf2AMIdw/0?wx_fmt=png'
+
+export const criminalCaseIcon = 'https://mmbiz.qpic.cn/mmbiz_png/6fKEyhdZU90Af9AjYC5UfTekTzibaNaCQMI9Yiao93yQxe6ibibIo6aea41fejXUkP5s4hbzcMCFZgmaaiaDrZ4nRYw/0?wx_fmt=png'
+export const civilCaseIcon = 'https://mmbiz.qpic.cn/mmbiz_png/6fKEyhdZU90Af9AjYC5UfTekTzibaNaCQrL4OQo8ria1LEVRKdtsPI7UvAReQvXS9vveanicmx2KEjIXRtqF3lU8g/0?wx_fmt=png'
+
+export const sortByOpinion = (list) => {
+
+  list.sort((item1, item2) => {
+    return item2.opinion.length - item1.opinion.length
+  })
+  return list
+}

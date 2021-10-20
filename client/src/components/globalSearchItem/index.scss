@@ -9,6 +9,16 @@
   border-bottom: 1px solid lightgray;
   //box-shadow: 0px 0px 20px -1px rgba(199,199,199,1);
 
+  .float-type {
+    position: absolute;
+    top: 0px;
+    right: 8px;
+    font-size: 30px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    transform: rotate(20deg);
+    background: #ccb3ff;
+  }
   .line {
     margin-top: 4px;
     display: flex;
