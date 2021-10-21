@@ -131,19 +131,31 @@ export default class ExampleDetail extends Component {
               const detail2 = res2.data[0]
               db.collection('civil-case-detail-3').where({rowKey: id}).get({
                 success: (res3) => {
-
                   const detail3 = res3.data[0]
-                  let example
-                  if (detail1) {
-                    example = detail1
-                  }
-                  if (detail2) {
-                    example = detail2
-                  }
-                  if (detail3) {
-                    example = detail3
-                  }
-                  that.setState({example: example ? example: undefined, isExampleLoading: false, type, id});
+                  db.collection('civil-case-detail-4').where({rowKey: id}).get({
+                    success: (res4) => {
+                      const detail4 = res4.data[0]
+                      let example
+                      if (detail1) {
+                        example = detail1
+                      }
+                      if (detail2) {
+                        example = detail2
+                      }
+                      if (detail3) {
+                        example = detail3
+                      }
+                      if (detail4) {
+                        example = detail4
+                      }
+                      that.setState({example: example ? example: undefined, isExampleLoading: false, type, id});
+                    },
+                    fail: () => {
+                      console.log('fail')
+                      that.setState({isExampleLoading: false})
+                    }
+                  });
+
                 },
                 fail: () => {
                   console.log('fail')
