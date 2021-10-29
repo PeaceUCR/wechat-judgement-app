@@ -247,8 +247,8 @@ export default class Index extends Component {
             isCauseOpened: true
           })}}
         >
-          <AtIcon value='bookmark' size='26' color='#b35900'></AtIcon>
-          <View className='text'>{cause ? cause : '民事案由'}</View>
+          <AtIcon value='bookmark' size='28' color='#b35900'></AtIcon>
+          <View className='text text-first'>{cause ? cause : '民事案由'}</View>
         </View>
         <View className='icon-line' onClick={() => {
           this.setState({

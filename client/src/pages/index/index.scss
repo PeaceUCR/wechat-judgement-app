@@ -121,7 +121,7 @@
   height: 280px;
   transition: height 0.6s ease-in-out;
   &.has-law {
-    height: 700px;
+    height: 720px;
   }
 }
 .icon-line {
@@ -131,6 +131,10 @@
   justify-content: flex-start;
   align-items: center;
   .text {
+    &.text-first {
+      margin-left: 28px;
+    }
+    font-size: 40px;
     margin-left: 40px;
     color: #666666;
     width: 380px;
@@ -164,7 +168,7 @@
   background: rgba(0,0,0,0.1);
 }
 .at-modal__container {
-  top: 38%;
+  top: 42%;
 }
 
 .ad-bottom {
@@ -237,9 +241,9 @@
     border-radius: 8px;
     padding: 10px 30px;
     display: inline-block;
-    color: #555555;
+    color: #000;
     &.active {
-      color: #6190E8;
+      background: #d2e0f9;
       border: solid 6px #6190E8;
     }
     .option-icon {
@@ -253,5 +257,5 @@
   box-sizing: border-box;
   height: 100vh;
   overflow-y: scroll;
-
 }
+
