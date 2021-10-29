@@ -92,7 +92,7 @@ export default class User extends Component {
   render () {
     const {isLoading, isReadMode, collection} = this.state;
     return (
-      <View className={`user-page ${isReadMode ? 'read-mode' : ''}`}>
+      <View className={`user-page page ${isReadMode ? 'read-mode' : ''}`}>
 
         <MyCollection collection={collection} />
         {collection.length === 0 && <View className='no-data'>暂无</View>}

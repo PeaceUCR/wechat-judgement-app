@@ -34,7 +34,7 @@ export default class Other extends Component {
   render () {
     const {helpeUrl} = this.state
     return (
-      <View className='other-page'>
+      <View className='other-page page'>
         <WebView src={helpeUrl} />
       </View>
     )

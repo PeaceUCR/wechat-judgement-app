@@ -45,7 +45,7 @@ exports.main = async (event, context) => {
   const db = cloud.database()
   const _ = db.command
 
-  const {
+  let {
     law,
     number,
     cause,
@@ -54,6 +54,12 @@ exports.main = async (event, context) => {
     province
   } = event
 
+  if (number === 'undefined') {
+    number = undefined
+  }
+  if (searchValue === 'undefined') {
+    searchValue = undefined
+  }
   // await db.collection("search-history").add({
   //   data: {
   //     openId: wxContext.OPENID,

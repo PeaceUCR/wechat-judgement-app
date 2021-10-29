@@ -72,8 +72,13 @@ export default class Index extends Component {
 
   onShareAppMessage() {
     const {law, number, searchValue} = this.state;
+    if (law) {
+      return {
+        path: `/pages/index/index?law=${law ? law : ''}&number=${number ? number : ''}&searchValue=${searchValue ? searchValue : ''}`
+      };
+    }
     return {
-      path: `/pages/index/index?law=${law}&number=${number}&searchValue=${searchValue}`
+      path: '/pages/index/index'
     };
   }
 
@@ -83,9 +88,9 @@ export default class Index extends Component {
       userOpenId,
       userName,
       userAvatar,
-      law,
-      number,
-      searchValue
+      law: law && law !== 'undefined' ? law : '',
+      number: isNaN(parseInt(number)) ? '' : parseInt(number),
+      searchValue: searchValue && searchValue !== 'undefined' ? searchValue : ''
     })
     const that = this
     db.collection('configuration').where({}).get({
@@ -588,7 +593,7 @@ export default class Index extends Component {
     const {isNewUser, isReadMode, law, number, searchValue, showSetting, showLoading,isMenuOpened, activeKeyMap, selectedCriminalKeywords, enableMainAd, resultList,
     hasVisit, isCauseOpened} = this.state;
     return (
-      <View className={`index-page ${isReadMode ? 'read-mode' : ''}`}>
+      <View className={`index-page page ${isReadMode ? 'read-mode' : ''}`}>
         {/*{this.renderTagLine()}*/}
 
         <AtNoticebar marquee speed={60}>

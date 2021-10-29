@@ -1,5 +1,5 @@
 import Taro, { Component, getStorageSync } from '@tarojs/taro'
-import {View, Button, Image} from '@tarojs/components'
+import {View, Button, Image, Text} from '@tarojs/components'
 import {AtIcon, AtBadge, AtDivider, AtModal,AtModalHeader, AtModalContent,AtModalAction} from "taro-ui";
 import { db } from '../../util/db'
 import TextSection from '../../components/textSection/index.weapp'
@@ -375,13 +375,17 @@ export default class ExampleDetail extends Component {
     const {civilLaws} = brief
     return (<View>
       {civilLaws.map(law => (
+
         <View
           className='related-law-link'
           key={law}
           onClick={() => {
             return this.jumpToMiniProgramCivil(law)
           }}
-        >{`民法典${convertNumberToChinese(parseInt(law))}`}</View>
+        >
+          <Text>民法典</Text>
+          <Text className='link-text'>{convertNumberToChinese(parseInt(law))}</Text>
+        </View>
       ))}
     </View>)
   }
@@ -390,7 +394,7 @@ export default class ExampleDetail extends Component {
     const { example, brief, zoomIn, isReadMode, isBriefLoading, isExampleLoading,
       isLoading, isCollected, type, showRelatedLaw} = this.state;
     return (<View>
-        <View className={`example-detail-page ${zoomIn ? 'zoom-in' : ''} ${isReadMode ? 'read-mode' : ''}`}>
+        <View className={`example-detail-page page ${zoomIn ? 'zoom-in' : ''} ${isReadMode ? 'read-mode' : ''}`}>
           <View>
             {!isExampleLoading && !isBriefLoading && example && this.renderExample()}
           </View>

@@ -169,14 +169,17 @@
     width: 80px;
   }
 }
-
 .related-law-link {
   font-size: 32px;
-  margin: 10px 6px;
-  color: #6190E8;
-  text-decoration: underline;
-  text-decoration-color: #6190E8;
+  margin: 18px 6px;
+  .link-text {
+    color: #6190E8;
+    text-decoration: underline;
+    text-decoration-color: #6190E8;
+  }
 }
+
+
 .law-icon {
   width: 70px;
   height: 70px;
