@@ -101,6 +101,19 @@ export default class ExampleDetail extends Component {
       });
 
     } else if (type === 'civil') {
+      Taro.cloud.callFunction({
+        name: 'getJudgementDetailFromCloud',
+        data: {
+          rowKey: id
+        },
+        complete: (r) => {
+          console.log('cloud', r)
+          if (r && r.result && r.result.data && r.result.data.length > 0) {
+            that.setState({example: r.result.data[0], isExampleLoading: false, type, id})
+          }
+        }
+      })
+
       db.collection('civil-case').where({rowkey: id}).get({
         success: (res) => {
           let  highlighted
@@ -148,7 +161,11 @@ export default class ExampleDetail extends Component {
                       if (detail4) {
                         example = detail4
                       }
-                      that.setState({example: example ? example: undefined, isExampleLoading: false, type, id});
+                      if (example) {
+                        that.setState({example: example, isExampleLoading: false, type, id})
+                      } else {
+                        that.setState({isExampleLoading: false, type, id})
+                      }
                     },
                     fail: () => {
                       console.log('fail')
@@ -184,7 +201,6 @@ export default class ExampleDetail extends Component {
         rowKey: id
       },
       complete: (r) => {
-        console.log(r)
         if (r && r.result && r.result.data && r.result.data.length > 0) {
           that.setState({isCollected: true})
         }
@@ -383,8 +399,8 @@ export default class ExampleDetail extends Component {
             return this.jumpToMiniProgramCivil(law)
           }}
         >
-          <Text>民法典</Text>
-          <Text className='link-text'>{convertNumberToChinese(parseInt(law))}</Text>
+          {/*<Text>民法典</Text>*/}
+          <Text className='link-text'>{`民法典 ${convertNumberToChinese(parseInt(law))}`}</Text>
         </View>
       ))}
     </View>)
@@ -399,6 +415,7 @@ export default class ExampleDetail extends Component {
             {!isExampleLoading && !isBriefLoading && example && this.renderExample()}
           </View>
           {(!isExampleLoading && !isBriefLoading && !example) && this.renderNoData()}
+          <ad unit-id='adunit-33f2aac1c663b205' ad-type='video' ad-theme='white'></ad>
           {this.renderLink()}
           {(isBriefLoading || isExampleLoading || isLoading) && <Loading2 />}
           {!isExampleLoading && !isBriefLoading && <AtDivider content='没有更多了' fontColor='#666' lineColor='transparent' />}
@@ -460,7 +477,6 @@ export default class ExampleDetail extends Component {
               >确定</Button>
             </AtModalAction>
           </AtModal>
-
         </View>
       </View>)
   }

@@ -1,3 +1,5 @@
 fileignoreconfig:
-- filename: client/src/util/name.js
-  checksum: 1c91e2b564759d4c91985f80cea63bdfe97c95be8c986bced11fceb478d2fcf6
+- filename: cloud/functions/getJudgementDetailFromCloud/index.js
+  checksum: b76302fe13d4265d99064b238e6c07d645c5e6f18a07bfeb30731231ce670892
+- filename: cloud/functions/getJudgementDetailFromCloud/yarn.lock
+  checksum: c2a4a9ea2c56d5043ba1085a5bc228fc93884a0a19d616d985d2a77782d7d385

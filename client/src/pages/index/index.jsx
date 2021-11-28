@@ -1,5 +1,5 @@
 import Taro, { Component, getStorageSync, setStorageSync } from '@tarojs/taro'
-import {View, Picker, Button, Image} from '@tarojs/components'
+import {View, Picker, Button, Image, MovableArea, MovableView} from '@tarojs/components'
 import {AtDivider, AtSearchBar,AtNoticebar, AtList, AtListItem,  AtModal,AtModalHeader, AtModalContent,AtModalAction, AtInput, AtBadge, AtIcon, AtActionSheet, AtTag, AtDrawer, AtAccordion} from "taro-ui";
 import UserFloatButton from '../../components/userFloatButton/index.weapp'
 import './index.scss'
@@ -22,6 +22,7 @@ import {
 } from "../../util/name";
 import GlobalSearchItem from '../../components/globalSearchItem/index.weapp'
 import {getUserAvatar} from "../../util/login";
+import {convertNumberToChinese} from "../../util/convertNumber"
 
 
 const settingIcon =
@@ -63,7 +64,10 @@ export default class Index extends Component {
     province: '',
     cause: '',
     enableMainAd: false,
-    hasVisit: true
+    hasVisit: true,
+
+    showCivilLawOption: false,
+    filterValue: ''
   }
 
   config = {
@@ -173,15 +177,12 @@ export default class Index extends Component {
     })
   }
 
-  selectCriminalNumber = (e) => {
-    this.setState({
-      number: getCriminalLawNumber(criminalLawOptions[e.detail.value])
-    })
-  }
-
   selectCivilNumber = (e) => {
+    const {name} = e
+    console.log(name)
     this.setState({
-      number: getCivilLawNumber(civilLawOptions[e.detail.value])
+      number: getCivilLawNumber(name),
+      showCivilLawOption: false
     })
   }
 
@@ -226,20 +227,14 @@ export default class Index extends Component {
         <View className='link' onClick={this.jumpToSofaExample}>(最高法/最高检)指导案例/公报案例</View>
       </View>}
       {law === 'civil' && <View>
-        <Picker mode='selector' range={civilLawOptions} onChange={this.selectCivilNumber}>
-          <AtList>
-            <AtListItem
-              title='👉民法典法条'
-              extraText={getCivilLawChnNumber(number)}
-            />
-          </AtList>
-        </Picker>
+        <View className={`law-line ${number ? 'active': ''}`} onClick={() => {this.setState({showCivilLawOption: true})}}>{number ? getCivilLawChnNumber(number) : '👉点我选民法典法条'}</View>
         <View>
           <AtInput
-            type='text'
+            type='number'
             placeholder='  或输入法条数字序号,如1'
             value={number}
             onChange={this.handleInputNumber}
+            onBlur={this.validateNumber}
           />
         </View>
         <View className='icon-line' onClick={() => {
@@ -266,7 +261,9 @@ export default class Index extends Component {
             Taro.getLocation({
               success(res) {
                 console.log(res)
-                Taro.showLoading()
+                Taro.showLoading({
+                  title: '获取地理位置中',
+                })
                 const {latitude, longitude} = res
                 Taro.request({
                   url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=4POBZ-YEXYD-NPQ4R-PNZJ4-3XEE5-FFBXF`,
@@ -304,23 +301,29 @@ export default class Index extends Component {
     })
   }
 
+  validateNumber = () => {
+    const {number} = this.state
+    let intVal = Number(number)
+    if (number && isNaN(intVal) || number < 1 || number > 1260) {
+      Taro.showToast({
+        title: `无效条文序号${number},请修正后再试！`,
+        icon: 'none',
+        duration: 4000
+      })
+      return false;
+    }
+    return true
+  }
   onSearch = () => {
     const that = this;
     const  { law, number, searchValue, selectedCriminalKeywords, province } = this.state;
 
-    if (law === 'criminal') {
-      let intVal = Number(number)
-      if (isNaN(intVal) || number < 114 || number > 419) {
-        Taro.showToast({
-          title: `无效条文序号${number},请修正后再试！`,
-          icon: 'none',
-          duration: 4000
-        })
+    if (law === 'civil') {
+      if (this.validateNumber()) {
+        return that.searchCivil()
+      } else {
         return ;
       }
-    }
-    if (law === 'civil') {
-      return that.searchCivil()
     }
     this.setState({
       showLoading: true
@@ -589,9 +592,15 @@ export default class Index extends Component {
     </View>)
   }
 
+  onChangeFilterValue = (value) => {
+    this.setState({
+      filterValue: Number.isInteger(parseInt(value)) ? convertNumberToChinese(parseInt(value)) : value
+    })
+  }
+
   render () {
     const {isNewUser, isReadMode, law, number, searchValue, showSetting, showLoading,isMenuOpened, activeKeyMap, selectedCriminalKeywords, enableMainAd, resultList,
-    hasVisit, isCauseOpened} = this.state;
+    hasVisit, isCauseOpened, showCivilLawOption, filterValue} = this.state;
     return (
       <View className={`index-page page ${isReadMode ? 'read-mode' : ''}`}>
         {/*{this.renderTagLine()}*/}
@@ -692,9 +701,33 @@ export default class Index extends Component {
             })}
           </View>}
         </AtActionSheet>
+
+        <AtActionSheet className='criminal-law-options' isOpened={showCivilLawOption} title='请选民法典法条' onClose={() => {this.setState({showCivilLawOption: false})}}>
+          {showCivilLawOption && <View>
+            <AtSearchBar
+              placeholder='法条查找'
+              onChange={this.onChangeFilterValue}
+            />
+            {civilLawOptions.filter(option => !filterValue || option.indexOf(filterValue) !== -1).map(option => {
+              return (
+                <AtTag
+                  key={option}
+                  name={option}
+                  circle
+                  active={option ===getCivilLawChnNumber(number)}
+                  onClick={this.selectCivilNumber}
+                >{option}</AtTag>
+              )
+            })}
+          </View>}
+        </AtActionSheet>
+
         {enableMainAd && resultList && resultList.length === 0 && !isMenuOpened && <View className='ad-bottom'>
           <ad unit-id="adunit-0320f67c0e860e36"></ad>
         </View>}
+        {/*<MovableArea style='height: 200px; width: 200px; background: red;'>*/}
+        {/*  <MovableView style='height: 50px; width: 50px; background: blue;' direction='all'>带走我</MovableView>*/}
+        {/*</MovableArea>*/}
       </View>
     )
   }

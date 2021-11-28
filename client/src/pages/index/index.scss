@@ -180,7 +180,7 @@
   background: rgba(0,0,0,0.6);
 }
 .float-sofa {
-  z-index: 9;
+  z-index: 9999;
   position: fixed;
   top: 83%;
   right: 40px;
@@ -259,3 +259,32 @@
   overflow-y: scroll;
 }
 
+.criminal-law-options {
+  .at-search-bar__action {
+    display: none;
+  }
+  .at-action-sheet__body {
+    max-height: 80vh;
+    overflow-y: scroll;
+    .at-tag {
+      display: block;
+      text-align: left;
+    }
+  }
+}
+
+.law-line {
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  font-size: 36px;
+  color: #666666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &.active {
+    color: #6190E8;
+    text-decoration: underline;
+    text-decoration-color: #6190E8;
+  }
+}
