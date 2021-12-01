@@ -304,7 +304,10 @@ export default class Index extends Component {
   validateNumber = () => {
     const {number} = this.state
     let intVal = Number(number)
-    if (number && isNaN(intVal) || number < 1 || number > 1260) {
+    console.log('number', number)
+    console.log('intVal', intVal)
+    console.log('isNaN(intVal)', isNaN(intVal))
+    if ((number.length > 0 && isNaN(intVal)) || intVal < 0 || intVal > 1260) {
       Taro.showToast({
         title: `无效条文序号${number},请修正后再试！`,
         icon: 'none',
@@ -702,25 +705,28 @@ export default class Index extends Component {
           </View>}
         </AtActionSheet>
 
-        <AtActionSheet className='criminal-law-options' isOpened={showCivilLawOption} title='请选民法典法条' onClose={() => {this.setState({showCivilLawOption: false})}}>
-          {showCivilLawOption && <View>
-            <AtSearchBar
-              placeholder='法条查找'
-              onChange={this.onChangeFilterValue}
-            />
-            {civilLawOptions.filter(option => !filterValue || option.indexOf(filterValue) !== -1).map(option => {
-              return (
-                <AtTag
-                  key={option}
-                  name={option}
-                  circle
-                  active={option ===getCivilLawChnNumber(number)}
-                  onClick={this.selectCivilNumber}
-                >{option}</AtTag>
-              )
-            })}
-          </View>}
-        </AtActionSheet>
+        <AtModal className='ad-bottom' isOpened={showCivilLawOption}>
+          <AtModalHeader>请选择民法典法条</AtModalHeader>
+          <AtModalContent className='has-law'>
+            {showCivilLawOption && <View>
+              <AtSearchBar
+                placeholder='法条查找'
+                onChange={this.onChangeFilterValue}
+              />
+              {civilLawOptions.filter(option => !filterValue || option.indexOf(filterValue) !== -1).map(option => {
+                return (
+                  <AtTag
+                    key={option}
+                    name={option}
+                    circle
+                    onClick={this.selectCivilNumber}
+                  >{option}</AtTag>
+                )
+              })}
+            </View>}
+          </AtModalContent>
+          <AtModalAction><Button onClick={() => {this.setState({showCivilLawOption: false})}}>确定</Button> </AtModalAction>
+        </AtModal>
 
         {enableMainAd && resultList && resultList.length === 0 && !isMenuOpened && <View className='ad-bottom'>
           <ad unit-id="adunit-0320f67c0e860e36"></ad>
