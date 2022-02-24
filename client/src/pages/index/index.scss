@@ -288,3 +288,11 @@
     text-decoration-color: #6190E8;
   }
 }
+
+
+.float-back {
+  position: fixed;
+  top: 680px;
+  right: 40px;
+  z-index: 102;
+}

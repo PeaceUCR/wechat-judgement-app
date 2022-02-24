@@ -1,6 +1,6 @@
 import Taro, { Component, getStorageSync, setStorageSync } from '@tarojs/taro'
-import {View, Picker, Button, Image, MovableArea, MovableView} from '@tarojs/components'
-import {AtDivider, AtSearchBar,AtNoticebar, AtList, AtListItem,  AtModal,AtModalHeader, AtModalContent,AtModalAction, AtInput, AtBadge, AtIcon, AtActionSheet, AtTag, AtDrawer, AtAccordion} from "taro-ui";
+import {View, Picker, Button, Image, Text} from '@tarojs/components'
+import {AtDivider, AtSearchBar,AtNoticebar, AtList, AtListItem,  AtModal,AtModalHeader, AtModalContent,AtModalAction, AtInput, AtBadge, AtIcon, AtActionSheet, AtTag, AtDrawer, AtAccordion, AtFab} from "taro-ui";
 import UserFloatButton from '../../components/userFloatButton/index.weapp'
 import './index.scss'
 import {db} from "../../util/db";
@@ -65,7 +65,6 @@ export default class Index extends Component {
     cause: '',
     enableMainAd: false,
     hasVisit: true,
-
     showCivilLawOption: false,
     filterValue: ''
   }
@@ -221,10 +220,10 @@ export default class Index extends Component {
     return <View>
       {this.renderCaseTypeOption()}
       {law === 'criminal' && <View>
-        <View className='warning' >注意: 刑事裁判文书已迁移，你可以去</View>
-        <View className='link' onClick={this.jumpToCriminalJudgement}>刑事裁判文书</View>
+        {/*<View className='warning' >注意: 刑事裁判文书已迁移，你可以去</View>*/}
+        <View className='link' onClick={this.jumpToCriminalJudgement}>裁判文书案例</View>
         <View className='link' onClick={this.jumpToCriminalConsultant}>刑事审判参考</View>
-        <View className='link' onClick={this.jumpToSofaExample}>(最高法/最高检)指导案例/公报案例</View>
+        <View className='link' onClick={this.jumpToSofaExample}>两高指导案例/公报案例</View>
       </View>}
       {law === 'civil' && <View>
         <View className={`law-line ${number ? 'active': ''}`} onClick={() => {this.setState({showCivilLawOption: true})}}>{number ? getCivilLawChnNumber(number) : '👉点我选民法典法条'}</View>
@@ -617,6 +616,29 @@ export default class Index extends Component {
           onChange={this.onChangeSearchValue}
           onActionClick={this.onSearch}
         />
+        <AtFab className='float-back' onClick={() => {
+          this.setState({
+            showSetting: true,
+            userAvatar: '',
+            law: '',
+            number: '',
+            searchValue: '',
+            isCauseOpened: false,
+            causeOpenMap: {},
+            showLoading: false,
+            resultList: [],
+            isMenuOpened: false,
+            activeKeyMap: {},
+            selectedCriminalKeywords: [],
+            province: '',
+            cause: '',
+            showCivilLawOption: false,
+            filterValue: ''
+          })
+        }}
+        >
+          <Text>重置</Text>
+        </AtFab>
         {this.renderResults()}
         {/*<View>userOpenId: {userOpenId}</View>*/}
         {/*<View>userName: {userName}</View>*/}

@@ -35,6 +35,9 @@
     font-weight: bold;
     margin-bottom: 20px;
     text-align: center;
+    &.sub {
+      text-align: left;
+    }
   }
 
   .criminal-law {
@@ -183,4 +186,24 @@
 .law-icon {
   width: 70px;
   height: 70px;
+}
+
+.float-category {
+  position: fixed;
+  bottom: 520px;
+  right: 80px;
+  z-index: 999;
+  background-color: rgba(0,0,0,0.8);
+  .float-category-item {
+    z-index: 999;
+    font-size: 36px;
+    color: #6190E8;
+    padding: 30px 30px 30px 30px;
+  }
+}
+
+.float-category-icon {
+  position: fixed;
+  bottom: 430px;
+  right: 73px;
 }
