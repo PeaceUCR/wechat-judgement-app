@@ -14,6 +14,7 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
+      'pages/oldHome/index',
       'pages/exampleDetail/index',
       'pages/other/index',
       'pages/user/index'
@@ -38,13 +39,7 @@ class App extends Component {
   }
 
   componentDidShow () {
-    console.log('app jsx show')
-    Taro.cloud.init({
-      traceUser: true
-    });
-    Taro.cloud.callFunction({
-      name: 'record'
-    })
+    console.log('app jsx show');
   }
 
   componentDidHide () {}
