@@ -4,29 +4,10 @@ import {AtDivider, AtSearchBar,AtNoticebar, AtList, AtListItem,  AtModal,AtModal
 import UserFloatButton from '../../components/userFloatButton/index.weapp'
 import './index.scss'
 import {db} from "../../util/db";
-import Loading2 from "../../components/loading2/index.weapp";
-import {
-  lawOptions,
-  criminalLawOptions,
-  civilLawOptions,
-  getLawChnName,
-  getLawName,
-  getCriminalLawChnNumber,
-  getCriminalLawNumber,
-  getCivilLawChnNumber,
-  getCivilLawNumber,
-  lawIcon,
-  sortByOpinion,
-  criminalCaseIcon,
-  civilCaseIcon
-} from "../../util/name";
-import GlobalSearchItem from '../../components/globalSearchItem/index.weapp'
-import {getUserAvatar} from "../../util/login";
-import {convertNumberToChinese} from "../../util/convertNumber"
+import reading from '../../static/reading.png';
 
 const swiperPosters = [
-  'https://mmbiz.qpic.cn/mmbiz_gif/6fKEyhdZU92cC8JPU4xto4nia1UyLRqGvAia11YorBoNrN8WO4bFRIROZNsqGfGicaz6hZ660MUf5ia1sfEXeJeWgQ/0?wx_fmt=gif',
-  'https://mmbiz.qpic.cn/mmbiz_jpg/6fKEyhdZU92NrHJmOCNglksEgxbnlKlZsibn8ic5yl2LwRtibZa3UGms20XBQ03wOU1nhBgXSA0mOY8j3KEN1P0vQ/0?wx_fmt=jpeg'
+  'https://mmbiz.qpic.cn/mmbiz_gif/6fKEyhdZU92z04oIXVSYicfteNREfklpjxUvgwz33Oq3ib8pqHDicRXN7QzJic6QXotjJt6pRNYcP7ElNr5gz9BBLA/0?wx_fmt=gif',
 ]
 
 export default class Index extends Component {
@@ -105,14 +86,40 @@ export default class Index extends Component {
       title: '搜法～搜你想要的法律知识',
       icon: 'none',
       duration: 2000
-    })
+    });
+  }
+
+  onChange = (searchValue) => {
+    this.setState({searchValue})
+  }
+
+  onClear = () => {
+    this.setState({
+      searchValue: ''
+    });
+  }
+
+  onSearch = () => {
+    const {searchValue} = this.state
+    Taro.showToast({
+      title: '开发中敬请期待',
+      icon: 'none',
+      duration: 2000
+    });
+    return ;
+  }
+
+  goToSeries = () => {
+    Taro.navigateTo({
+      url: `/pages/seriesList/index`
+    });
   }
 
   render () {
     const {isNewUser, isReadMode, law, number, searchValue, showSetting, showLoading,isMenuOpened, activeKeyMap, selectedCriminalKeywords, enableMainAd, resultList,
     hasVisit, isCauseOpened, showCivilLawOption, filterValue} = this.state;
     return (
-      <View className={`index-page page ${isReadMode ? 'read-mode' : ''}`}>
+      <View className='index-page page read-mode'>
         <Swiper
           className='main-swiper'
           indicatorColor='#999'
@@ -126,12 +133,28 @@ export default class Index extends Component {
               <Image className='image' src={swiperPosters[0]} mode='aspectFill' />
             </View>
           </SwiperItem>
-          <SwiperItem>
-            <View className='swiper-item-container' onClick={this.handleClickMainSwiper}>
-              <Image className='image' src={swiperPosters[1]} mode='aspectFill' />
-            </View>
-          </SwiperItem>
+          {/*<SwiperItem>*/}
+          {/*  <View className='swiper-item-container' onClick={this.handleClickMainSwiper}>*/}
+          {/*    <Image className='image' src={swiperPosters[1]} mode='aspectFill' />*/}
+          {/*  </View>*/}
+          {/*</SwiperItem>*/}
         </Swiper>
+        <AtSearchBar
+          placeholder='搜一搜'
+          value={searchValue}
+          onChange={this.onChange}
+          onClear={this.onClear}
+          onActionClick={() => {
+            this.onSearch()
+          }}
+        />
+        <View className='menus'>
+          <View className='menu-item' onClick={this.goToSeries}>
+            <Image className='reading' src={reading} mode='aspectFill' />
+            <Text className='menu-text'>学法典读案例答问题</Text>
+          </View>
+        </View>
+        <ad unit-id='adunit-33f2aac1c663b205' ad-type='video' ad-theme='white'></ad>
       </View>
     )
   }
