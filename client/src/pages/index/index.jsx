@@ -111,7 +111,17 @@ export default class Index extends Component {
 
   goToSeries = () => {
     Taro.navigateTo({
-      url: `/pages/seriesList/index`
+      url: `/pages/seriesList/index?type=xue_fa_dian`
+    });
+  }
+  goToXiaoAnDaDaoLi = () => {
+    Taro.navigateTo({
+      url: `/pages/seriesList/index?type=xiao_an_da_dao_li`
+    });
+  }
+  goToConsultant = () => {
+    Taro.navigateTo({
+      url: `/pages/consultant/index`
     });
   }
 
@@ -152,6 +162,14 @@ export default class Index extends Component {
           <View className='menu-item' onClick={this.goToSeries}>
             <Image className='reading' src={reading} mode='aspectFill' />
             <Text className='menu-text'>学法典读案例答问题</Text>
+          </View>
+          <View className='menu-item' onClick={this.goToXiaoAnDaDaoLi}>
+            <Image className='reading' src={reading} mode='aspectFill' />
+            <Text className='menu-text'>学习小案大道理</Text>
+          </View>
+          <View className='menu-item' onClick={this.goToConsultant}>
+            <Image className='reading' src={reading} mode='aspectFill' />
+            <Text className='menu-text'>学习刑事审判参考</Text>
           </View>
         </View>
         <ad unit-id='adunit-33f2aac1c663b205' ad-type='video' ad-theme='white'></ad>

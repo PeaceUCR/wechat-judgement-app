@@ -1,33 +1,41 @@
 import Taro, { Component, getStorageSync } from '@tarojs/taro'
-import {View, Button, Image, Text} from '@tarojs/components'
-import {AtIcon, AtBadge, AtDivider, AtModal,AtModalHeader, AtModalContent,AtModalAction, AtFab} from "taro-ui";
-import { db } from '../../util/db'
-import TextSectionComponent from '../../components/textSectionComponent/index'
-
+import {View,Input, Button, RichText, Text} from '@tarojs/components'
+import {AtFab, AtIcon, AtActivityIndicator, AtNoticebar, AtButton, AtBadge} from "taro-ui";
 import './index.scss'
-import {checkIfNewUser, redirectToIndexIfNewUser} from "../../util/login";
-import throttle from "lodash/throttle";
-import {DiscussionArea} from "../../components/discussionArea/index.weapp";
-import {convertNumberToChinese} from "../../util/convertNumber"
-import {lawIcon} from "../../util/name"
-import Loading2 from "../../components/loading2/index.weapp";
+import {copy, findAndHighlight, highlights, isStartWith, refine} from "../../util/util";
+import {getConsultById} from "../../util/consult";
+
+const typeCollectionMap = {
+  'court': 'example',
+  'procuratorate': 'example',
+  'court-open':'example',
+  'consultant': 'consult',
+  'civilLawExample': 'civil-law-link-example-detail',
+  'civil-law-explaination': 'civil-law-explaination',
+  'source': 'sentencingDetail-source',
+  'complement-example': 'complement'
+}
+
+const demoSet = new Set(Object.keys(typeCollectionMap))
 
 export default class ExampleDetail extends Component {
 
+  foundKey = undefined
   state = {
+    comment: '',
+    isSent: false,
     id: '',
     type: '',
+    example: {},
     keyword: '',
-    example: undefined,
-    brief: undefined,
     zoomIn: false,
-    isReadMode: false,
     isCollected: false,
-    isBriefLoading: true,
-    isExampleLoading: true,
-    isLoading: false,
-    showRelatedLaw: false,
-    categories: ['事实认定', '裁判理由', '裁判结果'],
+    isReadMode: true,
+    isLoading: true,
+    enableAutoScroll: false,
+    enableExampleDetailAd: false,
+    selectedLine: -1,
+    categories: undefined,
     openCategory: false
   }
 
@@ -37,193 +45,11 @@ export default class ExampleDetail extends Component {
 
   componentWillMount () {
     const that = this;
-    let { id, type, keyword } = this.$router.params;
-
-    if (type === 'criminal') {
-      db.collection('criminal-case').where({rowkey: id}).get({
-        success: (res) => {
-          let  highlighted
-          if (keyword) {
-            highlighted = keyword;
-          } else {
-            const {criminalLaw} = res.data[0];
-            if (criminalLaw) {
-              highlighted = convertNumberToChinese(parseInt(criminalLaw))
-            }
-          }
-
-          that.setState({brief: res.data[0], keyword: highlighted, isBriefLoading: false, type, id});
-        },
-        fail: () => {
-          console.log('fail')
-          that.setState({isBriefLoading: false})
-        }
-      });
-
-      db.collection('criminal-case-detail').where({rowKey: id}).get({
-        success: (res1) => {
-          const detail1 = res1.data[0]
-
-          db.collection('criminal-case-detail-2').where({rowKey: id}).get({
-            success: (res2) => {
-
-              const detail2 = res2.data[0]
-              db.collection('criminal-case-detail-3').where({rowKey: id}).get({
-                success: (res3) => {
-
-                  const detail3 = res3.data[0]
-                  let example
-                  if (detail1) {
-                    example = detail1
-                  }
-                  if (detail2) {
-                    example = detail2
-                  }
-                  if (detail3) {
-                    example = detail3
-                  }
-                  that.setState({example: example ? example: undefined, isExampleLoading: false, type, id});
-                },
-                fail: () => {
-                  console.log('fail')
-                  that.setState({isExampleLoading: false})
-                }
-              });
-
-            },
-            fail: () => {
-              console.log('fail')
-              that.setState({isExampleLoading: false})
-            }
-          });
-        },
-        fail: () => {
-          console.log('fail')
-          that.setState({isExampleLoading: false})
-        }
-      });
-
-    } else if (type === 'civil') {
-      Taro.cloud.callFunction({
-        name: 'getJudgementDetailFromCloud',
-        data: {
-          rowKey: id
-        },
-        complete: (r) => {
-          console.log('cloud', r)
-          if (r && r.result && r.result.data && r.result.data.length > 0) {
-            that.setState({example: r.result.data[0], isExampleLoading: false, type, id})
-          }
-        }
-      })
-
-      db.collection('civil-case').where({rowkey: id}).get({
-        success: (res) => {
-          let  highlighted
-          if (keyword) {
-            highlighted = keyword;
-          } else {
-            const {criminalLaw} = res.data[0];
-            if (criminalLaw) {
-              highlighted = convertNumberToChinese(parseInt(criminalLaw))
-            }
-          }
-
-          that.setState({brief: res.data[0], keyword: highlighted, isBriefLoading: false, type, id});
-        },
-        fail: () => {
-          console.log('fail')
-          that.setState({isBriefLoading: false})
-        }
-      });
-
-      db.collection('civil-case-detail').where({rowKey: id}).get({
-        success: (res1) => {
-          const detail1 = res1.data[0]
-
-          db.collection('civil-case-detail-2').where({rowKey: id}).get({
-            success: (res2) => {
-
-              const detail2 = res2.data[0]
-              db.collection('civil-case-detail-3').where({rowKey: id}).get({
-                success: (res3) => {
-                  const detail3 = res3.data[0]
-                  db.collection('civil-case-detail-4').where({rowKey: id}).get({
-                    success: (res4) => {
-                      const detail4 = res4.data[0]
-                      let example
-                      if (detail1) {
-                        example = detail1
-                      }
-                      if (detail2) {
-                        example = detail2
-                      }
-                      if (detail3) {
-                        example = detail3
-                      }
-                      if (detail4) {
-                        example = detail4
-                      }
-                      if (example) {
-                        that.setState({example: example, isExampleLoading: false, type, id})
-                      } else {
-                        that.setState({isExampleLoading: false, type, id})
-                      }
-                    },
-                    fail: () => {
-                      console.log('fail')
-                      that.setState({isExampleLoading: false})
-                    }
-                  });
-
-                },
-                fail: () => {
-                  console.log('fail')
-                  that.setState({isExampleLoading: false})
-                }
-              });
-
-            },
-            fail: () => {
-              console.log('fail')
-              that.setState({isExampleLoading: false})
-            }
-          });
-        },
-        fail: () => {
-          console.log('fail')
-          that.setState({isExampleLoading: false})
-        }
-      });
-
-    }
-
-    Taro.cloud.callFunction({
-      name: 'isCollected',
-      data: {
-        rowKey: id
-      },
-      complete: (r) => {
-        if (r && r.result && r.result.data && r.result.data.length > 0) {
-          that.setState({isCollected: true})
-        }
-      },
-      fail: (e) => {
-        Taro.showToast({
-          title: `获取收藏数据失败:${JSON.stringify(e)}`,
-          icon: 'none',
-          duration: 1000
-        })
-      }
-    })
-
-    const setting = getStorageSync('setting');
-    this.setState({isReadMode: setting && setting.isReadMode})
-    if (setting && setting.isReadMode) {
-      console.log('read')
-      Taro.setNavigationBarColor({
-        frontColor: '#000000',
-        backgroundColor: '#F4ECD8'
+    const { id, type, keyword } = this.$router.params;
+    console.log('id', id)
+    if (type.includes('consult')) {
+      getConsultById(id).then((res) => {
+        that.setState({example: res, isLoading: false, type, id, keyword})
       })
     }
   }
@@ -244,171 +70,101 @@ export default class ExampleDetail extends Component {
 
   componentDidHide () { }
 
-  renderExample = () => {
-    const {brief, example, keyword, zoomIn} = this.state;
-    const {textHead, textPartner, textMain, textReason, textDecide, textJudge} = example;
-    const {opinion} = brief
-    // console.log('isEqual?', opinion === textReason)
-    // use opinion instead of textReason to reduce the size
-    return (<View>
-      <View className='term-complement-title'>{brief.title}</View>
-      <TextSectionComponent data={textHead} keyword={keyword} zoomIn={zoomIn} isTitle />
-      <TextSectionComponent data={textPartner} keyword={keyword} zoomIn={zoomIn} />
-      <View id='category-0' className='term-complement-title sub'>事实认定</View>
-      <TextSectionComponent data={textMain} keyword={keyword} zoomIn={zoomIn} />
-      <View id='category-1' className='term-complement-title sub'>裁判理由</View>
-      <TextSectionComponent data={opinion} keyword={keyword} zoomIn={zoomIn} />
-      <View id='category-2' className='term-complement-title sub'>裁判结果</View>
-      <TextSectionComponent data={textDecide} keyword={keyword} zoomIn={zoomIn} />
-      <TextSectionComponent data={textJudge} keyword={keyword} zoomIn={zoomIn} />
-    </View>)
-  }
-
   handleZoom = () => {
     const {zoomIn} = this.state;
     this.setState({zoomIn: !zoomIn})
   }
 
-  handleCollect = throttle(() => {
-    if (checkIfNewUser()) {
-      redirectToIndexIfNewUser()
-      return ;
-    }
-
-    const that = this;
-    const { isCollected, brief, type } = this.state;
-    const {rowkey, title} = brief;
-    that.setState({isLoading: true});
-
-    if (isCollected) {
-      Taro.cloud.callFunction({
-        name: 'deleteCollection',
-        data: {
-          rowKey: rowkey,
-          type: type
-        },
-        complete: () => {
-          that.setState({isLoading: false, isCollected: false});
-          Taro.showToast({
-            title: '收藏取消',
-            icon: 'none',
-            duration: 1000
-          })
-        }
-      })
-    } else {
-
-    Taro.cloud.callFunction({
-        name: 'collect',
-        data: {
-          rowKey: rowkey,
-          type: type,
-          title: title
-        },
-        complete: (r) => {
-          if (r && r.result && r.result.errMsg !== 'collection.add:ok') {
-            Taro.showToast({
-              title: `收藏失败:${r.result.errMsg}`,
-              icon: 'none',
-              duration: 3000
-            })
-            that.setState({isLoading: false})
-            return ;
-          }
-
-          that.setState({isLoading: false, isCollected: true});
-          Taro.showToast({
-            title: '收藏成功',
-            icon: 'none',
-            duration: 1000
-          })
-        }
-      })
-    }
-  }, 3000, { trailing: false })
-
   renderNoData = () => {
+    const {type} = this.state
     return (<View>
-      <View className='no-data'>出错啦!</View>
-      <View className='no-data'>详情还在收录中,敬请期待!</View>
+      {type !== 'local-law-detail' && <View>
+        <View className='no-data'>出错啦!</View>
+        <View className='no-data'>数据不存在或者已经迁移</View>
+        <View className='no-data'>麻烦重新搜索进入</View>
+      </View>}
+      {type === 'local-law-detail' && <View>
+        <View className='no-data'>数据还在收录中</View>
+        <View className='no-data'>敬请期待</View>
+      </View>}
     </View>)
   }
 
-  renderLink = () => {
-    const {id} = this.state
-    return (<View className='link' onClick={() => {
-      Taro.setClipboardData({
-        data: `https://wenshu.court.gov.cn/website/wenshu/181107ANFZ0BXSK4/index.html?docId=${id}`,
-        success: function () {
-          Taro.showToast({
-            title: `裁判文书网链接已复制`,
-            icon: 'none',
-            duration: 2000
-          })
-        }
-      });
-    }}
-    >
-      裁判文书原文链接
-    </View>)
-  }
-
-  openRelatedLaw = () => {
+  resetSelectedLine = () => {
     this.setState({
-      showRelatedLaw: true
+      selectedLine: -1
     })
   }
 
-  jumpToMiniProgram = (law) => {
-    const redirectStr = `/pages/termDetail/index?chnNumber=${convertNumberToChinese(parseInt(law))}`
+  renderComplement = () => {
+    const {example, keyword, zoomIn, selectedLine, enableAutoScroll, categories} = this.state;
+    const {text, title, categoryList} = example;
+    const that = this
+    const setKey = (line, key) => {
+      if (line && key) {
+        const regExp = new RegExp(key,"g");
+        const ifFound = regExp.test(line)
+        if (ifFound) {
+          this.foundKey = 'foundKey1'
+          return 'foundKey1'
+        }
+      }
+      return ''
+    }
+    if (selectedLine === -1 && enableAutoScroll) {
+      setTimeout(() => {
+        console.log('that.foundKey:', that.foundKey)
+        if (that.foundKey) {
+          Taro.pageScrollTo({
+            selector: `#${that.foundKey}`,
+            duration: 500
+          })
+        }
+      }, 600)
+    } else {
+      console.log('detect copy')
+    }
 
-    Taro.navigateToMiniProgram({
-      appId: 'wxf6d4249d423ff2a3',
-      path: redirectStr
-    });
-  }
-  jumpToMiniProgramCivil = (law) => {
-    const redirectStr = `/pages/civilLawDetail/index?number=${parseInt(law)}`
+    const lines = text ? text.split('\n').filter(line => line.trim() && line.trim().length > 0).map(line => refine(line)) : []
 
-    Taro.navigateToMiniProgram({
-      appId: 'wxf6d4249d423ff2a3',
-      path: redirectStr
-    });
-  }
+    let c;
+    if (categoryList && categoryList.length > 0) {
+      c = categoryList
+      if (!categories) {
+        that.setState({
+          categories: categoryList
+        })
+      }
+    } else {
+      c = categories
+      if (!categories && text) {
+        c = Array.from(new Set(lines.filter(l => isStartWith(l, highlights))))
+        that.setState({
+          categories: c
+        })
+      }
+    }
 
-  renderRelatedLaw = () => {
-    const {brief} = this.state
-    const lawList = brief.criminalLaw.split(',')
-    return (<View>
-      {lawList.map(law => (
-        <View
-          className='related-law-link'
-          key={law}
-          onClick={() => {
-            return this.jumpToMiniProgram(law)
-          }}
-        >{`刑法${convertNumberToChinese(parseInt(law))}`}</View>
-      ))}
-    </View>)
 
-  }
-  renderRelatedCivilLaw = () => {
-    const {brief} = this.state
-    const {civilLaws} = brief
-    return (<View>
-      {civilLaws.map(law => (
-
-        <View
-          className='related-law-link'
-          key={law}
-          onClick={() => {
-            return this.jumpToMiniProgramCivil(law)
-          }}
+    return (<View  className={`text-section ${zoomIn ? 'zoom-in' : ''}`}>
+      <View className='term-complement-title'>{title}</View>
+      <ad unit-id="adunit-0320f67c0e860e36"></ad>
+      {categoryList && categoryList.length > 0 && this.renderStaticCategory()}
+      <View className='content'>{lines.map((line, index) => {
+        return (<View id={setKey(line, keyword)}
+                      className={`line ${index === selectedLine ? 'show-copy' : ''}`}
+                      key={`text-example-detail-${index}`}
         >
-          {/*<Text>民法典</Text>*/}
-          <Text className='link-text'>{`民法典 ${convertNumberToChinese(parseInt(law))}`}</Text>
-        </View>
-      ))}
+          {isStartWith(line, c) && c && <View id={`category-${c.indexOf(line)}`}></View>}
+          <RichText nodes={findAndHighlight(line, index, keyword)} className={isStartWith(line, c) ? 'highlight': ''} ></RichText>
+          {index === selectedLine && <View className='copy'>
+            <AtButton size='small' type='primary' onClick={() => {
+              copy(line, this.resetSelectedLine)
+          }}>复制</AtButton>
+            <Button className='copy-cancel' onClick={() => this.resetSelectedLine()}>取消</Button>
+          </View>}
+        </View>)
+      })}</View>
     </View>)
   }
 
@@ -429,82 +185,61 @@ export default class ExampleDetail extends Component {
     </View>)
   }
 
+  renderStaticCategory = () => {
+    const {example} = this.state
+    const {categoryList} = example
+    return (<View className='static-category'>
+      {categoryList.map((c, index) => (<View
+        className='static-category-item'
+        key={c}
+        onClick={() => {
+          console.log(`click ${index}`)
+          Taro.pageScrollTo({
+            selector: `#category-${index}`,
+            duration: 500
+          })
+        }}
+      >{`${c}`}</View>))}
+    </View>)
+  }
   render () {
-    const { example, brief, zoomIn, isReadMode, isBriefLoading, isExampleLoading,
-      isLoading, isCollected, type, showRelatedLaw, categories, openCategory} = this.state;
-    return (<View>
-        <View className={`example-detail-page page ${zoomIn ? 'zoom-in' : ''} ${isReadMode ? 'read-mode' : ''}`}>
-          <View>
-            {!isExampleLoading && !isBriefLoading && example && this.renderExample()}
-          </View>
-          {(!isExampleLoading && !isBriefLoading && !example) && this.renderNoData()}
-          <ad unit-id='adunit-33f2aac1c663b205' ad-type='video' ad-theme='white'></ad>
-          {this.renderLink()}
-          {(isBriefLoading || isExampleLoading || isLoading) && <Loading2 />}
-          {!isExampleLoading && !isBriefLoading && <AtDivider content='没有更多了' fontColor='#666' lineColor='transparent' />}
-
+    const {isSent, keyword, comment, example, zoomIn, isCollected, isReadMode, isLoading, type, enableAutoScroll, enableExampleDetailAd, categories, openCategory} = this.state;
+    const {special, text, title, categoryList} = example
+    return (
+      <View>
+        {
+          (type === 'consultant' || type === 'consult') &&
+          <AtNoticebar marquee speed={60}>
+            刑事审判参考仅限用于学习交流!
+          </AtNoticebar>
+        }
+        <View className={`example-detail-page page read-mode ${zoomIn ? 'zoom-in' : ''}`}>
           {categories && categories.length > 0 && openCategory && this.renderCategory()}
-          <AtFab onClick={() => this.setState({openCategory: !openCategory})} size='small' className='float-category-icon'>
+          {!special && <View>
+            {this.renderComplement()}
+            {/*{!enableAutoScroll && this.renderExample()}*/}
+          </View>}
+          {categories && categories.length > 0 && <AtFab onClick={() => this.setState({openCategory: !openCategory})} size='small' className='float-category-icon'>
             <Text className={`at-fab__icon at-icon ${openCategory ? 'at-icon-close' : 'at-icon-menu'}`}></Text>
-          </AtFab>
-          <View className='back-to-top' onClick={() => {
-            Taro.pageScrollTo({
-              scrollTop: 0,
-              duration: 500
-            })
-          }}
-          >
-            <AtIcon value='chevron-up' size='50' color='rgba(26, 117, 255, 0.6)'></AtIcon>
+          </AtFab>}
+          {!isLoading && !title && !text && this.renderNoData()}
+          <View className='footer'>
+            <AtFab size='small' className='float-zoom' onClick={() => {this.handleZoom()}}>
+              <View  className={`zoom ${zoomIn ? 'zoom-in': 'zoom-out'}`} mode='widthFix' />
+            </AtFab>
+            <View className='share-container'>
+              <AtBadge value='分享'>
+                <Button className='share-button' openType='share'>
+                  <AtIcon value='share-2' size='32' color='#6190E8'></AtIcon>
+                </Button>
+              </AtBadge>
+            </View>
           </View>
-
-          <View className='favorite-container' onClick={this.handleCollect} >
-            <AtIcon value={isCollected ? 'heart-2' : 'heart'} size='32' color={isCollected ? '#e62e00' : 'rgba(0, 0, 0, 0.6)'}></AtIcon>
-          </View>
-
-          <View className='share-container'>
-            <AtBadge value='分享'>
-              <Button className='share-button' openType='share'>
-                <AtIcon value='share-2' size='32' color='#6190E8'></AtIcon>
-              </Button>
-            </AtBadge>
-          </View>
-
-          {type === 'civil' && brief && brief.civilLaws && brief.civilLaws.length > 0 && <View className='float-help' onClick={this.openRelatedLaw}>
-            <AtBadge value='相关法条'>
-              <Image
-                src={lawIcon}
-                className='law-icon'
-                mode='widthFix'
-              />
-            </AtBadge>
+          {isLoading && <View className='loading-container'>
+            <AtActivityIndicator mode='center' color='black' content='加载中...' size={62}></AtActivityIndicator>
           </View>}
-
-          {type === 'criminal' && <View className='float-help' onClick={this.openRelatedLaw}>
-            <AtBadge value='相关法条'>
-              <Image
-                src={lawIcon}
-                className='law-icon'
-                mode='widthFix'
-              />
-            </AtBadge>
-          </View>}
-
-          <AtModal isOpened={showRelatedLaw} closeOnClickOverlay={false}>
-            <AtModalHeader>相关法条</AtModalHeader>
-            <AtModalContent>
-              {type === 'criminal' && brief && brief.criminalLaw && this.renderRelatedLaw()}
-              {type === 'civil' && brief && brief.civilLaws && brief.civilLaws.length > 0 && this.renderRelatedCivilLaw()}
-            </AtModalContent>
-            <AtModalAction>
-              <Button onClick={() => {
-                this.setState({
-                  showRelatedLaw: false
-                })
-              }}
-              >确定</Button>
-            </AtModalAction>
-          </AtModal>
         </View>
-      </View>)
+      </View>
+    )
   }
 }

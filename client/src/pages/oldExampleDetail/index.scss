@@ -13,7 +13,7 @@
       font-size: 36px;
     }
   }
-  padding: 10px 20px 260px 23px;
+  padding: 10px 20px 60px 20px;
   .content {
     font-size: 28px;
   }
@@ -31,9 +31,13 @@
   }
 
   .term-complement-title {
-    font-size: 30px;
+    font-size: 32px;
     font-weight: bold;
     margin-bottom: 20px;
+    text-align: center;
+    &.sub {
+      text-align: left;
+    }
   }
 
   .criminal-law {
@@ -49,11 +53,10 @@
     bottom: 0;
     width: 100vw;
     display: flex;
-    justify-content: flex-end;
     align-items: center;
     padding: 20px 20px 90px 20px;
     //background: #faf5eb;
-    background: transparent;
+    background: white;
     .text {
       flex-grow: 1;
       padding: 10px 10px 10px 0;
@@ -114,7 +117,10 @@
 }
 
 .share-container {
-  margin: 0 60px 0 10px;
+  position: fixed;
+  bottom: 300px;
+  right: 60px;
+  margin-right: 20px;
   .share-button {
     background: transparent;
     border: none;
@@ -135,105 +141,69 @@
   color: black;
 }
 
-
-
-.text-section {
-  &.title {
-    font-weight: bold !important;
-    text-align: center;
-  }
-  &.zoom-in {
-    .content {
-      font-size: 40px;
-    }
-
-    .line {
-      padding-bottom: 50px;
-      color: #111;
-    }
-  }
-  .content {
-    font-size: 32px;
-  }
-
-  .line {
-    position: relative;
-    padding-bottom: 40px;
-    line-height:180%;
-    color: #111;
-    &.show-copy {
-      background: rgba(0,0,0,0.4);
-    }
-  }
-  .highlight {
-    font-weight: bold;
-    color: black;
-  }
-  .highlight-keyword {
-    color: black;
-    font-weight: bold;
-    font-style: italic;
-    background: gold;
-    padding: 0px 10px 0px 5px;
-  }
-
+.link {
+  text-align: center;
+  color: #6190E8;
+  font-size: 36px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: #6190E8;
 }
 
-.copy {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .copy-cancel {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 60px;
-    width: 100px;
-    font-size: 28px;
-    padding: 8px 4px;
-    margin-left: 12px;
+.back-to-top {
+  position: fixed;
+  bottom: 80px;
+  right: 60px;
+}
+
+.favorite-container {
+  position: fixed;
+  bottom: 190px;
+  right: 60px;
+}
+
+.float-help {
+  z-index: 9999;
+  position: fixed;
+  top: 160px;
+  right: 70px;
+  opacity: 0.8;
+  .at-badge__num {
+    width: 80px;
   }
+}
+.related-law-link {
+  font-size: 32px;
+  margin: 18px 6px;
+  .link-text {
+    color: #6190E8;
+    text-decoration: underline;
+    text-decoration-color: #6190E8;
+  }
+}
+
+
+.law-icon {
+  width: 70px;
+  height: 70px;
 }
 
 .float-category {
   position: fixed;
-  bottom: 460px;
+  bottom: 520px;
   right: 80px;
   z-index: 999;
   background-color: rgba(0,0,0,0.8);
-  max-height: 60vh;
-  overflow-y: scroll;
   .float-category-item {
     z-index: 999;
     font-size: 36px;
     color: #6190E8;
     padding: 30px 30px 30px 30px;
-    max-width: 72vw;
-    //overflow: hidden;
-    //text-overflow: ellipsis;
-    //white-space: nowrap;
   }
 }
 
 .float-category-icon {
   position: fixed;
-  bottom: 400px;
-  right: 10px;
+  bottom: 430px;
+  right: 73px;
 }
-
-.static-category {
-  .static-category-item {
-    font-size: 36px;
-    padding-top: 30px;
-    text-decoration: underline;
-    text-decoration-color: #6190E8;
-    color: #6190E8 !important;
-  }
-  margin-bottom: 40px;
-}
-

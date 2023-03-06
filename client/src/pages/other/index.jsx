@@ -1,17 +1,36 @@
 import Taro, { Component } from '@tarojs/taro'
 import {View, WebView} from '@tarojs/components'
 import {db} from "../../util/db";
+import {xiao_an_da_dao_li_ListData, xue_fa_dian_ListData} from "../../util/data";
 
 export default class Other extends Component {
 
   config = {
-    navigationBarTitleText: '帮助',
+    navigationBarTitleText: '详情',
   }
   state = {
-    helpeUrl:'https://mp.weixin.qq.com/s?__biz=MzA3MjEwNzYzOQ==&mid=2650626321&idx=1&sn=6733741ae3895aa7a31f8563cf97456e&chksm=872aaa09b05d231fc58a907908b6e54519c98630e6bc43caebd9ba2b729219949692269fb675#rd'
+    helpeUrl:''
   }
 
   componentWillMount () {
+    const { type, title } = this.$router.params;
+    console.log('title', type, title);
+    if (type === 'xue_fa_dian') {
+      const target = xue_fa_dian_ListData.find(item => item.title === title);
+      if (target) {
+        this.setState({
+          helpeUrl: target.link
+        })
+      }
+    }
+    if (type === 'xiao_an_da_dao_li') {
+      const target = xiao_an_da_dao_li_ListData.find(item => item.title === title);
+      if (target) {
+        this.setState({
+          helpeUrl: target.link
+        })
+      }
+    }
   }
 
   onShareAppMessage() {

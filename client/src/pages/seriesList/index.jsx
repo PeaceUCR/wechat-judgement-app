@@ -3,16 +3,17 @@ import {View, Image, Text, Swiper, SwiperItem} from '@tarojs/components'
 import {AtDivider, AtSearchBar,AtNoticebar, AtList, AtListItem,  AtModal,AtModalHeader, AtModalContent,AtModalAction, AtInput, AtBadge, AtIcon, AtActionSheet, AtTag, AtDrawer, AtAccordion, AtFab} from "taro-ui";
 import UserFloatButton from '../../components/userFloatButton/index.weapp'
 import './index.scss'
-import {allListData} from '../../util/data'
+import {xiao_an_da_dao_li_ListData, xue_fa_dian_ListData} from '../../util/data'
 
 export default class Index extends Component {
 
   state = {
-    allList: allListData
+    allList: xue_fa_dian_ListData,
+    type: ''
   }
 
   config = {
-    navigationBarTitleText: '详情'
+    navigationBarTitleText: '学法典读案例答问题'
   }
 
   onShareAppMessage() {
@@ -22,7 +23,19 @@ export default class Index extends Component {
   }
 
   componentWillMount () {
-    const { userOpenId, userName, userAvatar, law, number, searchValue } = this.$router.params;
+    const { type } = this.$router.params;
+    if (type === 'xue_fa_dian') {
+      this.setState({
+        allList: xue_fa_dian_ListData,
+        type
+      });
+    }
+    if (type === 'xiao_an_da_dao_li') {
+      this.setState({
+        allList: xiao_an_da_dao_li_ListData,
+        type
+      });
+    }
   }
 
   componentDidMount () {
@@ -36,22 +49,20 @@ export default class Index extends Component {
 
   componentDidHide () { }
 
-  handleClick = () => {
-    Taro.showToast({
-      title: '开发中敬请期待',
-      icon: 'none',
-      duration: 2000
+  handleClick = (title, type) => {
+    Taro.navigateTo({
+      url: `/pages/other/index?type=${type}&title=${title}`
     });
   }
 
   render () {
-    const {isReadMode, allList} = this.state;
+    const {isReadMode, allList, type} = this.state;
     return (
       <View className='index-page page read-mode'>
         <AtList>
           {
             allList.map(item => (
-              <AtListItem title={item.title} note='描述信息' onClick={this.handleClick} />
+              <AtListItem title={`[${item.time}]`} note={item.title} onClick={() => this.handleClick(item.title, type)} />
             ))
           }
         </AtList>

@@ -25,12 +25,14 @@
   .menus {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     padding: 10px 20px;
     min-height: 560px;
   }
 
   .menu-item {
-    width: 200px;
+    width: 27vw;
+    padding: 0 1vw;
     height: 260px;
     display: flex;
     flex-direction: column;
@@ -42,7 +44,8 @@
     }
     .menu-text {
       text-align: center;
-      font-size: 32px;
+      font-size: 34px;
+      font-weight: bold;
     }
   }
 
