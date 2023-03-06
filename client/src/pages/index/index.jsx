@@ -163,10 +163,6 @@ export default class Index extends Component {
             <Image className='reading' src={reading} mode='aspectFill' />
             <Text className='menu-text'>学法典读案例答问题</Text>
           </View>
-          <View className='menu-item' onClick={this.goToXiaoAnDaDaoLi}>
-            <Image className='reading' src={reading} mode='aspectFill' />
-            <Text className='menu-text'>学习小案大道理</Text>
-          </View>
           <View className='menu-item' onClick={this.goToConsultant}>
             <Image className='reading' src={reading} mode='aspectFill' />
             <Text className='menu-text'>学习刑事审判参考</Text>

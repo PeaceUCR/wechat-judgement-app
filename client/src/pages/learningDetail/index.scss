@@ -1,0 +1,16 @@
+.other-page{
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: #F4ECD8;
+  padding: 10px 20px 60px 20px;
+  .video-container {
+    display: flex;
+    justify-content: center;
+  }
+  .title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+}
