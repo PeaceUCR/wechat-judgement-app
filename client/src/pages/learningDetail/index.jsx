@@ -4,6 +4,7 @@ import {db} from "../../util/db";
 import TextSectionComponent from "../../components/textSectionComponent";
 import './index.scss'
 import {allListData} from "../../util/data";
+import moment from 'moment'
 
 export default class Other extends Component {
 
@@ -11,7 +12,7 @@ export default class Other extends Component {
     navigationBarTitleText: '学法典读',
   }
   state = {
-    example: {}
+    example: {},
   }
 
   componentWillMount () {
@@ -49,19 +50,6 @@ export default class Other extends Component {
         <TextSectionComponent data={example.question} />
         {example.answer && <View className='title'>答案</View>}
         <TextSectionComponent data={example.answer.replace(/(\r\n|\n|\r)/gm, "")} />
-        <View className='title'>学起来</View>
-        <View className='video-container'>
-          <Video
-            src={example.video}
-            controls={true}
-            autoplay={false}
-            objectFit='fill'
-            initialTime='0'
-            id='video'
-            loop={false}
-            muted={false}
-          />
-        </View>
       </View>
     )
   }

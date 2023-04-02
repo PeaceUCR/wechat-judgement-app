@@ -11,6 +11,7 @@ import {DiscussionArea} from "../../components/discussionArea/index.weapp";
 import {convertNumberToChinese} from "../../util/convertNumber"
 import {lawIcon} from "../../util/name"
 import Loading2 from "../../components/loading2/index.weapp";
+import {getJudgmentDetailByRowKey, getJudgmentByRowKey} from "../../util/judgment";
 
 export default class ExampleDetail extends Component {
 
@@ -32,7 +33,7 @@ export default class ExampleDetail extends Component {
   }
 
   config = {
-    navigationBarTitleText: '详情'
+    navigationBarTitleText: '民事裁判文书学习'
   }
 
   componentWillMount () {
@@ -104,118 +105,126 @@ export default class ExampleDetail extends Component {
       });
 
     } else if (type === 'civil') {
-      Taro.cloud.callFunction({
-        name: 'getJudgementDetailFromCloud',
-        data: {
-          rowKey: id
-        },
-        complete: (r) => {
-          console.log('cloud', r)
-          if (r && r.result && r.result.data && r.result.data.length > 0) {
-            that.setState({example: r.result.data[0], isExampleLoading: false, type, id})
-          }
-        }
-      })
+      // Taro.cloud.callFunction({
+      //   name: 'getJudgementDetailFromCloud',
+      //   data: {
+      //     rowKey: id
+      //   },
+      //   complete: (r) => {
+      //     console.log('cloud', r)
+      //     if (r && r.result && r.result.data && r.result.data.length > 0) {
+      //       that.setState({example: r.result.data[0], isExampleLoading: false, type, id})
+      //     }
+      //   }
+      // })
 
-      db.collection('civil-case').where({rowkey: id}).get({
-        success: (res) => {
-          let  highlighted
-          if (keyword) {
-            highlighted = keyword;
-          } else {
-            const {criminalLaw} = res.data[0];
-            if (criminalLaw) {
-              highlighted = convertNumberToChinese(parseInt(criminalLaw))
-            }
-          }
-
-          that.setState({brief: res.data[0], keyword: highlighted, isBriefLoading: false, type, id});
-        },
-        fail: () => {
-          console.log('fail')
-          that.setState({isBriefLoading: false})
-        }
+      console.log('getJudgmentByRowKey', id);
+      getJudgmentByRowKey(id).then(r => {
+        that.setState({brief: r, isBriefLoading: false, type, id})
+      });
+      getJudgmentDetailByRowKey(id).then(r => {
+        that.setState({example: r, isExampleLoading: false, type, id})
       });
 
-      db.collection('civil-case-detail').where({rowKey: id}).get({
-        success: (res1) => {
-          const detail1 = res1.data[0]
-
-          db.collection('civil-case-detail-2').where({rowKey: id}).get({
-            success: (res2) => {
-
-              const detail2 = res2.data[0]
-              db.collection('civil-case-detail-3').where({rowKey: id}).get({
-                success: (res3) => {
-                  const detail3 = res3.data[0]
-                  db.collection('civil-case-detail-4').where({rowKey: id}).get({
-                    success: (res4) => {
-                      const detail4 = res4.data[0]
-                      let example
-                      if (detail1) {
-                        example = detail1
-                      }
-                      if (detail2) {
-                        example = detail2
-                      }
-                      if (detail3) {
-                        example = detail3
-                      }
-                      if (detail4) {
-                        example = detail4
-                      }
-                      if (example) {
-                        that.setState({example: example, isExampleLoading: false, type, id})
-                      } else {
-                        that.setState({isExampleLoading: false, type, id})
-                      }
-                    },
-                    fail: () => {
-                      console.log('fail')
-                      that.setState({isExampleLoading: false})
-                    }
-                  });
-
-                },
-                fail: () => {
-                  console.log('fail')
-                  that.setState({isExampleLoading: false})
-                }
-              });
-
-            },
-            fail: () => {
-              console.log('fail')
-              that.setState({isExampleLoading: false})
-            }
-          });
-        },
-        fail: () => {
-          console.log('fail')
-          that.setState({isExampleLoading: false})
-        }
-      });
+      // db.collection('civil-case').where({rowkey: id}).get({
+      //   success: (res) => {
+      //     let  highlighted
+      //     if (keyword) {
+      //       highlighted = keyword;
+      //     } else {
+      //       const {criminalLaw} = res.data[0];
+      //       if (criminalLaw) {
+      //         highlighted = convertNumberToChinese(parseInt(criminalLaw))
+      //       }
+      //     }
+      //
+      //     that.setState({brief: res.data[0], keyword: highlighted, isBriefLoading: false, type, id});
+      //   },
+      //   fail: () => {
+      //     console.log('fail')
+      //     that.setState({isBriefLoading: false})
+      //   }
+      // });
+      //
+      // db.collection('civil-case-detail').where({rowKey: id}).get({
+      //   success: (res1) => {
+      //     const detail1 = res1.data[0]
+      //
+      //     db.collection('civil-case-detail-2').where({rowKey: id}).get({
+      //       success: (res2) => {
+      //
+      //         const detail2 = res2.data[0]
+      //         db.collection('civil-case-detail-3').where({rowKey: id}).get({
+      //           success: (res3) => {
+      //             const detail3 = res3.data[0]
+      //             db.collection('civil-case-detail-4').where({rowKey: id}).get({
+      //               success: (res4) => {
+      //                 const detail4 = res4.data[0]
+      //                 let example
+      //                 if (detail1) {
+      //                   example = detail1
+      //                 }
+      //                 if (detail2) {
+      //                   example = detail2
+      //                 }
+      //                 if (detail3) {
+      //                   example = detail3
+      //                 }
+      //                 if (detail4) {
+      //                   example = detail4
+      //                 }
+      //                 if (example) {
+      //                   that.setState({example: example, isExampleLoading: false, type, id})
+      //                 } else {
+      //                   that.setState({isExampleLoading: false, type, id})
+      //                 }
+      //               },
+      //               fail: () => {
+      //                 console.log('fail')
+      //                 that.setState({isExampleLoading: false})
+      //               }
+      //             });
+      //
+      //           },
+      //           fail: () => {
+      //             console.log('fail')
+      //             that.setState({isExampleLoading: false})
+      //           }
+      //         });
+      //
+      //       },
+      //       fail: () => {
+      //         console.log('fail')
+      //         that.setState({isExampleLoading: false})
+      //       }
+      //     });
+      //   },
+      //   fail: () => {
+      //     console.log('fail')
+      //     that.setState({isExampleLoading: false})
+      //   }
+      // });
 
     }
 
-    Taro.cloud.callFunction({
-      name: 'isCollected',
-      data: {
-        rowKey: id
-      },
-      complete: (r) => {
-        if (r && r.result && r.result.data && r.result.data.length > 0) {
-          that.setState({isCollected: true})
-        }
-      },
-      fail: (e) => {
-        Taro.showToast({
-          title: `获取收藏数据失败:${JSON.stringify(e)}`,
-          icon: 'none',
-          duration: 1000
-        })
-      }
-    })
+    // Taro.cloud.callFunction({
+    //   name: 'isCollected',
+    //   data: {
+    //     rowKey: id
+    //   },
+    //   complete: (r) => {
+    //     if (r && r.result && r.result.data && r.result.data.length > 0) {
+    //       that.setState({isCollected: true})
+    //     }
+    //   },
+    //   fail: (e) => {
+    //     Taro.showToast({
+    //       title: `获取收藏数据失败:${JSON.stringify(e)}`,
+    //       icon: 'none',
+    //       duration: 1000
+    //     })
+    //   }
+    // })
 
     const setting = getStorageSync('setting');
     this.setState({isReadMode: setting && setting.isReadMode})
@@ -457,9 +466,9 @@ export default class ExampleDetail extends Component {
             <AtIcon value='chevron-up' size='50' color='rgba(26, 117, 255, 0.6)'></AtIcon>
           </View>
 
-          <View className='favorite-container' onClick={this.handleCollect} >
-            <AtIcon value={isCollected ? 'heart-2' : 'heart'} size='32' color={isCollected ? '#e62e00' : 'rgba(0, 0, 0, 0.6)'}></AtIcon>
-          </View>
+          {/*<View className='favorite-container' onClick={this.handleCollect} >*/}
+          {/*  <AtIcon value={isCollected ? 'heart-2' : 'heart'} size='32' color={isCollected ? '#e62e00' : 'rgba(0, 0, 0, 0.6)'}></AtIcon>*/}
+          {/*</View>*/}
 
           <View className='share-container'>
             <AtBadge value='分享'>
@@ -469,31 +478,31 @@ export default class ExampleDetail extends Component {
             </AtBadge>
           </View>
 
-          {type === 'civil' && brief && brief.civilLaws && brief.civilLaws.length > 0 && <View className='float-help' onClick={this.openRelatedLaw}>
-            <AtBadge value='相关法条'>
-              <Image
-                src={lawIcon}
-                className='law-icon'
-                mode='widthFix'
-              />
-            </AtBadge>
-          </View>}
+          {/*{type === 'civil' && brief && brief.civilLaws && brief.civilLaws.length > 0 && <View className='float-help' onClick={this.openRelatedLaw}>*/}
+          {/*  <AtBadge value='相关法条'>*/}
+          {/*    <Image*/}
+          {/*      src={lawIcon}*/}
+          {/*      className='law-icon'*/}
+          {/*      mode='widthFix'*/}
+          {/*    />*/}
+          {/*  </AtBadge>*/}
+          {/*</View>}*/}
 
-          {type === 'criminal' && <View className='float-help' onClick={this.openRelatedLaw}>
-            <AtBadge value='相关法条'>
-              <Image
-                src={lawIcon}
-                className='law-icon'
-                mode='widthFix'
-              />
-            </AtBadge>
-          </View>}
+          {/*{type === 'criminal' && <View className='float-help' onClick={this.openRelatedLaw}>*/}
+          {/*  <AtBadge value='相关法条'>*/}
+          {/*    <Image*/}
+          {/*      src={lawIcon}*/}
+          {/*      className='law-icon'*/}
+          {/*      mode='widthFix'*/}
+          {/*    />*/}
+          {/*  </AtBadge>*/}
+          {/*</View>}*/}
 
           <AtModal isOpened={showRelatedLaw} closeOnClickOverlay={false}>
             <AtModalHeader>相关法条</AtModalHeader>
             <AtModalContent>
-              {type === 'criminal' && brief && brief.criminalLaw && this.renderRelatedLaw()}
-              {type === 'civil' && brief && brief.civilLaws && brief.civilLaws.length > 0 && this.renderRelatedCivilLaw()}
+              {/*{type === 'criminal' && brief && brief.criminalLaw && this.renderRelatedLaw()}*/}
+              {/*{type === 'civil' && brief && brief.civilLaws && brief.civilLaws.length > 0 && this.renderRelatedCivilLaw()}*/}
             </AtModalContent>
             <AtModalAction>
               <Button onClick={() => {

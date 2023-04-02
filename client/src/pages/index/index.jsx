@@ -5,6 +5,7 @@ import UserFloatButton from '../../components/userFloatButton/index.weapp'
 import './index.scss'
 import {db} from "../../util/db";
 import reading from '../../static/reading.png';
+import {civilCaseIcon} from "../../util/name";
 
 const swiperPosters = [
   'https://mmbiz.qpic.cn/mmbiz_gif/6fKEyhdZU92z04oIXVSYicfteNREfklpjxUvgwz33Oq3ib8pqHDicRXN7QzJic6QXotjJt6pRNYcP7ElNr5gz9BBLA/0?wx_fmt=gif',
@@ -125,6 +126,12 @@ export default class Index extends Component {
     });
   }
 
+  goToCivilJudgment = () => {
+    Taro.navigateTo({
+      url: `/pages/civilJudgment/index`
+    });
+  }
+
   render () {
     const {isNewUser, isReadMode, law, number, searchValue, showSetting, showLoading,isMenuOpened, activeKeyMap, selectedCriminalKeywords, enableMainAd, resultList,
     hasVisit, isCauseOpened, showCivilLawOption, filterValue} = this.state;
@@ -162,6 +169,10 @@ export default class Index extends Component {
           <View className='menu-item' onClick={this.goToSeries}>
             <Image className='reading' src={reading} mode='aspectFill' />
             <Text className='menu-text'>学法典读案例答问题</Text>
+          </View>
+          <View className='menu-item' onClick={this.goToCivilJudgment}>
+            <Image className='reading' src={civilCaseIcon} mode='aspectFill' />
+            <Text className='menu-text'>学习民事案例</Text>
           </View>
           <View className='menu-item' onClick={this.goToConsultant}>
             <Image className='reading' src={reading} mode='aspectFill' />

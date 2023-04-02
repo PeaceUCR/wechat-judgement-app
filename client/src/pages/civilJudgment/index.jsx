@@ -23,6 +23,7 @@ import {
 import GlobalSearchItem from '../../components/globalSearchItem/index.weapp'
 import {getUserAvatar} from "../../util/login";
 import {convertNumberToChinese} from "../../util/convertNumber"
+import {searchJudgments} from "../../util/judgment";
 
 
 const settingIcon =
@@ -50,10 +51,10 @@ export default class Index extends Component {
     userName: '',
     userOpenId: '',
     userAvatar: '',
-    law: '',
+    law: 'civil',
     number: '',
     searchValue: '',
-    showSetting: true,
+    showSetting: false,
     isCauseOpened: false,
     causeOpenMap: {},
     showLoading: false,
@@ -64,13 +65,12 @@ export default class Index extends Component {
     province: '',
     cause: '',
     enableMainAd: false,
-    hasVisit: true,
     showCivilLawOption: false,
     filterValue: ''
   }
 
   config = {
-    navigationStyle: 'custom'
+    navigationBarTitleText: '民事案例学习',
   }
 
   onShareAppMessage() {
@@ -91,7 +91,7 @@ export default class Index extends Component {
       userOpenId,
       userName,
       userAvatar,
-      law: law && law !== 'undefined' ? law : '',
+      law: 'civil',
       number: isNaN(parseInt(number)) ? '' : parseInt(number),
       searchValue: searchValue && searchValue !== 'undefined' ? searchValue : ''
     })
@@ -123,29 +123,22 @@ export default class Index extends Component {
       console.log('default set to read mode')
     }
 
-    const {isReadMode} = this.state;
-    if ( isReadMode ) {
-      console.log('read')
-      Taro.setNavigationBarColor({
-        frontColor: '#000000',
-        backgroundColor: '#F4ECD8'
-      })
-    }
+    // const {isReadMode} = this.state;
+    // if ( isReadMode ) {
+    //   console.log('read')
+    //   Taro.setNavigationBarColor({
+    //     frontColor: '#000000',
+    //     backgroundColor: '#F4ECD8'
+    //   })
+    // }
+    Taro.setNavigationBarColor({
+      frontColor: '#000000',
+      backgroundColor: '#F4ECD8'
+    })
 
     const userAvatar = getUserAvatar();
     this.setState({userAvatar})
 
-    if (!getStorageSync('hasVisit')) {
-      Taro.showToast({
-        title: `首次使用，请先点击右侧的帮助`,
-        icon: 'none',
-        duration: 4000
-      })
-      setStorageSync('hasVisit', true)
-      this.setState({hasVisit: false})
-    } else {
-      this.setState({hasVisit: true})
-    }
   }
 
   componentDidHide () { }
@@ -206,12 +199,12 @@ export default class Index extends Component {
         </View>
         <View>民事案件</View>
       </View>
-      <View className={law === 'criminal' ? 'case-option active' : 'case-option'} onClick={() => this.setState({law: 'criminal'})}>
-        <View>
-          <Image src={criminalCaseIcon} className='option-icon' mode='widthFix' />
-        </View>
-        <View>刑事案件</View>
-      </View>
+      {/*<View className={law === 'criminal' ? 'case-option active' : 'case-option'} onClick={() => this.setState({law: 'criminal'})}>*/}
+      {/*  <View>*/}
+      {/*    <Image src={criminalCaseIcon} className='option-icon' mode='widthFix' />*/}
+      {/*  </View>*/}
+      {/*  <View>刑事案件</View>*/}
+      {/*</View>*/}
     </View>
   }
 
@@ -219,23 +212,22 @@ export default class Index extends Component {
     const {law, number, selectedCriminalKeywords, province, cause} = this.state
     return <View>
       {this.renderCaseTypeOption()}
-      {law === 'criminal' && <View>
-        {/*<View className='warning' >注意: 刑事裁判文书已迁移，你可以去</View>*/}
-        <View className='link' onClick={this.jumpToCriminalJudgement}>裁判文书案例</View>
-        <View className='link' onClick={this.jumpToCriminalConsultant}>刑事审判参考</View>
-        <View className='link' onClick={this.jumpToSofaExample}>两高指导案例/公报案例</View>
-      </View>}
-      {law === 'civil' && <View>
-        <View className={`law-line ${number ? 'active': ''}`} onClick={() => {this.setState({showCivilLawOption: true})}}>{number ? getCivilLawChnNumber(number) : '👉点我选民法典法条'}</View>
-        <View>
-          <AtInput
-            type='number'
-            placeholder='  或输入法条数字序号,如1'
-            value={number}
-            onChange={this.handleInputNumber}
-            onBlur={this.validateNumber}
-          />
-        </View>
+      {/*{law === 'criminal' && <View>*/}
+      {/*  <View className='link' onClick={this.jumpToCriminalJudgement}>裁判文书案例</View>*/}
+      {/*  <View className='link' onClick={this.jumpToCriminalConsultant}>刑事审判参考</View>*/}
+      {/*  <View className='link' onClick={this.jumpToSofaExample}>两高指导案例/公报案例</View>*/}
+      {/*</View>}*/}
+      <View>
+        {/*<View className={`law-line ${number ? 'active': ''}`} onClick={() => {this.setState({showCivilLawOption: true})}}>{number ? getCivilLawChnNumber(number) : '👉点我选民法典法条'}</View>*/}
+        {/*<View>*/}
+        {/*  <AtInput*/}
+        {/*    type='number'*/}
+        {/*    placeholder='  或输入法条数字序号,如1'*/}
+        {/*    value={number}*/}
+        {/*    onChange={this.handleInputNumber}*/}
+        {/*    onBlur={this.validateNumber}*/}
+        {/*  />*/}
+        {/*</View>*/}
         <View className='icon-line' onClick={() => {
           this.setState({
             isCauseOpened: true
@@ -254,43 +246,43 @@ export default class Index extends Component {
           </AtBadge>
           <View className='text'>{selectedCriminalKeywords.length > 0 ? selectedCriminalKeywords.join(',') : '关键词'}</View>
         </View>
-        <View className='icon-line'>
-          <AtIcon value='map-pin' size='26' color='#b35900' onClick={() => {
-            const that = this
-            Taro.getLocation({
-              success(res) {
-                console.log(res)
-                Taro.showLoading({
-                  title: '获取地理位置中',
-                })
-                const {latitude, longitude} = res
-                Taro.request({
-                  url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=4POBZ-YEXYD-NPQ4R-PNZJ4-3XEE5-FFBXF`,
-                  method: 'get',
-                  success: function (r) {
-                    console.log(r)
-                    const {data} = r
-                    const {result} = data
-                    const {address_component} = result
-                    const {province} = address_component
-                    that.setState({
-                      province:province
-                    })
-                    Taro.hideLoading()
-                  }
-                })
+        {/*<View className='icon-line'>*/}
+        {/*  <AtIcon value='map-pin' size='26' color='#b35900' onClick={() => {*/}
+        {/*    const that = this*/}
+        {/*    Taro.getLocation({*/}
+        {/*      success(res) {*/}
+        {/*        console.log(res)*/}
+        {/*        Taro.showLoading({*/}
+        {/*          title: '获取地理位置中',*/}
+        {/*        })*/}
+        {/*        const {latitude, longitude} = res*/}
+        {/*        Taro.request({*/}
+        {/*          url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=4POBZ-YEXYD-NPQ4R-PNZJ4-3XEE5-FFBXF`,*/}
+        {/*          method: 'get',*/}
+        {/*          success: function (r) {*/}
+        {/*            console.log(r)*/}
+        {/*            const {data} = r*/}
+        {/*            const {result} = data*/}
+        {/*            const {address_component} = result*/}
+        {/*            const {province} = address_component*/}
+        {/*            that.setState({*/}
+        {/*              province:province*/}
+        {/*            })*/}
+        {/*            Taro.hideLoading()*/}
+        {/*          }*/}
+        {/*        })*/}
 
-              }
-            })
-          }}></AtIcon>
-          <AtInput
-            type='text'
-            placeholder='位置'
-            value={province}
-            onChange={this.handleProvinceChange}
-          />
-        </View>
-      </View>}
+        {/*      }*/}
+        {/*    })*/}
+        {/*  }}></AtIcon>*/}
+        {/*  <AtInput*/}
+        {/*    type='text'*/}
+        {/*    placeholder='位置'*/}
+        {/*    value={province}*/}
+        {/*    onChange={this.handleProvinceChange}*/}
+        {/*  />*/}
+        {/*</View>*/}
+      </View>
     </View>
   }
 
@@ -320,33 +312,70 @@ export default class Index extends Component {
     const that = this;
     const  { law, number, searchValue, selectedCriminalKeywords, province } = this.state;
 
-    if (law === 'civil') {
-      if (this.validateNumber()) {
-        return that.searchCivil()
-      } else {
-        return ;
-      }
-    }
-    this.setState({
-      showLoading: true
-    })
-    Taro.cloud.callFunction({
-      name: 'searchExamples',
-      data: {
-        law,
-        number,
-        searchValue,
-        selectedCriminalKeywords,
-        province
-      },
-      complete: (r) => {
+    return that.searchCivil();
+
+    // if (law === 'civil') {
+    //   if (this.validateNumber()) {
+    //     return that.searchCivil()
+    //   } else {
+    //     return ;
+    //   }
+    // }
+    // this.setState({
+    //   showLoading: true
+    // })
+    // Taro.cloud.callFunction({
+    //   name: 'searchExamples',
+    //   data: {
+    //     law,
+    //     number,
+    //     searchValue,
+    //     selectedCriminalKeywords,
+    //     province
+    //   },
+    //   complete: (r) => {
+    //     console.log(r)
+    //     if (r && r.result && r.result.data && r.result.data.length > 0) {
+    //       that.setState({
+    //         resultList: sortByOpinion(r.result.data)
+    //       })
+    //       Taro.showToast({
+    //         title: `仅显示前100个结果!`,
+    //         icon: 'none',
+    //         duration: 4000
+    //       })
+    //     } else {
+    //       Taro.showToast({
+    //         title: `未找到,可能是还未收录,敬请期待!`,
+    //         icon: 'none',
+    //         duration: 6000
+    //       })
+    //       that.setState({
+    //         resultList: []
+    //       })
+    //     }
+    //     that.setState({
+    //       showLoading: false
+    //     })
+    //   }
+    // })
+  }
+
+  searchCivil = () => {
+    const that = this;
+    const  { law, number, searchValue, selectedCriminalKeywords, province, cause } = this.state;
+    if (searchValue || selectedCriminalKeywords.length > 0 || cause) {
+      this.setState({
+        showLoading: true
+      })
+      searchJudgments(searchValue, cause, selectedCriminalKeywords).then((r) => {
         console.log(r)
-        if (r && r.result && r.result.data && r.result.data.length > 0) {
+        if (r && r.length > 0) {
           that.setState({
-            resultList: sortByOpinion(r.result.data)
+            resultList: sortByOpinion(r)
           })
           Taro.showToast({
-            title: `仅显示前100个结果!`,
+            title: `仅显示前20个结果!`,
             icon: 'none',
             duration: 4000
           })
@@ -363,56 +392,10 @@ export default class Index extends Component {
         that.setState({
           showLoading: false
         })
-      }
-    })
-  }
-
-  searchCivil = () => {
-    const that = this;
-    const  { law, number, searchValue, selectedCriminalKeywords, province, cause } = this.state;
-    if (number || searchValue || selectedCriminalKeywords.length > 0 || province || cause) {
-      this.setState({
-        showLoading: true
-      })
-      Taro.cloud.callFunction({
-        name: 'searchCivilExamples',
-        data: {
-          law,
-          number,
-          cause,
-          searchValue,
-          selectedCriminalKeywords,
-          province
-        },
-        complete: (r) => {
-          console.log(r)
-          if (r && r.result && r.result.data && r.result.data.length > 0) {
-            that.setState({
-              resultList: sortByOpinion(r.result.data)
-            })
-            Taro.showToast({
-              title: `仅显示前100个结果!`,
-              icon: 'none',
-              duration: 4000
-            })
-          } else {
-            Taro.showToast({
-              title: `未找到,可能是还未收录,敬请期待!`,
-              icon: 'none',
-              duration: 6000
-            })
-            that.setState({
-              resultList: []
-            })
-          }
-          that.setState({
-            showLoading: false
-          })
-        }
       })
     } else {
       Taro.showToast({
-        title: `必须包含搜索一个以上的搜索项(法条/案由/关键字/位置)`,
+        title: `必须包含搜索一个以上的搜索项(案由/关键字)`,
         icon: 'none',
         duration: 6000
       })
@@ -491,7 +474,7 @@ export default class Index extends Component {
             caseNumber={item.caseNumber}
             redirect={() => {
               Taro.navigateTo({
-                url: `/pages/exampleDetail/index?id=${item.rowkey}&type=${law}&keyword=${keyword}`,
+                url: `/pages/civilJudgmentDetail/index?id=${item.rowKey}&type=${law}&keyword=${keyword}`,
               })
               return ;
 
@@ -602,14 +585,14 @@ export default class Index extends Component {
 
   render () {
     const {isNewUser, isReadMode, law, number, searchValue, showSetting, showLoading,isMenuOpened, activeKeyMap, selectedCriminalKeywords, enableMainAd, resultList,
-    hasVisit, isCauseOpened, showCivilLawOption, filterValue} = this.state;
+    isCauseOpened, showCivilLawOption, filterValue, cause} = this.state;
     return (
       <View className={`index-page page ${isReadMode ? 'read-mode' : ''}`}>
         {/*{this.renderTagLine()}*/}
 
-        <AtNoticebar marquee speed={60}>
-          本小程序数据信息均来源于裁判文书网，已收录超过20万份裁判文书，持续开发中...
-        </AtNoticebar>
+        {/*<AtNoticebar marquee speed={60}>*/}
+        {/*  本小程序数据信息均来源于裁判文书网，已收录超过20万份裁判文书，持续开发中...*/}
+        {/*</AtNoticebar>*/}
         <AtSearchBar
           placeholder='当前条件下搜索案由'
           value={searchValue}
@@ -639,6 +622,24 @@ export default class Index extends Component {
         >
           <Text>重置</Text>
         </AtFab>
+        <View className='icon-line' onClick={() => {
+          this.setState({
+            isCauseOpened: true
+          })}}
+        >
+          <AtIcon value='bookmark' size='28' color='#b35900'></AtIcon>
+          <View className='text text-first'>{cause ? cause : '点我选择民事案由'}</View>
+        </View>
+        <View className='icon-line' onClick={() => {
+          this.setState({
+            isMenuOpened: true
+          })}}
+        >
+          <AtBadge value={selectedCriminalKeywords.length}>
+            <AtIcon value='tags' size='24' color='rgba(0,0,0)'></AtIcon>
+          </AtBadge>
+          <View className='text'>{selectedCriminalKeywords.length > 0 ? selectedCriminalKeywords.join(',') : '点我选择关键词'}</View>
+        </View>
         {this.renderResults()}
         {/*<View>userOpenId: {userOpenId}</View>*/}
         {/*<View>userName: {userName}</View>*/}
@@ -646,16 +647,15 @@ export default class Index extends Component {
         {/*<View>law: {law}</View>*/}
         {/*<View>number: {number}</View>*/}
         {/*<View>searchValue: {searchValue}</View>*/}
-        <AtModal isOpened={showSetting} closeOnClickOverlay={false}>
-          <AtModalHeader>我要搜</AtModalHeader>
-          <AtModalContent className={law ? 'has-law' : ''}>
-            {this.renderSearchCriteria()}
-          </AtModalContent>
-          <AtModalAction>
-            <Button className='btn-5' onClick={this.handleClose} >确定</Button>
-          </AtModalAction>
-          {/*<View className='search-law' onClick={this.jumpToMiniProgram}>去搜法搜更多法律知识</View>*/}
-        </AtModal>
+        {/*<AtModal isOpened={showSetting} closeOnClickOverlay={false}>*/}
+        {/*  <AtModalHeader>我要搜</AtModalHeader>*/}
+        {/*  <AtModalContent className={law ? 'has-law' : ''}>*/}
+        {/*    {this.renderSearchCriteria()}*/}
+        {/*  </AtModalContent>*/}
+        {/*  <AtModalAction>*/}
+        {/*    <Button className='btn-5' onClick={this.handleClose} >确定</Button>*/}
+        {/*  </AtModalAction>*/}
+        {/*</AtModal>*/}
         <AtDrawer
           show={isCauseOpened}
           mask
@@ -669,34 +669,34 @@ export default class Index extends Component {
           {this.renderCauseList()}
         </AtDrawer>
 
-        {!isNewUser && this.renderUserFloatButton()}
+        {/*{!isNewUser && this.renderUserFloatButton()}*/}
         {showLoading && <Loading2 />}
-        <View onClick={this.handleOpen} className='float-setting'>
-          <AtBadge value='检索条件'>
-            <Image src={settingIcon} className='setting' mode='widthFix' />
-          </AtBadge>
-        </View>
+        {/*<View onClick={this.handleOpen} className='float-setting'>*/}
+        {/*  <AtBadge value='检索条件'>*/}
+        {/*    <Image src={settingIcon} className='setting' mode='widthFix' />*/}
+        {/*  </AtBadge>*/}
+        {/*</View>*/}
 
-        <View className={`${hasVisit ? '' : 'focus'} float-help`} onClick={() => {
-          Taro.navigateTo({
-            url: '/pages/other/index'
-          })
-        }}
-        >
-          <AtBadge value='帮助'>
-            <AtIcon value='help' size='26' color='rgba(0,0,0, 0.6)'></AtIcon>
-          </AtBadge>
-        </View>
+        {/*<View className='float-help' onClick={() => {*/}
+        {/*  Taro.navigateTo({*/}
+        {/*    url: '/pages/other/index'*/}
+        {/*  })*/}
+        {/*}}*/}
+        {/*>*/}
+        {/*  <AtBadge value='帮助'>*/}
+        {/*    <AtIcon value='help' size='26' color='rgba(0,0,0, 0.6)'></AtIcon>*/}
+        {/*  </AtBadge>*/}
+        {/*</View>*/}
 
-        <View className='float-sofa' onClick={this.jumpToMiniProgram}>
-          <AtBadge value='搜法'>
-            <Image
-              src={lawIcon}
-              className='law-icon'
-              mode='widthFix'
-            />
-          </AtBadge>
-        </View>
+        {/*<View className='float-sofa' onClick={this.jumpToMiniProgram}>*/}
+        {/*  <AtBadge value='搜法'>*/}
+        {/*    <Image*/}
+        {/*      src={lawIcon}*/}
+        {/*      className='law-icon'*/}
+        {/*      mode='widthFix'*/}
+        {/*    />*/}
+        {/*  </AtBadge>*/}
+        {/*</View>*/}
 
         <AtActionSheet isOpened={isMenuOpened} cancelText='确定' title='请选择关键字(可多选)' onClose={() => {this.setState({isMenuOpened: false})}} onCancel={this.handleMenuClose}>
           {law === 'criminal' && <View>
@@ -750,7 +750,7 @@ export default class Index extends Component {
           <AtModalAction><Button onClick={() => {this.setState({showCivilLawOption: false})}}>确定</Button> </AtModalAction>
         </AtModal>
 
-        {enableMainAd && resultList && resultList.length === 0 && !isMenuOpened && <View className='ad-bottom'>
+        {!isMenuOpened && <View className='ad-bottom'>
           <ad unit-id="adunit-0320f67c0e860e36"></ad>
         </View>}
         {/*<MovableArea style='height: 200px; width: 200px; background: red;'>*/}

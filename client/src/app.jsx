@@ -14,10 +14,11 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
+      'pages/civilJudgment/index',
+      'pages/civilJudgmentDetail/index',
       'pages/learningDetail/index',
       'pages/consultant/index',
       'pages/seriesList/index',
-      'pages/oldHome/index',
       'pages/exampleDetail/index',
       'pages/other/index',
       'pages/user/index'

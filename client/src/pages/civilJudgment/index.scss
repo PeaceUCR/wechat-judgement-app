@@ -2,7 +2,7 @@
   width: 100%;
   min-height: 100vh;
   box-sizing: border-box;
-  padding-top: 100px;
+  padding-top: 0px;
   background: #fff;
   overflow-y: scroll;
   position: relative;
@@ -292,7 +292,7 @@
 
 .float-back {
   position: fixed;
-  top: 680px;
+  top: 280px;
   right: 40px;
   z-index: 102;
 }
