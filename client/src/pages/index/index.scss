@@ -27,7 +27,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 10px 20px;
-    min-height: 560px;
+    min-height: 520px;
   }
 
   .menu-item {
@@ -37,7 +37,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     .reading {
       width: 160px;
       height: 160px;

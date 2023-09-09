@@ -62,3 +62,42 @@ export const getJudgmentDetailByRowKey = async (rowKey) => {
   const { data } = res;
   return data;
 }
+
+
+export const searchCivilSimilarCases = async (cause) => {
+  const params = {
+    url: `${BASE_REQUEST_URL}/api/civil-similar-case?casecause=${cause}`,
+    method: 'GET'
+  }
+
+  const res = await Taro.request(params);
+  if (res.statusCode > 399) {
+    Taro.showToast({
+      title: '搜索失败！',
+      icon: 'none',
+      duration: 3000
+    })
+    throw 'error'
+  }
+  const { data } = res;
+  return data;
+}
+
+export const getCivilSimilarCaseById = async (uniqid) => {
+  const params = {
+    url: `${BASE_REQUEST_URL}/api/civil-similar-case/${uniqid}`,
+    method: 'GET',
+  }
+
+  const res = await Taro.request(params);
+  if (res.statusCode > 399) {
+    Taro.showToast({
+      title: '搜索失败！',
+      icon: 'none',
+      duration: 3000
+    })
+    throw 'error'
+  }
+  const { data } = res;
+  return data;
+}

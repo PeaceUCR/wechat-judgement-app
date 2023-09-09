@@ -1,0 +1,2314 @@
+[
+  {
+    "casecause": "一般人格权纠纷",
+    "count": 90
+  },
+  {
+    "casecause": "一般取回权纠纷",
+    "count": 4
+  },
+  {
+    "casecause": "上市公司收购纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "不动产登记纠纷",
+    "count": 35
+  },
+  {
+    "casecause": "不当得利纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "不正当竞争纠纷",
+    "count": 13
+  },
+  {
+    "casecause": "与企业有关的纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "与公司有关的纠纷",
+    "count": 159
+  },
+  {
+    "casecause": "与破产有关的纠纷",
+    "count": 20
+  },
+  {
+    "casecause": "专利代理合同纠纷",
+    "count": 7
+  },
+  {
+    "casecause": "专利合同纠纷",
+    "count": 11
+  },
+  {
+    "casecause": "专利权权属纠纷",
+    "count": 67
+  },
+  {
+    "casecause": "专利权转让合同纠纷",
+    "count": 27
+  },
+  {
+    "casecause": "业主专有权纠纷",
+    "count": 20
+  },
+  {
+    "casecause": "业主共有权纠纷",
+    "count": 62
+  },
+  {
+    "casecause": "业主撤销权纠纷",
+    "count": 44
+  },
+  {
+    "casecause": "业主知情权纠纷",
+    "count": 24
+  },
+  {
+    "casecause": "中介合同纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "中外合作勘探开发自然资源合同纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "中外合作经营企业承包经营合同纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "串通投标不正当竞争纠纷",
+    "count": 6
+  },
+  {
+    "casecause": "临时用地合同纠纷",
+    "count": 12
+  },
+  {
+    "casecause": "义务帮工人受害责任纠纷",
+    "count": 144
+  },
+  {
+    "casecause": "乡镇企业承包经营合同纠纷",
+    "count": 28
+  },
+  {
+    "casecause": "买卖合同纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "互易纠纷",
+    "count": 61
+  },
+  {
+    "casecause": "产品生产者责任纠纷",
+    "count": 105
+  },
+  {
+    "casecause": "产品责任纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "产品销售者责任纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "人事争议",
+    "count": 15
+  },
+  {
+    "casecause": "人格权纠纷",
+    "count": 81
+  },
+  {
+    "casecause": "人身保险合同纠纷",
+    "count": 81
+  },
+  {
+    "casecause": "人身自由权纠纷",
+    "count": 16
+  },
+  {
+    "casecause": "仓储合同纠纷",
+    "count": 47
+  },
+  {
+    "casecause": "仓单质权纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "代位继承纠纷",
+    "count": 17
+  },
+  {
+    "casecause": "仿冒纠纷",
+    "count": 6
+  },
+  {
+    "casecause": "企业债权转股权合同纠纷",
+    "count": 10
+  },
+  {
+    "casecause": "企业公司制改造合同纠纷",
+    "count": 5
+  },
+  {
+    "casecause": "企业兼并合同纠纷",
+    "count": 21
+  },
+  {
+    "casecause": "企业出售合同纠纷",
+    "count": 36
+  },
+  {
+    "casecause": "企业出资人权益确认纠纷",
+    "count": 25
+  },
+  {
+    "casecause": "企业名称（商号）使用合同纠纷",
+    "count": 7
+  },
+  {
+    "casecause": "企业名称（商号）合同纠纷",
+    "count": 3
+  },
+  {
+    "casecause": "供用气合同纠纷",
+    "count": 13
+  },
+  {
+    "casecause": "供用水合同纠纷",
+    "count": 48
+  },
+  {
+    "casecause": "供用热力合同纠纷",
+    "count": 37
+  },
+  {
+    "casecause": "供用电合同纠纷",
+    "count": 54
+  },
+  {
+    "casecause": "侵害企业出资人权益纠纷",
+    "count": 19
+  },
+  {
+    "casecause": "侵害企业名称（商号）权纠纷",
+    "count": 44
+  },
+  {
+    "casecause": "侵害作品信息网络传播权纠纷",
+    "count": 43
+  },
+  {
+    "casecause": "侵害作品修改权纠纷",
+    "count": 7
+  },
+  {
+    "casecause": "侵害作品发表权纠纷",
+    "count": 6
+  },
+  {
+    "casecause": "侵害作品复制权纠纷",
+    "count": 23
+  },
+  {
+    "casecause": "侵害作品展览权纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "侵害作品广播权纠纷",
+    "count": 7
+  },
+  {
+    "casecause": "侵害作品摄制权纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "侵害作品改编权纠纷",
+    "count": 17
+  },
+  {
+    "casecause": "侵害作品放映权纠纷",
+    "count": 32
+  },
+  {
+    "casecause": "侵害作品汇编权纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "侵害作品表演权纠纷",
+    "count": 12
+  },
+  {
+    "casecause": "侵害保护作品完整权纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "侵害发明专利权纠纷",
+    "count": 25
+  },
+  {
+    "casecause": "侵害商业秘密纠纷",
+    "count": 23
+  },
+  {
+    "casecause": "侵害商标权纠纷",
+    "count": 10
+  },
+  {
+    "casecause": "侵害外观设计专利权纠纷",
+    "count": 24
+  },
+  {
+    "casecause": "侵害患者知情同意权责任纠纷",
+    "count": 47
+  },
+  {
+    "casecause": "侵害植物新品种权纠纷",
+    "count": 11
+  },
+  {
+    "casecause": "侵害特殊标志专有权纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "侵害经营秘密纠纷",
+    "count": 40
+  },
+  {
+    "casecause": "侵害表演者权纠纷",
+    "count": 12
+  },
+  {
+    "casecause": "侵害计算机软件著作权纠纷",
+    "count": 24
+  },
+  {
+    "casecause": "侵害集体经济组织成员权益纠纷",
+    "count": 88
+  },
+  {
+    "casecause": "侵害集成电路布图设计专有权纠纷",
+    "count": 7
+  },
+  {
+    "casecause": "侵权责任纠纷",
+    "count": 199
+  },
+  {
+    "casecause": "保安服务合同纠纷",
+    "count": 24
+  },
+  {
+    "casecause": "保管合同纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "保证保险合同纠纷",
+    "count": 19
+  },
+  {
+    "casecause": "保证合同纠纷",
+    "count": 189
+  },
+  {
+    "casecause": "保险代理合同纠纷",
+    "count": 12
+  },
+  {
+    "casecause": "保险纠纷",
+    "count": 49
+  },
+  {
+    "casecause": "保险经纪合同纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "保险费纠纷",
+    "count": 15
+  },
+  {
+    "casecause": "信息网络买卖合同纠纷",
+    "count": 189
+  },
+  {
+    "casecause": "信托纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "信用保险合同纠纷",
+    "count": 3
+  },
+  {
+    "casecause": "信用卡纠纷",
+    "count": 144
+  },
+  {
+    "casecause": "信用证开证纠纷",
+    "count": 14
+  },
+  {
+    "casecause": "信用证欺诈纠纷",
+    "count": 11
+  },
+  {
+    "casecause": "信用证纠纷",
+    "count": 46
+  },
+  {
+    "casecause": "信用证议付纠纷",
+    "count": 19
+  },
+  {
+    "casecause": "修理、重作、更换纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "修理合同纠纷",
+    "count": 32
+  },
+  {
+    "casecause": "借款合同纠纷",
+    "count": 196
+  },
+  {
+    "casecause": "借用合同纠纷",
+    "count": 21
+  },
+  {
+    "casecause": "借记卡纠纷",
+    "count": 50
+  },
+  {
+    "casecause": "债券质权纠纷",
+    "count": 5
+  },
+  {
+    "casecause": "债务转移合同纠纷",
+    "count": 93
+  },
+  {
+    "casecause": "债权人代位权纠纷",
+    "count": 151
+  },
+  {
+    "casecause": "债权人撤销权纠纷",
+    "count": 179
+  },
+  {
+    "casecause": "债权债务概括转移合同纠纷",
+    "count": 23
+  },
+  {
+    "casecause": "债权转让合同纠纷",
+    "count": 166
+  },
+  {
+    "casecause": "假冒他人专利纠纷",
+    "count": 7
+  },
+  {
+    "casecause": "健康保险合同纠纷",
+    "count": 46
+  },
+  {
+    "casecause": "储蓄存款合同纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "入伙纠纷",
+    "count": 5
+  },
+  {
+    "casecause": "公共道路妨碍通行损害责任纠纷",
+    "count": 4
+  },
+  {
+    "casecause": "公司债券交易纠纷",
+    "count": 20
+  },
+  {
+    "casecause": "公司关联交易损害责任纠纷",
+    "count": 32
+  },
+  {
+    "casecause": "公司决议撤销纠纷",
+    "count": 60
+  },
+  {
+    "casecause": "公司减资纠纷",
+    "count": 20
+  },
+  {
+    "casecause": "公司分立纠纷",
+    "count": 16
+  },
+  {
+    "casecause": "公司合并纠纷",
+    "count": 23
+  },
+  {
+    "casecause": "公司增资纠纷",
+    "count": 38
+  },
+  {
+    "casecause": "公司解散纠纷",
+    "count": 186
+  },
+  {
+    "casecause": "公司设立纠纷",
+    "count": 32
+  },
+  {
+    "casecause": "公司证照返还纠纷",
+    "count": 65
+  },
+  {
+    "casecause": "公益事业捐赠合同纠纷",
+    "count": 17
+  },
+  {
+    "casecause": "公益信托纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "公证损害责任纠纷",
+    "count": 30
+  },
+  {
+    "casecause": "公路旅客运输合同纠纷",
+    "count": 152
+  },
+  {
+    "casecause": "公路货物运输合同纠纷",
+    "count": 189
+  },
+  {
+    "casecause": "共有人优先购买权纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "共有权确认纠纷",
+    "count": 45
+  },
+  {
+    "casecause": "共有物分割纠纷",
+    "count": 138
+  },
+  {
+    "casecause": "共有纠纷",
+    "count": 57
+  },
+  {
+    "casecause": "典当纠纷",
+    "count": 90
+  },
+  {
+    "casecause": "养殖权纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "养老保险待遇纠纷",
+    "count": 15
+  },
+  {
+    "casecause": "再保险合同纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "农业承包合同纠纷",
+    "count": 136
+  },
+  {
+    "casecause": "农机作业服务合同纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "农村建房施工合同纠纷",
+    "count": 28
+  },
+  {
+    "casecause": "农村房屋买卖合同纠纷",
+    "count": 120
+  },
+  {
+    "casecause": "凭样品买卖合同纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "出卖人取回权纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "出版合同纠纷",
+    "count": 9
+  },
+  {
+    "casecause": "出版者权权属纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "出租汽车运输合同纠纷",
+    "count": 28
+  },
+  {
+    "casecause": "分家析产纠纷",
+    "count": 90
+  },
+  {
+    "casecause": "分期付款买卖合同纠纷",
+    "count": 80
+  },
+  {
+    "casecause": "别除权纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "加工合同纠纷",
+    "count": 107
+  },
+  {
+    "casecause": "动产抵押权纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "动产浮动抵押权纠纷",
+    "count": 4
+  },
+  {
+    "casecause": "动产质权纠纷",
+    "count": 20
+  },
+  {
+    "casecause": "劳务合同纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "劳务派遣工作人员侵权责任纠纷",
+    "count": 6
+  },
+  {
+    "casecause": "劳动争议",
+    "count": 15
+  },
+  {
+    "casecause": "劳动合同纠纷",
+    "count": 15
+  },
+  {
+    "casecause": "医疗产品责任纠纷",
+    "count": 63
+  },
+  {
+    "casecause": "医疗保险待遇纠纷",
+    "count": 26
+  },
+  {
+    "casecause": "医疗损害责任纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "医疗服务合同纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "占有、使用高度危险物损害责任纠纷",
+    "count": 9
+  },
+  {
+    "casecause": "占有保护纠纷",
+    "count": 11
+  },
+  {
+    "casecause": "占有排除妨害纠纷",
+    "count": 9
+  },
+  {
+    "casecause": "占有物损害赔偿纠纷",
+    "count": 10
+  },
+  {
+    "casecause": "占有物返还纠纷",
+    "count": 66
+  },
+  {
+    "casecause": "发明专利临时保护期使用费纠纷",
+    "count": 5
+  },
+  {
+    "casecause": "发明专利实施许可合同纠纷",
+    "count": 25
+  },
+  {
+    "casecause": "发明创造发明人、设计人署名权纠纷",
+    "count": 6
+  },
+  {
+    "casecause": "发明权纠纷",
+    "count": 9
+  },
+  {
+    "casecause": "发现权纠纷",
+    "count": 11
+  },
+  {
+    "casecause": "发起人责任纠纷",
+    "count": 23
+  },
+  {
+    "casecause": "取回权纠纷",
+    "count": 18
+  },
+  {
+    "casecause": "取水权纠纷",
+    "count": 3
+  },
+  {
+    "casecause": "变更扶养关系纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "变更抚养关系纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "变更赡养关系纠纷",
+    "count": 12
+  },
+  {
+    "casecause": "合伙企业纠纷",
+    "count": 31
+  },
+  {
+    "casecause": "合伙企业财产份额转让纠纷",
+    "count": 11
+  },
+  {
+    "casecause": "合伙合同纠纷",
+    "count": 199
+  },
+  {
+    "casecause": "合作创作合同纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "合同纠纷",
+    "count": 195
+  },
+  {
+    "casecause": "合资、合作开发房地产合同纠纷",
+    "count": 183
+  },
+  {
+    "casecause": "同业拆借纠纷",
+    "count": 77
+  },
+  {
+    "casecause": "同居关系子女抚养纠纷",
+    "count": 78
+  },
+  {
+    "casecause": "同居关系析产纠纷",
+    "count": 99
+  },
+  {
+    "casecause": "同居关系纠纷",
+    "count": 72
+  },
+  {
+    "casecause": "名誉权纠纷",
+    "count": 196
+  },
+  {
+    "casecause": "商业秘密合同纠纷",
+    "count": 3
+  },
+  {
+    "casecause": "商业贿赂不正当竞争纠纷",
+    "count": 7
+  },
+  {
+    "casecause": "商品房委托代理销售合同纠纷",
+    "count": 43
+  },
+  {
+    "casecause": "商品房销售合同纠纷",
+    "count": 199
+  },
+  {
+    "casecause": "商品房预售合同纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "商品房预约合同纠纷",
+    "count": 177
+  },
+  {
+    "casecause": "商标代理合同纠纷",
+    "count": 10
+  },
+  {
+    "casecause": "商标使用许可合同纠纷",
+    "count": 57
+  },
+  {
+    "casecause": "商标权权属、侵权纠纷",
+    "count": 80
+  },
+  {
+    "casecause": "商标权转让合同纠纷",
+    "count": 14
+  },
+  {
+    "casecause": "噪声污染责任纠纷",
+    "count": 67
+  },
+  {
+    "casecause": "因恶意提起知识产权诉讼损害责任纠纷",
+    "count": 17
+  },
+  {
+    "casecause": "因申请先予执行损害责任纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "因申请诉前停止侵害专利权损害责任纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "因申请诉前停止侵害著作权损害责任纠纷",
+    "count": 3
+  },
+  {
+    "casecause": "因申请财产保全损害责任纠纷",
+    "count": 44
+  },
+  {
+    "casecause": "固体废物污染责任纠纷",
+    "count": 6
+  },
+  {
+    "casecause": "国债交易纠纷",
+    "count": 12
+  },
+  {
+    "casecause": "国债回购合同纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "国际货物买卖合同纠纷",
+    "count": 76
+  },
+  {
+    "casecause": "国际铁路联运合同纠纷",
+    "count": 7
+  },
+  {
+    "casecause": "土地承包经营权互换合同纠纷",
+    "count": 27
+  },
+  {
+    "casecause": "土地承包经营权合同纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "土地承包经营权确认纠纷",
+    "count": 49
+  },
+  {
+    "casecause": "土地承包经营权纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "土地承包经营权继承纠纷",
+    "count": 25
+  },
+  {
+    "casecause": "土地承包经营权转让合同纠纷",
+    "count": 63
+  },
+  {
+    "casecause": "土地租赁合同纠纷",
+    "count": 71
+  },
+  {
+    "casecause": "土地经营权出租合同纠纷",
+    "count": 28
+  },
+  {
+    "casecause": "土地经营权抵押合同纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "土地经营权抵押权纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "土壤污染责任纠纷",
+    "count": 20
+  },
+  {
+    "casecause": "在建建筑物抵押权纠纷",
+    "count": 6
+  },
+  {
+    "casecause": "在建船舶、航空器抵押权纠纷",
+    "count": 3
+  },
+  {
+    "casecause": "地役权纠纷",
+    "count": 20
+  },
+  {
+    "casecause": "地面施工、地下设施损害责任纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "垄断定价纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "垄断纠纷",
+    "count": 4
+  },
+  {
+    "casecause": "埋藏物返还纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "城市公交运输合同纠纷",
+    "count": 39
+  },
+  {
+    "casecause": "基金份额质权纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "堆放物倒塌、滚落、滑落损害责任纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "外商独资企业承包经营合同纠纷",
+    "count": 6
+  },
+  {
+    "casecause": "外观设计专利实施许可合同纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "多式联运合同纠纷",
+    "count": 36
+  },
+  {
+    "casecause": "大气污染责任纠纷",
+    "count": 39
+  },
+  {
+    "casecause": "夫妻财产约定纠纷",
+    "count": 35
+  },
+  {
+    "casecause": "失业保险待遇纠纷",
+    "count": 29
+  },
+  {
+    "casecause": "姓名权纠纷",
+    "count": 141
+  },
+  {
+    "casecause": "委托代建合同纠纷",
+    "count": 19
+  },
+  {
+    "casecause": "委托创作合同纠纷",
+    "count": 13
+  },
+  {
+    "casecause": "委托合同纠纷",
+    "count": 198
+  },
+  {
+    "casecause": "委托开立信用证纠纷",
+    "count": 4
+  },
+  {
+    "casecause": "委托理财合同纠纷",
+    "count": 82
+  },
+  {
+    "casecause": "娱乐服务合同纠纷",
+    "count": 31
+  },
+  {
+    "casecause": "婚姻家庭纠纷",
+    "count": 151
+  },
+  {
+    "casecause": "婚姻无效纠纷",
+    "count": 148
+  },
+  {
+    "casecause": "婚姻自主权纠纷",
+    "count": 10
+  },
+  {
+    "casecause": "婚约财产纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "存单质权纠纷",
+    "count": 49
+  },
+  {
+    "casecause": "宅基地使用权纠纷",
+    "count": 88
+  },
+  {
+    "casecause": "定作合同纠纷",
+    "count": 83
+  },
+  {
+    "casecause": "定金合同纠纷",
+    "count": 88
+  },
+  {
+    "casecause": "实用新型专利实施许可合同纠纷",
+    "count": 10
+  },
+  {
+    "casecause": "客户交易结算资金纠纷",
+    "count": 10
+  },
+  {
+    "casecause": "宣告失踪、宣告死亡案件",
+    "count": 23
+  },
+  {
+    "casecause": "家政服务合同纠纷",
+    "count": 7
+  },
+  {
+    "casecause": "对外追收债权纠纷",
+    "count": 19
+  },
+  {
+    "casecause": "小额借款合同纠纷",
+    "count": 60
+  },
+  {
+    "casecause": "展览合同纠纷",
+    "count": 18
+  },
+  {
+    "casecause": "工伤保险待遇纠纷",
+    "count": 120
+  },
+  {
+    "casecause": "广告合同纠纷",
+    "count": 52
+  },
+  {
+    "casecause": "广播电视播放合同纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "庆典服务合同纠纷",
+    "count": 16
+  },
+  {
+    "casecause": "应收账款质权纠纷",
+    "count": 6
+  },
+  {
+    "casecause": "建筑物、构筑物倒塌、塌陷损害责任纠纷",
+    "count": 107
+  },
+  {
+    "casecause": "建筑物区分所有权纠纷",
+    "count": 48
+  },
+  {
+    "casecause": "建筑物和其他土地附着物抵押权纠纷",
+    "count": 29
+  },
+  {
+    "casecause": "建筑物和物件损害责任纠纷",
+    "count": 40
+  },
+  {
+    "casecause": "建筑设备租赁合同纠纷",
+    "count": 48
+  },
+  {
+    "casecause": "建设工程价款优先受偿权纠纷",
+    "count": 26
+  },
+  {
+    "casecause": "建设工程分包合同纠纷",
+    "count": 76
+  },
+  {
+    "casecause": "建设工程勘察合同纠纷",
+    "count": 10
+  },
+  {
+    "casecause": "建设工程合同纠纷",
+    "count": 198
+  },
+  {
+    "casecause": "建设工程施工合同纠纷",
+    "count": 180
+  },
+  {
+    "casecause": "建设工程监理合同纠纷",
+    "count": 9
+  },
+  {
+    "casecause": "建设工程设计合同纠纷",
+    "count": 34
+  },
+  {
+    "casecause": "建设用地使用权出让合同纠纷",
+    "count": 108
+  },
+  {
+    "casecause": "建设用地使用权合同纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "建设用地使用权抵押权纠纷",
+    "count": 13
+  },
+  {
+    "casecause": "建设用地使用权纠纷",
+    "count": 48
+  },
+  {
+    "casecause": "建设用地使用权转让合同纠纷",
+    "count": 150
+  },
+  {
+    "casecause": "异议登记不当损害责任纠纷",
+    "count": 3
+  },
+  {
+    "casecause": "录音录像制作者权权属纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "彩票、奖券纠纷",
+    "count": 67
+  },
+  {
+    "casecause": "恢复原状纠纷",
+    "count": 68
+  },
+  {
+    "casecause": "悬赏广告纠纷",
+    "count": 64
+  },
+  {
+    "casecause": "意外伤害保险合同纠纷",
+    "count": 109
+  },
+  {
+    "casecause": "房地产价格评估合同纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "房地产咨询合同纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "房地产开发经营合同纠纷",
+    "count": 29
+  },
+  {
+    "casecause": "房屋买卖合同纠纷",
+    "count": 196
+  },
+  {
+    "casecause": "房屋租赁合同纠纷",
+    "count": 198
+  },
+  {
+    "casecause": "所有权确认纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "所有权纠纷",
+    "count": 128
+  },
+  {
+    "casecause": "扶养纠纷",
+    "count": 26
+  },
+  {
+    "casecause": "扶养费纠纷",
+    "count": 45
+  },
+  {
+    "casecause": "承包地征收补偿费用分配纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "承揽合同纠纷",
+    "count": 199
+  },
+  {
+    "casecause": "技术合同纠纷",
+    "count": 21
+  },
+  {
+    "casecause": "技术培训合同纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "技术委托开发合同纠纷",
+    "count": 22
+  },
+  {
+    "casecause": "技术服务合同纠纷",
+    "count": 13
+  },
+  {
+    "casecause": "技术秘密让与合同纠纷",
+    "count": 9
+  },
+  {
+    "casecause": "技术转让合同纠纷",
+    "count": 34
+  },
+  {
+    "casecause": "抚养纠纷",
+    "count": 141
+  },
+  {
+    "casecause": "抚养费纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "抵押合同纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "抵押权纠纷",
+    "count": 143
+  },
+  {
+    "casecause": "担保物权确认纠纷",
+    "count": 20
+  },
+  {
+    "casecause": "担保物权纠纷",
+    "count": 74
+  },
+  {
+    "casecause": "拍卖合同纠纷",
+    "count": 166
+  },
+  {
+    "casecause": "拒绝交易纠纷",
+    "count": 9
+  },
+  {
+    "casecause": "招标投标买卖合同纠纷",
+    "count": 109
+  },
+  {
+    "casecause": "挂靠经营合同纠纷",
+    "count": 73
+  },
+  {
+    "casecause": "捆绑交易纠纷",
+    "count": 15
+  },
+  {
+    "casecause": "捆绑销售不正当竞争纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "损害债务人利益赔偿纠纷",
+    "count": 5
+  },
+  {
+    "casecause": "损害公司债权人利益责任纠纷",
+    "count": 40
+  },
+  {
+    "casecause": "损害公司利益责任纠纷",
+    "count": 59
+  },
+  {
+    "casecause": "损害股东利益责任纠纷",
+    "count": 57
+  },
+  {
+    "casecause": "排除妨害纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "探望权纠纷",
+    "count": 132
+  },
+  {
+    "casecause": "探矿权纠纷",
+    "count": 7
+  },
+  {
+    "casecause": "探矿权转让合同纠纷",
+    "count": 3
+  },
+  {
+    "casecause": "提供劳务者受害责任纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "提供劳务者致害责任纠纷",
+    "count": 71
+  },
+  {
+    "casecause": "提单质权纠纷",
+    "count": 16
+  },
+  {
+    "casecause": "撤销婚姻纠纷",
+    "count": 43
+  },
+  {
+    "casecause": "擅自使用与他人有一定影响的商品名称、包装、装潢等相同或者近似的标识纠纷",
+    "count": 70
+  },
+  {
+    "casecause": "擅自使用他人有一定影响的企业名称、社会组织名称、姓名纠纷",
+    "count": 24
+  },
+  {
+    "casecause": "操纵证券交易市场责任纠纷",
+    "count": 3
+  },
+  {
+    "casecause": "收养关系纠纷",
+    "count": 31
+  },
+  {
+    "casecause": "放射性污染责任纠纷",
+    "count": 4
+  },
+  {
+    "casecause": "教育培训合同纠纷",
+    "count": 81
+  },
+  {
+    "casecause": "教育机构责任纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "新增资本认购纠纷",
+    "count": 22
+  },
+  {
+    "casecause": "旅店服务合同纠纷",
+    "count": 42
+  },
+  {
+    "casecause": "旅游合同纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "无因管理纠纷",
+    "count": 94
+  },
+  {
+    "casecause": "最高额抵押权纠纷",
+    "count": 15
+  },
+  {
+    "casecause": "最高额质权纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "有奖销售纠纷",
+    "count": 17
+  },
+  {
+    "casecause": "有线电视服务合同纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "服务合同纠纷",
+    "count": 199
+  },
+  {
+    "casecause": "期货交易代理合同纠纷",
+    "count": 15
+  },
+  {
+    "casecause": "期货内幕交易责任纠纷",
+    "count": 3
+  },
+  {
+    "casecause": "期货实物交割纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "期货欺诈责任纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "期货经纪合同纠纷",
+    "count": 34
+  },
+  {
+    "casecause": "期货透支交易纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "机动车交通事故责任纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "林业承包合同纠纷",
+    "count": 65
+  },
+  {
+    "casecause": "林木折断、倾倒、果实坠落损害责任纠纷",
+    "count": 17
+  },
+  {
+    "casecause": "标准必要专利使用费纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "植物新品种临时保护期使用费纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "植物新品种合同纠纷",
+    "count": 7
+  },
+  {
+    "casecause": "植物新品种权权属、侵权纠纷",
+    "count": 18
+  },
+  {
+    "casecause": "植物新品种权权属纠纷",
+    "count": 5
+  },
+  {
+    "casecause": "植物新品种育种合同纠纷",
+    "count": 5
+  },
+  {
+    "casecause": "横向垄断协议纠纷",
+    "count": 10
+  },
+  {
+    "casecause": "民事主体间房屋拆迁补偿合同纠纷",
+    "count": 199
+  },
+  {
+    "casecause": "民事信托纠纷",
+    "count": 4
+  },
+  {
+    "casecause": "民用航空器损害责任纠纷",
+    "count": 6
+  },
+  {
+    "casecause": "民用航空运输销售代理合同纠纷",
+    "count": 20
+  },
+  {
+    "casecause": "民间借贷纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "民间委托理财合同纠纷",
+    "count": 15
+  },
+  {
+    "casecause": "水上运输人身损害责任纠纷",
+    "count": 10
+  },
+  {
+    "casecause": "水上运输损害责任纠纷",
+    "count": 5
+  },
+  {
+    "casecause": "水上运输财产损害责任纠纷",
+    "count": 7
+  },
+  {
+    "casecause": "水污染责任纠纷",
+    "count": 125
+  },
+  {
+    "casecause": "水路旅客运输合同纠纷",
+    "count": 5
+  },
+  {
+    "casecause": "水路货物运输合同纠纷",
+    "count": 76
+  },
+  {
+    "casecause": "法定继承纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "法律服务合同纠纷",
+    "count": 43
+  },
+  {
+    "casecause": "测试合同纠纷",
+    "count": 6
+  },
+  {
+    "casecause": "海域使用权纠纷",
+    "count": 9
+  },
+  {
+    "casecause": "消除危险纠纷",
+    "count": 4
+  },
+  {
+    "casecause": "清算责任纠纷",
+    "count": 95
+  },
+  {
+    "casecause": "渔业承包合同纠纷",
+    "count": 27
+  },
+  {
+    "casecause": "滥用市场支配地位纠纷",
+    "count": 61
+  },
+  {
+    "casecause": "演出合同纠纷",
+    "count": 28
+  },
+  {
+    "casecause": "牧业承包合同纠纷",
+    "count": 12
+  },
+  {
+    "casecause": "物业服务合同纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "物件脱落、坠落损害责任纠纷",
+    "count": 6
+  },
+  {
+    "casecause": "物权保护纠纷",
+    "count": 77
+  },
+  {
+    "casecause": "物权确认纠纷",
+    "count": 67
+  },
+  {
+    "casecause": "特许经营合同纠纷",
+    "count": 75
+  },
+  {
+    "casecause": "独立保函欺诈纠纷",
+    "count": 3
+  },
+  {
+    "casecause": "环境污染责任纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "生命权、身体权、健康权纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "生育保险待遇纠纷",
+    "count": 19
+  },
+  {
+    "casecause": "用人单位责任纠纷",
+    "count": 76
+  },
+  {
+    "casecause": "用益物权确认纠纷",
+    "count": 12
+  },
+  {
+    "casecause": "用益物权纠纷",
+    "count": 17
+  },
+  {
+    "casecause": "申请为失踪人财产指定、变更代管人",
+    "count": 8
+  },
+  {
+    "casecause": "申请公司清算",
+    "count": 43
+  },
+  {
+    "casecause": "申请变更监护人",
+    "count": 23
+  },
+  {
+    "casecause": "申请司法确认调解协议",
+    "count": 11
+  },
+  {
+    "casecause": "申请宣告自然人失踪",
+    "count": 18
+  },
+  {
+    "casecause": "申请宣告自然人死亡",
+    "count": 30
+  },
+  {
+    "casecause": "申请撤销监护人资格",
+    "count": 74
+  },
+  {
+    "casecause": "申请确定监护人",
+    "count": 17
+  },
+  {
+    "casecause": "电信服务合同纠纷",
+    "count": 126
+  },
+  {
+    "casecause": "留置权纠纷",
+    "count": 52
+  },
+  {
+    "casecause": "监护人责任纠纷",
+    "count": 86
+  },
+  {
+    "casecause": "监护权特别程序案件",
+    "count": 4
+  },
+  {
+    "casecause": "监护权纠纷",
+    "count": 92
+  },
+  {
+    "casecause": "相邻关系纠纷",
+    "count": 195
+  },
+  {
+    "casecause": "相邻土地、建筑物利用关系纠纷",
+    "count": 36
+  },
+  {
+    "casecause": "相邻损害防免关系纠纷",
+    "count": 35
+  },
+  {
+    "casecause": "相邻污染侵害纠纷",
+    "count": 17
+  },
+  {
+    "casecause": "相邻用水、排水纠纷",
+    "count": 25
+  },
+  {
+    "casecause": "相邻通行纠纷",
+    "count": 58
+  },
+  {
+    "casecause": "相邻通风纠纷",
+    "count": 20
+  },
+  {
+    "casecause": "相邻采光、日照纠纷",
+    "count": 79
+  },
+  {
+    "casecause": "知识产权合同纠纷",
+    "count": 11
+  },
+  {
+    "casecause": "知识产权权属、侵权纠纷",
+    "count": 11
+  },
+  {
+    "casecause": "知识产权质权纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "破产债权确认纠纷",
+    "count": 20
+  },
+  {
+    "casecause": "破产抵销权纠纷",
+    "count": 16
+  },
+  {
+    "casecause": "破产撤销权纠纷",
+    "count": 22
+  },
+  {
+    "casecause": "确认不侵害专利权纠纷",
+    "count": 13
+  },
+  {
+    "casecause": "确认不侵害商标权纠纷",
+    "count": 21
+  },
+  {
+    "casecause": "确认不侵害植物新品种权纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "确认不侵害知识产权纠纷",
+    "count": 4
+  },
+  {
+    "casecause": "确认不侵害著作权纠纷",
+    "count": 4
+  },
+  {
+    "casecause": "确认劳动关系纠纷",
+    "count": 36
+  },
+  {
+    "casecause": "确认合同效力纠纷",
+    "count": 89
+  },
+  {
+    "casecause": "确认合同无效纠纷",
+    "count": 148
+  },
+  {
+    "casecause": "确认合同有效纠纷",
+    "count": 96
+  },
+  {
+    "casecause": "确认收养关系纠纷",
+    "count": 33
+  },
+  {
+    "casecause": "确认票据无效纠纷",
+    "count": 7
+  },
+  {
+    "casecause": "社会保险纠纷",
+    "count": 60
+  },
+  {
+    "casecause": "票据交付请求权纠纷",
+    "count": 4
+  },
+  {
+    "casecause": "票据付款请求权纠纷",
+    "count": 65
+  },
+  {
+    "casecause": "票据代理纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "票据利益返还请求权纠纷",
+    "count": 15
+  },
+  {
+    "casecause": "票据损害责任纠纷",
+    "count": 46
+  },
+  {
+    "casecause": "票据纠纷",
+    "count": 101
+  },
+  {
+    "casecause": "票据质权纠纷",
+    "count": 9
+  },
+  {
+    "casecause": "票据返还请求权纠纷",
+    "count": 20
+  },
+  {
+    "casecause": "福利待遇纠纷",
+    "count": 60
+  },
+  {
+    "casecause": "离婚后损害责任纠纷",
+    "count": 43
+  },
+  {
+    "casecause": "离婚后财产纠纷",
+    "count": 197
+  },
+  {
+    "casecause": "离婚纠纷",
+    "count": 197
+  },
+  {
+    "casecause": "种植、养殖回收合同纠纷",
+    "count": 22
+  },
+  {
+    "casecause": "租赁合同纠纷",
+    "count": 197
+  },
+  {
+    "casecause": "竞业限制纠纷",
+    "count": 30
+  },
+  {
+    "casecause": "紧急避险损害责任纠纷",
+    "count": 11
+  },
+  {
+    "casecause": "经济适用房转让合同纠纷",
+    "count": 22
+  },
+  {
+    "casecause": "经营场所、公共场所的经营者、管理者责任纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "经营秘密让与合同纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "继承纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "缔约过失责任纠纷",
+    "count": 71
+  },
+  {
+    "casecause": "网络不正当竞争纠纷",
+    "count": 3
+  },
+  {
+    "casecause": "网络侵权责任纠纷",
+    "count": 93
+  },
+  {
+    "casecause": "网络域名合同纠纷",
+    "count": 5
+  },
+  {
+    "casecause": "网络域名权属、侵权纠纷",
+    "count": 12
+  },
+  {
+    "casecause": "网络域名权属纠纷",
+    "count": 12
+  },
+  {
+    "casecause": "网络域名注册合同纠纷",
+    "count": 9
+  },
+  {
+    "casecause": "网络域名转让合同纠纷",
+    "count": 3
+  },
+  {
+    "casecause": "网络服务合同纠纷",
+    "count": 82
+  },
+  {
+    "casecause": "群众性活动组织者责任纠纷",
+    "count": 21
+  },
+  {
+    "casecause": "职务发明创造发明人、设计人奖励、报酬纠纷",
+    "count": 29
+  },
+  {
+    "casecause": "职务技术成果完成人奖励、报酬纠纷",
+    "count": 11
+  },
+  {
+    "casecause": "职工破产债权确认纠纷",
+    "count": 13
+  },
+  {
+    "casecause": "联合运输合同纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "联营合同纠纷",
+    "count": 110
+  },
+  {
+    "casecause": "聘用合同纠纷",
+    "count": 22
+  },
+  {
+    "casecause": "肖像权纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "股东名册记载纠纷",
+    "count": 25
+  },
+  {
+    "casecause": "股东损害公司债权人利益责任纠纷",
+    "count": 15
+  },
+  {
+    "casecause": "股东知情权纠纷",
+    "count": 100
+  },
+  {
+    "casecause": "股权质权纠纷",
+    "count": 17
+  },
+  {
+    "casecause": "股票回购合同纠纷",
+    "count": 3
+  },
+  {
+    "casecause": "股票权利确认纠纷",
+    "count": 20
+  },
+  {
+    "casecause": "航空旅客运输合同纠纷",
+    "count": 78
+  },
+  {
+    "casecause": "航空货物运输合同纠纷",
+    "count": 57
+  },
+  {
+    "casecause": "航空运输人身损害责任纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "航空运输损害责任纠纷",
+    "count": 5
+  },
+  {
+    "casecause": "航空运输财产损害责任纠纷",
+    "count": 7
+  },
+  {
+    "casecause": "荣誉权纠纷",
+    "count": 13
+  },
+  {
+    "casecause": "营业信托纠纷",
+    "count": 10
+  },
+  {
+    "casecause": "著作权合同纠纷",
+    "count": 30
+  },
+  {
+    "casecause": "著作权权属、侵权纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "著作权许可使用合同纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "著作权转让合同纠纷",
+    "count": 12
+  },
+  {
+    "casecause": "虚假宣传纠纷",
+    "count": 40
+  },
+  {
+    "casecause": "虚假登记损害责任纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "融资租赁合同纠纷",
+    "count": 199
+  },
+  {
+    "casecause": "融资融券交易纠纷",
+    "count": 17
+  },
+  {
+    "casecause": "行纪合同纠纷",
+    "count": 55
+  },
+  {
+    "casecause": "补偿贸易纠纷",
+    "count": 11
+  },
+  {
+    "casecause": "表演合同纠纷",
+    "count": 3
+  },
+  {
+    "casecause": "被继承人债务清偿纠纷",
+    "count": 50
+  },
+  {
+    "casecause": "装饰装修合同纠纷",
+    "count": 128
+  },
+  {
+    "casecause": "见义勇为人受害责任纠纷",
+    "count": 18
+  },
+  {
+    "casecause": "解除收养关系纠纷",
+    "count": 77
+  },
+  {
+    "casecause": "触电人身损害责任纠纷",
+    "count": 143
+  },
+  {
+    "casecause": "计算机软件开发合同纠纷",
+    "count": 24
+  },
+  {
+    "casecause": "计算机软件著作权转让合同纠纷",
+    "count": 7
+  },
+  {
+    "casecause": "证券交易代理合同纠纷",
+    "count": 36
+  },
+  {
+    "casecause": "证券交易合同纠纷",
+    "count": 15
+  },
+  {
+    "casecause": "证券内幕交易责任纠纷",
+    "count": 5
+  },
+  {
+    "casecause": "证券包销合同纠纷",
+    "count": 4
+  },
+  {
+    "casecause": "证券发行纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "证券回购合同纠纷",
+    "count": 11
+  },
+  {
+    "casecause": "证券托管纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "证券承销合同纠纷",
+    "count": 4
+  },
+  {
+    "casecause": "证券投资咨询纠纷",
+    "count": 4
+  },
+  {
+    "casecause": "证券投资基金回购合同纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "证券权利确认纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "证券纠纷",
+    "count": 49
+  },
+  {
+    "casecause": "诉讼、仲裁、人民调解代理合同纠纷",
+    "count": 89
+  },
+  {
+    "casecause": "试用买卖合同纠纷",
+    "count": 15
+  },
+  {
+    "casecause": "请求公司收购股份纠纷",
+    "count": 41
+  },
+  {
+    "casecause": "请求变更公司登记纠纷",
+    "count": 38
+  },
+  {
+    "casecause": "请求撤销个别清偿行为纠纷",
+    "count": 13
+  },
+  {
+    "casecause": "财产保险合同纠纷",
+    "count": 15
+  },
+  {
+    "casecause": "财产损失保险合同纠纷",
+    "count": 151
+  },
+  {
+    "casecause": "财产损害赔偿纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "财会服务合同纠纷",
+    "count": 6
+  },
+  {
+    "casecause": "责任保险合同纠纷",
+    "count": 17
+  },
+  {
+    "casecause": "货运代理合同纠纷",
+    "count": 138
+  },
+  {
+    "casecause": "质押合同纠纷",
+    "count": 144
+  },
+  {
+    "casecause": "质押式证券回购纠纷",
+    "count": 4
+  },
+  {
+    "casecause": "质权纠纷",
+    "count": 16
+  },
+  {
+    "casecause": "赠与合同纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "赡养纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "赡养费纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "车位纠纷",
+    "count": 25
+  },
+  {
+    "casecause": "车库纠纷",
+    "count": 13
+  },
+  {
+    "casecause": "车辆租赁合同纠纷",
+    "count": 50
+  },
+  {
+    "casecause": "转继承纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "转质权纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "辞职纠纷",
+    "count": 13
+  },
+  {
+    "casecause": "辞退纠纷",
+    "count": 13
+  },
+  {
+    "casecause": "运输合同纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "返还原物纠纷",
+    "count": 199
+  },
+  {
+    "casecause": "进出口代理合同纠纷",
+    "count": 114
+  },
+  {
+    "casecause": "进出口信用保险合同纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "进出口押汇纠纷",
+    "count": 22
+  },
+  {
+    "casecause": "违反安全保障义务责任纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "追偿权纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "追收非正常收入纠纷",
+    "count": 5
+  },
+  {
+    "casecause": "追索劳动报酬纠纷",
+    "count": 15
+  },
+  {
+    "casecause": "遗嘱继承纠纷",
+    "count": 200
+  },
+  {
+    "casecause": "遗失、抛弃高度危险物损害责任纠纷",
+    "count": 8
+  },
+  {
+    "casecause": "遗失物返还纠纷",
+    "count": 14
+  },
+  {
+    "casecause": "遗赠扶养协议纠纷",
+    "count": 62
+  },
+  {
+    "casecause": "遗赠纠纷",
+    "count": 34
+  },
+  {
+    "casecause": "邮政服务合同纠纷",
+    "count": 64
+  },
+  {
+    "casecause": "邻接权转让合同纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "采矿权纠纷",
+    "count": 28
+  },
+  {
+    "casecause": "采矿权转让合同纠纷",
+    "count": 35
+  },
+  {
+    "casecause": "金融不良债权转让合同纠纷",
+    "count": 22
+  },
+  {
+    "casecause": "金融不良债权追偿纠纷",
+    "count": 28
+  },
+  {
+    "casecause": "金融借款合同纠纷",
+    "count": 194
+  },
+  {
+    "casecause": "金融委托理财合同纠纷",
+    "count": 36
+  },
+  {
+    "casecause": "金融衍生品种交易纠纷",
+    "count": 11
+  },
+  {
+    "casecause": "铁路修建合同纠纷",
+    "count": 6
+  },
+  {
+    "casecause": "铁路旅客运输合同纠纷",
+    "count": 70
+  },
+  {
+    "casecause": "铁路货物运输合同纠纷",
+    "count": 102
+  },
+  {
+    "casecause": "铁路运输人身损害责任纠纷",
+    "count": 44
+  },
+  {
+    "casecause": "铁路运输损害责任纠纷",
+    "count": 7
+  },
+  {
+    "casecause": "铁路运输财产损害责任纠纷",
+    "count": 10
+  },
+  {
+    "casecause": "银行卡纠纷",
+    "count": 23
+  },
+  {
+    "casecause": "银行结算合同纠纷",
+    "count": 14
+  },
+  {
+    "casecause": "防卫过当损害责任纠纷",
+    "count": 5
+  },
+  {
+    "casecause": "附义务赠与合同纠纷",
+    "count": 25
+  },
+  {
+    "casecause": "限定交易纠纷",
+    "count": 4
+  },
+  {
+    "casecause": "隐私权、个人信息保护纠纷",
+    "count": 113
+  },
+  {
+    "casecause": "隐私权纠纷",
+    "count": 17
+  },
+  {
+    "casecause": "隐藏物返还纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "集体合同纠纷",
+    "count": 15
+  },
+  {
+    "casecause": "集成电路布图设计专有权权属、侵权纠纷",
+    "count": 4
+  },
+  {
+    "casecause": "集成电路布图设计专有权权属纠纷",
+    "count": 7
+  },
+  {
+    "casecause": "集成电路布图设计合同纠纷",
+    "count": 1
+  },
+  {
+    "casecause": "非法占有高度危险物损害责任纠纷",
+    "count": 2
+  },
+  {
+    "casecause": "音像制品制作合同纠纷",
+    "count": 3
+  },
+  {
+    "casecause": "项目转让合同纠纷",
+    "count": 20
+  },
+  {
+    "casecause": "餐饮服务合同纠纷",
+    "count": 88
+  },
+  {
+    "casecause": "饲养动物损害责任纠纷",
+    "count": 179
+  },
+  {
+    "casecause": "高度危险活动损害责任纠纷",
+    "count": 40
+  },
+  {
+    "casecause": "高度危险责任纠纷",
+    "count": 45
+  },
+  {
+    "casecause": "高空抛物、坠物损害责任纠纷",
+    "count": 71
+  }
+]

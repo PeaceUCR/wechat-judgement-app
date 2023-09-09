@@ -131,6 +131,11 @@ export default class Index extends Component {
       url: `/pages/civilJudgment/index`
     });
   }
+  goToCivilSimilarCase= () => {
+    Taro.navigateTo({
+      url: `/pages/civilSimilarCase/index`
+    });
+  }
 
   render () {
     const {isNewUser, isReadMode, law, number, searchValue, showSetting, showLoading,isMenuOpened, activeKeyMap, selectedCriminalKeywords, enableMainAd, resultList,
@@ -177,6 +182,10 @@ export default class Index extends Component {
           <View className='menu-item' onClick={this.goToConsultant}>
             <Image className='reading' src={reading} mode='aspectFill' />
             <Text className='menu-text'>学习刑事审判参考</Text>
+          </View>
+          <View className='menu-item' onClick={this.goToCivilSimilarCase}>
+            <Image className='reading' src={reading} mode='aspectFill' />
+            <Text className='menu-text'>民事类案检索</Text>
           </View>
         </View>
         <ad unit-id='adunit-33f2aac1c663b205' ad-type='video' ad-theme='white'></ad>
