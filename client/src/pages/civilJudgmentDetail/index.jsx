@@ -230,11 +230,11 @@ export default class ExampleDetail extends Component {
     this.setState({isReadMode: setting && setting.isReadMode})
     if (setting && setting.isReadMode) {
       console.log('read')
-      Taro.setNavigationBarColor({
-        frontColor: '#000000',
-        backgroundColor: '#F4ECD8'
-      })
     }
+    Taro.setNavigationBarColor({
+      frontColor: '#000000',
+      backgroundColor: '#F4ECD8'
+    })
   }
 
   onShareAppMessage() {

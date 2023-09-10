@@ -1,8 +1,9 @@
 import Taro, { Component, getStorageSync, setStorageSync } from '@tarojs/taro'
 import {View, Image, Text, Swiper, SwiperItem} from '@tarojs/components'
-import {AtDivider, AtSearchBar,AtNoticebar, AtList, AtListItem,  AtModal,AtModalHeader, AtModalContent,AtModalAction, AtInput, AtBadge, AtIcon, AtActionSheet, AtTag, AtDrawer, AtAccordion, AtFab} from "taro-ui";
+import {AtDivider, AtSearchBar, AtCurtain } from "taro-ui";
 import UserFloatButton from '../../components/userFloatButton/index.weapp'
 import './index.scss'
+import {STATIC_POSTER_URL, STATIC_POSTER_REDIRECT} from "../../util/util";
 import {db} from "../../util/db";
 import reading from '../../static/reading.png';
 import {civilCaseIcon} from "../../util/name";
@@ -36,7 +37,12 @@ export default class Index extends Component {
     enableMainAd: false,
     hasVisit: true,
     showCivilLawOption: false,
-    filterValue: ''
+    filterValue: '',
+
+    posterUrl: STATIC_POSTER_URL,
+    posterRedirect: STATIC_POSTER_REDIRECT,
+    showPoster: false,
+    posterLoaded: false
   }
 
   config = {
@@ -69,6 +75,10 @@ export default class Index extends Component {
         })
       }
     });
+
+    if (getStorageSync('poster-shown') !== STATIC_POSTER_URL) {
+      that.setState({showPoster: true})
+    }
   }
 
   componentDidMount () {
@@ -139,7 +149,7 @@ export default class Index extends Component {
 
   render () {
     const {isNewUser, isReadMode, law, number, searchValue, showSetting, showLoading,isMenuOpened, activeKeyMap, selectedCriminalKeywords, enableMainAd, resultList,
-    hasVisit, isCauseOpened, showCivilLawOption, filterValue} = this.state;
+    hasVisit, isCauseOpened, showCivilLawOption, filterValue, showPoster, posterUrl, posterRedirect, posterLoaded} = this.state;
     return (
       <View className='index-page page read-mode'>
         <Swiper
@@ -189,6 +199,34 @@ export default class Index extends Component {
           </View>
         </View>
         <ad unit-id='adunit-33f2aac1c663b205' ad-type='video' ad-theme='white'></ad>
+        <AtCurtain isOpened={showPoster && posterLoaded && posterUrl} onClose={() => {
+          this.setState({showPoster: false})
+          setStorageSync('poster-shown', posterUrl)
+        }}
+        >
+          <Image
+            className='poster'
+            src={posterUrl}
+            mode='widthFix'
+            onClick={() => {
+              if(posterRedirect.trim()) {
+                Taro.navigateTo({
+                  url: posterRedirect.trim(),
+                })
+              } else {
+                Taro.previewImage({
+                  current: posterUrl,
+                  urls: [posterUrl]
+                })
+              }
+            }}
+          />
+        </AtCurtain>
+        <Image
+          className='image-for-loading'
+          src={posterUrl}
+          onLoad={() => this.setState({posterLoaded: true})}
+        />
       </View>
     )
   }

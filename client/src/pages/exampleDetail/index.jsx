@@ -52,6 +52,11 @@ export default class ExampleDetail extends Component {
         that.setState({example: res, isLoading: false, type, id, keyword})
       })
     }
+
+    Taro.setNavigationBarColor({
+      frontColor: '#000000',
+      backgroundColor: '#F4ECD8'
+    });
   }
 
   onShareAppMessage() {

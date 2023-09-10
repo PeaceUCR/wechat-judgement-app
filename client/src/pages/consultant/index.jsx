@@ -43,11 +43,11 @@ export default class Index extends Component {
     this.setState({isReadMode: setting && setting.isReadMode})
     if (setting && setting.isReadMode) {
       console.log('read')
-      Taro.setNavigationBarColor({
-        frontColor: '#000000',
-        backgroundColor: '#F4ECD8'
-      })
     }
+    Taro.setNavigationBarColor({
+      frontColor: '#000000',
+      backgroundColor: '#F4ECD8'
+    })
   }
 
   componentDidMount () { }
@@ -72,7 +72,7 @@ export default class Index extends Component {
       if (that.state.type === 'most-recent') {
         categoryList = categoryList.slice(0, categoryList.length - 2);
       }
-
+      categoryList.forEach(c => c.items.sort((a, b) => b.number - a.number));
       that.setState({
         categoryList,
         isLoading: false
@@ -215,7 +215,7 @@ export default class Index extends Component {
     return (
       <View className={'example-page page read-mode'}>
         <AtNoticebar marquee speed={60}>
-          刑事审判参考1-1475号案例已补全
+          刑事审判参考1-1505号案例已补全
         </AtNoticebar>
           <View className='header'>
             <View className='select'>

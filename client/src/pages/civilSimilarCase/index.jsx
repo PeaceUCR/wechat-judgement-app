@@ -58,11 +58,11 @@ export default class Index extends Component {
     this.setState({isReadMode: setting && setting.isReadMode})
     if (setting && setting.isReadMode) {
       console.log('read')
-      Taro.setNavigationBarColor({
-        frontColor: '#000000',
-        backgroundColor: '#F4ECD8'
-      })
     }
+    Taro.setNavigationBarColor({
+      frontColor: '#000000',
+      backgroundColor: '#F4ECD8'
+    })
   }
 
   componentDidMount () { }
@@ -202,10 +202,10 @@ export default class Index extends Component {
   }
 
   cancelSecondCategory = () => {
-    this.setState({secondCategory: ''})
+    this.setState({secondCategory: '', searchResult: []})
   }
   cancelTopCategory = () => {
-    this.setState({topCategory: '',secondCategory: ''})
+    this.setState({topCategory: '',secondCategory: '', searchResult: []})
   }
 
   render () {
@@ -214,11 +214,11 @@ export default class Index extends Component {
       <View className={'example-page page read-mode'}>
         <View>
             {topCategory && <View className='line'>
-              <View className='at-article__h3'>{topCategory}</View>
+              <View className='at-article__h1 no-margin'>{topCategory}</View>
               <Text className='link-text' onClick={this.cancelTopCategory}>返回</Text>
             </View>}
             {secondCategory && <View className='line'>
-              <View className='at-article__h4'>{secondCategory}</View>
+              <View className='at-article__h2 no-margin'>{secondCategory}</View>
               <Text className='link-text' onClick={this.cancelSecondCategory}>返回</Text>
             </View>}
             <View className='category-list'>

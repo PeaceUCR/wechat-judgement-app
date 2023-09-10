@@ -1,5 +1,8 @@
 import Taro from '@tarojs/taro'
 
+export const STATIC_POSTER_URL = 'https://mmbiz.qpic.cn/mmbiz_png/6fKEyhdZU92wsEZkCu01iaMAEfOiaY0X2Iq3JmFbgxMdb7FicLYcAqBLJ0hKwibkts8F2vNHKA1fvP7gDqlA0p4wWQ/640?wx_fmt=png';
+export const STATIC_POSTER_REDIRECT = '/pages/consultant/index?isCategory=true';
+
 export const tmpId = 'cZWxYVaMH0JFtk2NIxjsEBLZcpazvU5vkYJcQlKsnBo'
 
 export const targetImageSource = 'https://mmbiz.qpic.cn/mmbiz_png/6fKEyhdZU92ZiaezOzgIyVO8wAQ7ZgFt3eo5pqEsoyExgibDIohRWa3dY3Lwiaxia5icUlr4CfWqjr9hGrmQpWiaNibmw/0?wx_fmt=png'

@@ -146,13 +146,13 @@
 }
 
 .category-item {
-  font-size: 30px;
+  font-size: 36px;
   text-align: center;
   background: #F4ECD8;
   padding: 8px 16px;
   border: 1px solid #000;
   color: #000;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   min-width: 70vw;
   display: flex;
   align-items: center;
@@ -160,13 +160,13 @@
 }
 
 .top-category-item {
-  font-size: 32px;
+  font-size: 38px;
   text-align: center;
   background: #F4ECD8;
   padding: 8px 16px;
   border: 1px solid #000;
   color: #000;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   min-width: 70vw;
 }
 
@@ -180,5 +180,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 30px;
+}
+
+.no-margin {
+  margin: 0 !important;
 }
