@@ -1,6 +1,6 @@
 import Taro, { setStorageSync }  from '@tarojs/taro'
 
-export const BASE_REQUEST_URL = 'https://www.best-sofa.top'
+export const BASE_REQUEST_URL = 'https://www.sofa-app.asia'
 // export const BASE_REQUEST_URL = 'http://localhost:8080'
 
 export const getConsultCategory = async () => {
